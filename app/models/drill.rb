@@ -1,0 +1,3 @@
+class Drill < ActiveRecord::Base
+  # attr_accessible :title, :body
+end

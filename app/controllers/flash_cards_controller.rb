@@ -1,0 +1,2 @@
+class FlashCardsController < ApplicationController
+end
