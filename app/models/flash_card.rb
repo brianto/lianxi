@@ -1,3 +1,7 @@
 class FlashCard < ActiveRecord::Base
-  # attr_accessible :title, :body
+  # Model Relations
+  has_many :examples
+  belongs_to :teachable, :polymorphic => true
+
+  # Fields
 end

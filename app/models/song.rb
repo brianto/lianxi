@@ -1,3 +1,6 @@
 class Song < ActiveRecord::Base
-  # attr_accessible :title, :body
+  # Model Relations
+  has_many :flash_cards, :as => :teachable
+
+  # Fields
 end

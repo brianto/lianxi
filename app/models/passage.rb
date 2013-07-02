@@ -1,3 +1,5 @@
 class Passage < ActiveRecord::Base
-  # attr_accessible :title, :body
+  has_many :flash_cards, :as => :teachable
+
+  # Fields
 end

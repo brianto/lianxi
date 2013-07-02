@@ -1,3 +1,6 @@
 class Example < ActiveRecord::Base
-  # attr_accessible :title, :body
+  # Model Relations
+  belongs_to :flash_card
+
+  # Fields
 end
