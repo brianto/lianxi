@@ -1,0 +1,7 @@
+<h1>Drills</h1>
+
+<ul>
+  <% @drills.each do |drill| %>
+    <li><%= drill.title %> - <%= drill.description %></li>
+  <% end %>
+</ul>

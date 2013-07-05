@@ -1,0 +1,14 @@
+<h1>Edit</h1>
+
+<%= form_for @drill, :url => drill_path(@drill), :method => :put do |form| %>
+  <%= form.label :title, "Title" %>
+  <br />
+  <%= form.text_field :title %>
+  <br />
+  <%= form.label :description, "Description" %>
+  <br />
+  <%= form.text_area :description %>
+  <br />
+
+  <%= form.submit %>
+<% end %>

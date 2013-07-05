@@ -1,8 +1,6 @@
 class FlashCardsController < ApplicationController
-  include Type
-
   def index
-    clazz = lesson_of(params)
+
   end
 
   def create

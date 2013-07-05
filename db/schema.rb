@@ -11,11 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130701041956) do
+ActiveRecord::Schema.define(:version => 20130704184334) do
 
   create_table "drills", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "title"
+    t.text     "description"
   end
 
   create_table "examples", :force => true do |t|

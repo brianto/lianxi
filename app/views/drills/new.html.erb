@@ -1,0 +1,14 @@
+<h1>New Drill</h1>
+
+<%= form_for :drill, :url => drills_path, :method => :post do |form| %>
+  <%= form.label :title, "Title" %>
+  <br />
+  <%= form.text_field :title %>
+  <br />
+  <%= form.label :description, "Description" %>
+  <br />
+  <%= form.text_area :description %>
+  <br />
+
+  <%= form.submit %>
+<% end %>
