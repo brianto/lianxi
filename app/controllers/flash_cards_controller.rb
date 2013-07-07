@@ -1,6 +1,17 @@
 class FlashCardsController < ApplicationController
-  def index
+  include Type
 
+  def index
+    clazz = lesson_of params
+    @clazz_string = clazz.to_s.downcase
+
+    @teachable = clazz.find params["#{@clazz_string}_id"]
+    @cards = @teachable.flash_cards
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @cards.to_json }
+    end
   end
 
   def create
@@ -16,7 +27,7 @@ class FlashCardsController < ApplicationController
   end
 
   def show
-
+    @card = FlashCard.find params[:id]
   end
 
   def update

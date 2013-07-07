@@ -1,4 +1,9 @@
 <h1><%= @song.title %></h1>
-<emph>by <%= @song.artist %></emph>
-<br />
-<video url="<%= @song.url %>" />
+<p><emph>by<%=@song.artist%></emph></p>
+<p><strong><%=@song.url%></strong></p>
+
+<ul>
+  <% @song.flash_cards.each do |fc| %>
+    <li><%= link_to fc.meaning, song_flash_card_path(@song, fc) %>
+  <% end %>
+</ul>

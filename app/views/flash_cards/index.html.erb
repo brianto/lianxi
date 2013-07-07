@@ -1,0 +1,8 @@
+<h1><%= @teachable.title %></h1>
+
+<ul>
+  <% @cards.each do |card| %>
+    <!-- so jank -->
+    <li><%= link_to card.meaning, eval("#{@clazz_string}_flash_card_path(@teachable, card)") %></li>
+  <% end %>
+</ul>

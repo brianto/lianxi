@@ -2,6 +2,6 @@
 
 <ul>
   <% @drills.each do |drill| %>
-    <li><%= drill.title %> - <%= drill.description %></li>
+    <li><%= link_to "#{drill.title}", drill_path(drill) %></li>
   <% end %>
 </ul>
