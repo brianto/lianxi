@@ -1,11 +1,9 @@
 class FlashCardsController < ApplicationController
   include Type
 
-  def index
-    clazz = lesson_of params
-    @clazz_string = clazz.to_s.downcase
+  before_filter :determine_teachables
 
-    @teachable = clazz.find params["#{@clazz_string}_id"]
+  def index # GET /[teachable]/:teachable_id/flash_cards
     @cards = @teachable.flash_cards
 
     respond_to do |format|
@@ -14,7 +12,7 @@ class FlashCardsController < ApplicationController
     end
   end
 
-  def create
+  def create # POST /[teachable]/:teachable_id/flash_card
 
   end
 
@@ -26,7 +24,7 @@ class FlashCardsController < ApplicationController
 
   end
 
-  def show
+  def show # GET /[teachable]/:teachable_id/flashcards/:id
     @card = FlashCard.find params[:id]
   end
 
@@ -36,5 +34,13 @@ class FlashCardsController < ApplicationController
 
   def destroy
 
+  end
+
+  private
+
+  def determine_teachables
+    @clazz = lesson_of params
+    @clazz_string = @clazz.to_s.downcase
+    @teachable = @clazz.find params["#{@clazz_string}_id"]
   end
 end
