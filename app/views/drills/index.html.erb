@@ -1,0 +1,7 @@
+<h1>Drills</h1>
+
+<ul>
+  <% @drills.each do |drill| %>
+    <li><%= link_to "#{drill.title}", drill_path(drill) %></li>
+  <% end %>
+</ul>

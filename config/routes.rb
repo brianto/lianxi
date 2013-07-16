@@ -1,4 +1,20 @@
 Lianxi::Application.routes.draw do
+  root :to => "home#index"
+  
+  get "/about" => "home#about"
+
+  resources :drills, :passages, :songs do
+    member do
+      get 'grid'
+    end
+
+    resources :flash_cards do
+      resources :examples do
+
+      end
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
