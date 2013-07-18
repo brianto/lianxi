@@ -1,6 +1,6 @@
 <h1><%= @song.title %></h1>
-<p><emph>by<%=@song.artist%></emph></p>
-<p><strong><%=@song.url%></strong></p>
+<p><emph>by <%=@song.artist%></emph></p>
+<p><%= link_to @song.title, @song.url %></p>
 
 <ul>
   <% @song.flash_cards.each do |fc| %>

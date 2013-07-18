@@ -1,2 +1,11 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="row-fluid">
+  <div class="span4">
+    <%= render_teachables "Drills", @drills %>
+  </div>
+  <div class="span4">
+    <%= render_teachables "Passages", @passages %>
+  </div>
+  <div class="span4">
+    <%= render_teachables "Songs", @songs %>
+  </div>
+</div>

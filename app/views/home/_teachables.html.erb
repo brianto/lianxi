@@ -1,0 +1,6 @@
+<h1><%= title %></h1>
+<ul>
+  <% lessons.each do |lesson| %>
+    <li><%= link_to lesson.title, teachable_path(lesson) %></li>
+  <% end %>
+</ul>
