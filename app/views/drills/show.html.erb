@@ -1,9 +1,7 @@
 <h1><%= @drill.title %></h1>
 
-<p><%= @drill.description %></p>
+<em><%= @drill.description %></em>
 
-<ul>
-  <% @drill.flash_cards.each do |fc| %>
-    <li><%= link_to fc.meaning, drill_flash_card_path(@drill, fc) %></li>
-  <% end %>
-</ul>
+<%= render :partial => "layouts/characters", :locals => {
+  :flash_cards => @drill.flash_cards
+} %>

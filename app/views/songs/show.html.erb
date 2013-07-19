@@ -1,9 +1,16 @@
 <h1><%= @song.title %></h1>
-<p><emph>by <%=@song.artist%></emph></p>
-<p><%= link_to @song.title, @song.url %></p>
 
-<ul>
-  <% @song.flash_cards.each do |fc| %>
-    <li><%= link_to fc.meaning, song_flash_card_path(@song, fc) %>
-  <% end %>
-</ul>
+<em>by <%=@song.artist%></em>
+
+<div>
+<iframe
+  width="560"
+  height="315"
+  src="<%= @song.url %>"
+  frameborder="0"
+  allowfullscreen><%= @song.title %></iframe>
+</div>
+
+<%= render :partial => "layouts/characters", :locals => {
+  :flash_cards => @song.flash_cards
+} %>

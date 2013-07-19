@@ -1,0 +1,22 @@
+<h2>Voccabulary</h2>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Character</th>
+      <th>Pronounciation</th>
+      <th>Part of Speech</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% flash_cards.each do |fc| %>
+      <tr>
+        <td><%= fc.simplified %></td>
+        <td><%= fc.pinyin %></td>
+        <td><%= fc.part_of_speech %></td>
+        <td><%= fc.meaning %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

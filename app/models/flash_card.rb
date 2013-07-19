@@ -5,6 +5,7 @@ class FlashCard < ActiveRecord::Base
 
   belongs_to :teachable, :polymorphic => true
 
-  # TODO Fields
+  attr_accessible :traditional, :simplified
+  attr_accessible :pinyin, :zhuyin, :jyutping
   attr_accessible :meaning, :part_of_speech
 end
