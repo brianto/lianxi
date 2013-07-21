@@ -11,6 +11,12 @@
 
       <ul class="nav-collapse nav">
       </ul>
+
+      <% if session[:user].nil? %>
+        <%= render :partial => "layouts/sign_in" %>
+      <% else %>
+        <%= render :partial => "layouts/sign_out" %>
+      <% end %>
     </div>
   </div>
 </div>

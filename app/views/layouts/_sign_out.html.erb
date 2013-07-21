@@ -1,0 +1,7 @@
+<ul class="nav-collapse nav pull-right">
+  <li><%= link_to session[:user], root_path %></li>
+
+  <%= form_tag logout_path, :class => "navbar-form pull-right" do %>
+    <%= submit_tag "Sign out", :class => "btn" %>
+  <% end %>
+</ul>

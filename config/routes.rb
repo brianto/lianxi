@@ -2,6 +2,8 @@ Lianxi::Application.routes.draw do
   root :to => "home#index"
   
   get "/about" => "home#about"
+  post "/login" => "home#login"
+  post "/logout" => "home#logout"
 
   resources :drills, :passages, :songs do
     member do
