@@ -1,0 +1,22 @@
+<% content_for :title do %>
+  <%= @drill.title %>
+<% end %>
+
+<div class="row">
+  <div class="span12">
+    <h1><%= @drill.title %></h1>
+    <em><%= @drill.description %></em>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <%= render :partial => "layouts/actions" %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <%= render_characters @drill.flash_cards %>
+  </div>
+</div>

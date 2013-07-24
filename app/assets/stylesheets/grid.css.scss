@@ -1,0 +1,105 @@
+.grid {
+  width: 7.5in;
+  margin: 0.25in;
+
+  .word-item {
+    width: 100%;
+    page-break-inside: avoid;
+
+    .character-item {
+      margin-bottom: 6px;
+      display: inline-block;
+
+      $length: 2em;
+      $lines: 3;
+      $scale: 0.6;
+
+      $boxline: gray;
+      $guideline: lighten($boxline, 20%);
+
+      height: $lines * $length;
+
+      .character-guide-spacer {
+        display: block;
+        height: percentage((1 - $scale) / 2);
+      }
+
+      .character-guide {
+        display: inline-block;
+        float: left;
+        height: $lines * $length;
+
+        margin-right: 6px;
+
+        ruby {
+          font-size: $scale * $lines * 1em;
+        }
+      }
+
+      .character-square {
+        display: inline-block;
+        position: relative;
+        float: left;
+        line-height: 100%;
+        margin: 3px;
+
+        border: 2px solid $boxline;
+
+        .cross {
+          position: absolute;
+          background: $guideline;
+
+          top: 0;
+          left: 0;
+          height: 1px;
+          width: 1px;
+        }
+
+        .rise {
+          width: 100%;
+          top: 50%;
+
+          -o-transform: skewy(-45deg);
+          -moz-transform: skewy(-45deg);
+          -ms-transform: skewy(-45deg);
+          -webkit-transform: skewy(-45deg);
+          transform: skewy(-45deg);
+        }
+
+        .fall {
+          width: 100%;
+          top: 50%;
+
+          -o-transform: skewy(45deg);
+          -moz-transform: skewy(45deg);
+          -ms-transform: skewy(45deg);
+          -webkit-transform: skewy(45deg);
+          transform: skewy(45deg);
+        }
+
+        .horizontal {
+          width: 100%;
+          top: 50%;
+        }
+
+        .vertical {
+          left: 50%;
+          height: 100%;
+        }
+      }
+
+      .character-large {
+        font-size: $lines * $length;
+        color: $boxline;
+      }
+
+      .character-asdf {
+        display: inline-block;
+        position: relative;
+        width: $length;
+        height: $length;
+        border: 2px solid $boxline;
+      }
+    }
+  }
+}

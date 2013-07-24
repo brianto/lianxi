@@ -1,6 +1,23 @@
 class DrillsController < ApplicationController
   def grid # GET (grid_drill)
-    # TODO
+    cards = Drill.find(params[:id]).flash_cards
+    charset = params[:charset] || cookies[:charset] || :traditional
+    transcript = params[:transcript] || cookies[:transcript] || :pinyin
+
+    @words = cards.collect do |word|
+      characters = word.send(charset).each_char.to_a
+      pronounciation = word.send(transcript).split(/\s/)
+
+      characters = characters.zip(pronounciation).collect do |entry|
+        hanzi, pro = entry
+
+        { :hanzi => hanzi, :pronounciation => pro }
+      end
+
+      { :meaning => word.meaning, :characters => characters }
+    end
+
+    render :layout => "bare", :template => "shared/grid"
   end
 
   def index # GET /drills (drills)
