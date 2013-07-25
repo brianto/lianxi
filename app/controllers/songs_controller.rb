@@ -1,6 +1,10 @@
-class SongsController < ApplicationController
+class SongsController < TeachablesController
   def grid
+    cards = Song.find(params[:id]).flash_cards
 
+    @words = explode_flash_cards cards
+
+    render :layout => "bare", :template => "shared/grid"
   end
 
   def index

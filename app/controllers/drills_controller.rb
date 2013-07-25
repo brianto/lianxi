@@ -1,21 +1,8 @@
-class DrillsController < ApplicationController
+class DrillsController < TeachablesController
   def grid # GET (grid_drill)
     cards = Drill.find(params[:id]).flash_cards
-    charset = params[:charset] || cookies[:charset] || :traditional
-    transcript = params[:transcript] || cookies[:transcript] || :pinyin
 
-    @words = cards.collect do |word|
-      characters = word.send(charset).each_char.to_a
-      pronounciation = word.send(transcript).split(/\s/)
-
-      characters = characters.zip(pronounciation).collect do |entry|
-        hanzi, pro = entry
-
-        { :hanzi => hanzi, :pronounciation => pro }
-      end
-
-      { :meaning => word.meaning, :characters => characters }
-    end
+    @words = explode_flash_cards cards
 
     render :layout => "bare", :template => "shared/grid"
   end
