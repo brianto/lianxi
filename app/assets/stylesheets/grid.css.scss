@@ -7,17 +7,18 @@
     page-break-inside: avoid;
 
     .character-item {
-      margin-bottom: 6px;
       display: inline-block;
 
-      $length: 2em;
+      $length: 24px;
+      $margin: 3px;
+      $border: 2px;
       $lines: 3;
       $scale: 0.6;
 
       $boxline: gray;
       $guideline: lighten($boxline, 20%);
 
-      height: $lines * $length;
+      height: $lines * ($length + 2 * ($margin + $border));
 
       .character-guide-spacer {
         display: block;
@@ -27,9 +28,14 @@
       .character-guide {
         display: inline-block;
         float: left;
-        height: $lines * $length;
+        height: $lines * ($length + 2 * ($margin + $border)) - 2* ($margin + $border);
 
-        margin-right: 6px;
+        margin: {
+          top: $margin;
+          bottom: $margin;
+          left: $margin;
+          right: 2 * $margin;
+        }
 
         ruby {
           font-size: $scale * $lines * 1em;
@@ -41,7 +47,7 @@
         position: relative;
         float: left;
         line-height: 100%;
-        margin: 3px;
+        margin: $margin;
 
         border: 2px solid $boxline;
 
@@ -89,7 +95,7 @@
       }
 
       .character-large {
-        font-size: $lines * $length;
+        font-size: $lines * ($length + 2 * ($margin + $border)) - 2 * ($margin + $border);
         color: $boxline;
       }
 
@@ -99,6 +105,7 @@
         width: $length;
         height: $length;
         border: 2px solid $boxline;
+        margin: $margin;
       }
     }
   }
