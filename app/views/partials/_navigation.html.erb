@@ -13,9 +13,9 @@
       </ul>
 
       <% if session[:user].nil? %>
-        <%= render :partial => "layouts/sign_in" %>
+        <%= render :partial => "partials/sign_in" %>
       <% else %>
-        <%= render :partial => "layouts/sign_out" %>
+        <%= render :partial => "partials/sign_out" %>
       <% end %>
     </div>
   </div>
