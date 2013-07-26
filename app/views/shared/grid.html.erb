@@ -1,20 +1,20 @@
 <div class="grid">
   <% @words.each do |word| %>
-    <div class="word-item">
+    <div class="word">
       <p class="definition"><%= word[:meaning] %></p>
 
       <% word[:characters].each do |character| %>
-        <div class="character-item">
-          <div class="character-guide">
-            <div class="character-guide-spacer"></div>
-
-            <ruby>
-              <%= character[:hanzi] %>
-              <rt><%= character[:pronounciation] %></rt>
-            </ruby>
+        <div class="character">
+          <div class="guide-vcenter">
+            <div class="guide">
+              <ruby>
+                <%= character[:hanzi] %>
+                <rt><%= character[:pronounciation] %></rt>
+              </ruby>
+            </div>
           </div>
 
-          <div class="character-square character-large">
+          <div class="square sample">
             <%= character[:hanzi] %>
             <div class="cross rise"></div>
             <div class="cross fall"></div>
@@ -23,7 +23,7 @@
           </div>
 
           <% 50.times do %>
-            <div class="character-asdf character-square">
+            <div class="square empty">
               <div class="cross rise"></div>
               <div class="cross fall"></div>
               <div class="cross horizontal"></div>

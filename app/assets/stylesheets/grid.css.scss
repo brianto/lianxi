@@ -1,51 +1,59 @@
+@mixin floater {
+  display: inline-block;
+  position: relative;
+  float: left;
+}
+
+// Configured Values
+$length: 36px;
+$margin: 3px;
+$border: 2px;
+$lines: 2;
+$scale: 0.4;
+$boxline: gray;
+
+// Derived Values
+$guideline: lighten($boxline, 20%);
+$height-total: $lines * ($length + 2 * ($margin + $border));
+$height-marginless: $height-total - 2 * ($margin + $border);
+
 .grid {
   width: 7.5in;
   margin: 0.25in;
 
-  .word-item {
+  .word {
+    @include floater;
     width: 100%;
     page-break-inside: avoid;
 
-    .character-item {
-      display: inline-block;
+    .character {
+      @include floater;
 
-      $length: 24px;
-      $margin: 3px;
-      $border: 2px;
-      $lines: 3;
-      $scale: 0.6;
+      overflow: hidden;
+      height: $height-total;
 
-      $boxline: gray;
-      $guideline: lighten($boxline, 20%);
-
-      height: $lines * ($length + 2 * ($margin + $border));
-
-      .character-guide-spacer {
-        display: block;
-        height: percentage((1 - $scale) / 2);
-      }
-
-      .character-guide {
-        display: inline-block;
-        float: left;
-        height: $lines * ($length + 2 * ($margin + $border)) - 2* ($margin + $border);
-
-        margin: {
-          top: $margin;
-          bottom: $margin;
-          left: $margin;
-          right: 2 * $margin;
-        }
+      .guide {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
 
         ruby {
-          font-size: $scale * $lines * 1em;
+          font-size: $length * $scale * $lines;
         }
       }
 
-      .character-square {
-        display: inline-block;
-        position: relative;
-        float: left;
+      .guide-vcenter {
+        @include floater;
+
+        height: 100%;
+        width: 2 * $length;
+        margin: $margin;
+        display: table;
+      }
+
+      .square {
+        @include floater;
+
         line-height: 100%;
         margin: $margin;
 
@@ -53,7 +61,7 @@
 
         .cross {
           position: absolute;
-          background: $guideline;
+          background-color: $guideline;
 
           top: 0;
           left: 0;
@@ -94,14 +102,14 @@
         }
       }
 
-      .character-large {
-        font-size: $lines * ($length + 2 * ($margin + $border)) - 2 * ($margin + $border);
+      .sample {
+        font-size: $height-marginless;
         color: $boxline;
       }
 
-      .character-asdf {
-        display: inline-block;
-        position: relative;
+      .empty {
+        @include floater;
+
         width: $length;
         height: $length;
         border: 2px solid $boxline;
