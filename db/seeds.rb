@@ -6,7 +6,7 @@ Drill.create({
   :title => "Food and Cooking",
   :description => "Chinese cuisine foods",
   :flash_cards_attributes => [
-    { :simplified => "燒", :traditional => "烧",
+    { :simplified => "烧", :traditional => "燒",
       :pinyin => "shāo", :zhuyin => "ㄕㄠ", :jyutping => "siu1",
       :meaning => "roast", :part_of_speech => "verb" },
     { :simplified => "炒", :traditional => "炒",

@@ -2,7 +2,7 @@ module TeachableHelper
   # Paths
   def grid_teachable_path(teachable)
     # TODO figure out less icky way
-    eval("grid_#{@model_class.to_s.downcase}_path(teachable, :charset => @charset, :transcript => @transcript)")
+    eval("grid_#{@model_class.to_s.downcase}_path(teachable)")
   end
 
   # Renderers
