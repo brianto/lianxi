@@ -5,5 +5,5 @@ class Passage < ActiveRecord::Base
 
   accepts_nested_attributes_for :flash_cards
 
-  # TODO Fields
+  attr_accessible :title
 end
