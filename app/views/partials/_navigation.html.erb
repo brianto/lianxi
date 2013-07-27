@@ -12,6 +12,12 @@
       <ul class="nav-collapse nav">
       </ul>
 
+      <button id="pref-charset" class="btn btn-link input-small">
+      </button>
+
+      <button id="pref-transcript" class="btn btn-link input-small">
+      </button>
+
       <% if session[:user].nil? %>
         <%= render :partial => "partials/sign_in" %>
       <% else %>
