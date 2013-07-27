@@ -10,8 +10,8 @@
   <tbody>
     <% flash_cards.each do |fc| %>
       <tr>
-        <td><%= fc.simplified %></td>
-        <td><%= fc.pinyin %></td>
+        <td><%= fc.send @charset %></td>
+        <td><%= fc.send @transcript %></td>
         <td><%= fc.part_of_speech %></td>
         <td><%= fc.meaning %></td>
       </tr>
