@@ -1,4 +1,8 @@
-<div class="btn-group">
-  <%= link_to "Writing Grid", root_path, :class => "btn" %>
-  <%= link_to "Flash Cards", root_path, :class => "btn" %>
-</div>
+<ul class="nav nav-pills">
+  <li>
+    <%= link_to "Writing Grid", grid_teachable_path(teachable) %>
+  </li>
+  <li>
+    <%= link_to "Flash Cards", root_path %>
+  </li>
+</ul>
