@@ -1,4 +1,4 @@
-module TeachableHelper
+module TeachablesHelper
   # Paths
   def grid_teachable_path(teachable)
     # TODO figure out less icky way
