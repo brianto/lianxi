@@ -8,6 +8,7 @@ Lianxi::Application.routes.draw do
   resources :drills, :passages, :songs do
     member do
       get 'grid'
+      get 'quiz'
     end
 
     resources :flash_cards do

@@ -1,9 +1,8 @@
 class TeachablesController < ApplicationController
-  before_filter :model_class
-  before_filter :preferences
+  def grid
+    cards = @model_class.find(params[:id]).flash_cards
 
-  def explode_flash_cards(cards)
-    return cards.collect do |word|
+    @words = cards.collect do |word|
       characters = word.send(@charset).each_char.to_a
       pronounciation = word.send(@transcript).split(/\s/)
 
@@ -15,18 +14,13 @@ class TeachablesController < ApplicationController
 
       { :meaning => word.meaning, :characters => characters }
     end
+
+    render :layout => "bare", :template => "shared/grid"
   end
 
-  private
+  def quiz
+    @teachable = @model_class.find(params[:id])
 
-  def model_class
-    return unless @model_class.nil?
-
-    @model_class = Kernel.const_get self.class.to_s.gsub(/sController/, "")
-  end
-
-  def preferences
-    @charset = params[:charset] || cookies[:charset] || :traditional
-    @transcript = params[:transcript] || cookies[:transcript] || :pinyin
+    render :template => "shared/quiz"
   end
 end

@@ -1,0 +1,30 @@
+<% content_for :title do %>
+  <%= @teachable.title %>
+<% end %>
+
+<div class="page-header">
+  <h1><%= @teachable.title %></h1>
+</div>
+
+<div class="row">
+  <div class="span4">
+
+  </div>
+  <div id="flash-card" class="span4">
+    <div id="transcript">
+      <%= @teachable.flash_cards.first.pinyin %>
+    </div>
+    <div id="character">
+      <%= @teachable.flash_cards.first.simplified %>
+    </div>
+    <div id="part-of-speech">
+      <%= @teachable.flash_cards.first.part_of_speech %>
+    </div>
+    <div id="meaning">
+      <%= @teachable.flash_cards.first.meaning %>
+    </div>
+  </div>
+  <div class="span4">
+
+  </div>
+</div>

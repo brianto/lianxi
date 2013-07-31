@@ -1,8 +1,8 @@
 <ul class="nav nav-pills">
   <li>
-    <%= link_to "Writing Grid", grid_teachable_path(teachable) %>
+    <%= link_to "Writing Grid", polymorphic_url([:grid, teachable]) %>
   </li>
   <li>
-    <%= link_to "Flash Cards", root_path %>
+    <%= link_to "Flash Cards", polymorphic_url([:quiz, teachable]) %>
   </li>
 </ul>

@@ -1,10 +1,8 @@
 class DrillsController < TeachablesController
-  def grid # GET (grid_drill)
-    cards = Drill.find(params[:id]).flash_cards
+  before_filter :setup_teachables
 
-    @words = explode_flash_cards cards
-
-    render :layout => "bare", :template => "shared/grid"
+  def setup_teachables
+    @model_class = Drill
   end
 
   def index # GET /drills (drills)

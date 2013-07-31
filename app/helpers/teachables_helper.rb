@@ -1,11 +1,4 @@
 module TeachablesHelper
-  # Paths
-  def grid_teachable_path(teachable)
-    # TODO figure out less icky way
-    eval("grid_#{@model_class.to_s.downcase}_path(teachable)")
-  end
-
-  # Renderers
   def render_characters(flash_cards)
     render :partial => "partials/characters", :locals => {
       :flash_cards => flash_cards
