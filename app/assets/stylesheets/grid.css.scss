@@ -17,103 +17,107 @@ $guideline: lighten($boxline, 20%);
 $height-total: $lines * ($length + 2 * ($margin + $border));
 $height-marginless: $height-total - 2 * ($margin + $border);
 
-.grid {
-  width: 7.5in;
-  margin: 0.25in;
+body#songs-page,
+body#drills-page,
+body#passages-page {
+  .grid {
+    width: 7.5in;
+    margin: 0.25in;
 
-  .word {
-    @include floater;
-    width: 100%;
-    page-break-inside: avoid;
-
-    .character {
+    .word {
       @include floater;
+      width: 100%;
+      page-break-inside: avoid;
 
-      overflow: hidden;
-      height: $height-total;
-
-      .guide {
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
-
-        ruby {
-          font-size: $length * $scale * $lines;
-        }
-      }
-
-      .guide-vcenter {
+      .character {
         @include floater;
 
-        height: 100%;
-        width: 2 * $length;
-        margin: $margin;
-        display: table;
-      }
+        overflow: hidden;
+        height: $height-total;
 
-      .square {
-        @include floater;
+        .guide {
+          display: table-cell;
+          vertical-align: middle;
+          text-align: center;
 
-        line-height: 100%;
-        margin: $margin;
-
-        border: 2px solid $boxline;
-
-        .cross {
-          position: absolute;
-          background-color: $guideline;
-
-          top: 0;
-          left: 0;
-          height: 1px;
-          width: 1px;
+          ruby {
+            font-size: $length * $scale * $lines;
+          }
         }
 
-        .rise {
-          width: 100%;
-          top: 50%;
+        .guide-vcenter {
+          @include floater;
 
-          -o-transform: skewy(-45deg);
-          -moz-transform: skewy(-45deg);
-          -ms-transform: skewy(-45deg);
-          -webkit-transform: skewy(-45deg);
-          transform: skewy(-45deg);
-        }
-
-        .fall {
-          width: 100%;
-          top: 50%;
-
-          -o-transform: skewy(45deg);
-          -moz-transform: skewy(45deg);
-          -ms-transform: skewy(45deg);
-          -webkit-transform: skewy(45deg);
-          transform: skewy(45deg);
-        }
-
-        .horizontal {
-          width: 100%;
-          top: 50%;
-        }
-
-        .vertical {
-          left: 50%;
           height: 100%;
+          width: 2 * $length;
+          margin: $margin;
+          display: table;
         }
-      }
 
-      .sample {
-        font-size: $height-marginless;
-        color: $boxline;
-      }
+        .square {
+          @include floater;
 
-      .empty {
-        @include floater;
+          line-height: 100%;
+          margin: $margin;
 
-        width: $length;
-        height: $length;
-        border: 2px solid $boxline;
-        margin: $margin;
+          border: 2px solid $boxline;
+
+          .cross {
+            position: absolute;
+            background-color: $guideline;
+
+            top: 0;
+            left: 0;
+            height: 1px;
+            width: 1px;
+          }
+
+          .rise {
+            width: 100%;
+            top: 50%;
+
+            -o-transform: skewy(-45deg);
+            -moz-transform: skewy(-45deg);
+            -ms-transform: skewy(-45deg);
+            -webkit-transform: skewy(-45deg);
+            transform: skewy(-45deg);
+          }
+
+          .fall {
+            width: 100%;
+            top: 50%;
+
+            -o-transform: skewy(45deg);
+            -moz-transform: skewy(45deg);
+            -ms-transform: skewy(45deg);
+            -webkit-transform: skewy(45deg);
+            transform: skewy(45deg);
+          }
+
+          .horizontal {
+            width: 100%;
+            top: 50%;
+          }
+
+          .vertical {
+            left: 50%;
+            height: 100%;
+          }
+        }
+
+        .sample {
+          font-size: $height-marginless;
+          color: $boxline;
+        }
+
+        .empty {
+          @include floater;
+
+          width: $length;
+          height: $length;
+          border: 2px solid $boxline;
+          margin: $margin;
+        }
       }
     }
   }

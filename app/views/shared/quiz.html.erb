@@ -7,24 +7,74 @@
 </div>
 
 <div class="row">
-  <div class="span4">
-
+  <div id="settings" class="span5">
+    <div class="btn-group btn-group-vertical btn-block">
+      <button
+        id="character-enabled"
+        class="btn btn-large btn-block"
+        data-toggle="button">
+        Character
+      </button>
+      <button
+        id="pronunciation-enabled"
+        class="btn btn-large btn-block"
+        data-toggle="button">
+        Pronunciation
+      </button>
+      <button
+        id="meaning-enabled"
+        class="btn btn-large btn-block"
+        data-toggle="button">
+        Meaning
+      </button>
+      <button
+        id="part-of-speech-enabled"
+        class="btn btn-large btn-block"
+        data-toggle="button">
+        Part of Speech
+      </button>
+    </div>
   </div>
-  <div id="flash-card" class="span4">
-    <div id="transcript">
+
+  <div id="flash-card" class="span6">
+    <p id="transcript">
       <%= @teachable.flash_cards.first.pinyin %>
-    </div>
-    <div id="character">
+    </p>
+    <p id="character">
       <%= @teachable.flash_cards.first.simplified %>
-    </div>
-    <div id="part-of-speech">
+    </p>
+    <p id="part-of-speech">
       <%= @teachable.flash_cards.first.part_of_speech %>
-    </div>
-    <div id="meaning">
+    </p>
+    <p id="meaning">
       <%= @teachable.flash_cards.first.meaning %>
-    </div>
+    </p>
   </div>
-  <div class="span4">
 
+  <div id="controls" class="span1">
+    <div class="btn-group btn-group-vertical btn-block">
+      <button
+        id="know"
+        class="btn btn-large btn-block btn-success"
+        data-toggle="button">
+        <i class="icon-ok"></i>
+      </button>
+      <button
+        id="go-back"
+        class="btn btn-large btn-block">
+        <i class="icon-arrow-left"></i>
+      </button>
+      <button
+        id="go-forward"
+        class="btn btn-large btn-block">
+        <i class="icon-arrow-right"></i>
+      </button>
+      <button
+        id="dont-know"
+        class="btn btn-large btn-block btn-danger"
+        data-toggle="button">
+        <i class="icon-remove"></i>
+      </button>
+    </div>
   </div>
 </div>
