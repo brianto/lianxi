@@ -6,7 +6,10 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body id="<%= controller.controller_name %>-page">
+<body
+  id="<%= controller.controller_name %>"
+  class="<%= controller.action_name %>">
+
   <div class="container">
     <%= render :partial => "partials/navigation" %>
 

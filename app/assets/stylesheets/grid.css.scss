@@ -17,9 +17,9 @@ $guideline: lighten($boxline, 20%);
 $height-total: $lines * ($length + 2 * ($margin + $border));
 $height-marginless: $height-total - 2 * ($margin + $border);
 
-body#songs-page,
-body#drills-page,
-body#passages-page {
+body#songs,
+body#drills,
+body#passages {
   .grid {
     width: 7.5in;
     margin: 0.25in;

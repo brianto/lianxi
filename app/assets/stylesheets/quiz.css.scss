@@ -1,14 +1,5 @@
-@mixin narrow {
-  margin: {
-    left: 20%;
-    right: 20%;
-  }
-}
-
-body#songs-page,
-body#drills-page,
-body#passages-page {
-  #transcript {
+body.quiz {
+  #pronunciation {
     text-align: center;
     font-size: 16pt;
     line-height: 16pt;
@@ -21,12 +12,10 @@ body#passages-page {
   }
 
   #part-of-speech {
-    @include narrow;
-
     font-style: italic;
   }
 
   #meaning {
-    @include narrow;
+    text-indent: 20%;
   }
 }

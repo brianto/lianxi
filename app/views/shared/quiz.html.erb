@@ -10,22 +10,16 @@
   <div id="settings" class="span5">
     <div class="btn-group btn-group-vertical btn-block">
       <button
-        id="character-enabled"
-        class="btn btn-large btn-block"
-        data-toggle="button">
-        Character
-      </button>
-      <button
         id="pronunciation-enabled"
         class="btn btn-large btn-block"
         data-toggle="button">
         Pronunciation
       </button>
       <button
-        id="meaning-enabled"
+        id="character-enabled"
         class="btn btn-large btn-block"
         data-toggle="button">
-        Meaning
+        Character
       </button>
       <button
         id="part-of-speech-enabled"
@@ -33,25 +27,31 @@
         data-toggle="button">
         Part of Speech
       </button>
+      <button
+        id="meaning-enabled"
+        class="btn btn-large btn-block"
+        data-toggle="button">
+        Meaning
+      </button>
     </div>
   </div>
 
   <div id="flash-card" class="span6">
-    <p id="transcript">
-      <%= @teachable.flash_cards.first.pinyin %>
+    <p id="pronunciation">
+      <%# <%= @teachable.flash_cards.first.pinyin %1> %>
     </p>
     <p id="character">
-      <%= @teachable.flash_cards.first.simplified %>
+      <%# <%= @teachable.flash_cards.first.simplified %1> %>
     </p>
-    <p id="part-of-speech">
-      <%= @teachable.flash_cards.first.part_of_speech %>
+    <p id="part-of-speech" class="muted">
+      <%# <%= @teachable.flash_cards.first.part_of_speech %1> %>
     </p>
     <p id="meaning">
-      <%= @teachable.flash_cards.first.meaning %>
+      <%# <%= @teachable.flash_cards.first.meaning %1> %>
     </p>
   </div>
 
-  <div id="controls" class="span1">
+  <div id="actions" class="span1">
     <div class="btn-group btn-group-vertical btn-block">
       <button
         id="know"
