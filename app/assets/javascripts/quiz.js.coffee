@@ -13,10 +13,19 @@ cleanPreferences = (choices, key, fallback) ->
   return fallback
 
 importSettings = ->
-  character: $.cookie("character-enabled") == "true"
-  pronunciation: $.cookie("pronunciation-enabled") == "true"
-  partOfSpeech: $.cookie("part-of-speech-enabled") == "true"
-  meaning: $.cookie("meaning-enabled") == "true"
+  settings =
+    character: $.cookie("character-enabled")
+    pronunciation: $.cookie("pronunciation-enabled")
+    partOfSpeech: $.cookie("part-of-speech-enabled")
+    meaning: $.cookie("meaning-enabled")
+
+  _.each settings, (setting, key) ->
+    if _.isNull setting
+      settings[key] = true
+    else
+      settings[key] = setting == "true"
+
+  return settings
 
 exportSettings = (settings) ->
   $.cookie "character-enabled", String(settings.character)
