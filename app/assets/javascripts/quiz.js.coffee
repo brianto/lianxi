@@ -14,10 +14,10 @@ cleanPreferences = (choices, key, fallback) ->
 
 importSettings = ->
   settings =
-    character: $.cookie("character-enabled")
-    pronunciation: $.cookie("pronunciation-enabled")
-    partOfSpeech: $.cookie("part-of-speech-enabled")
-    meaning: $.cookie("meaning-enabled")
+    character: $.cookie "character-enabled"
+    pronunciation: $.cookie "pronunciation-enabled"
+    partOfSpeech: $.cookie "part-of-speech-enabled"
+    meaning: $.cookie "meaning-enabled"
 
   _.each settings, (setting, key) ->
     if _.isNull setting
@@ -28,10 +28,10 @@ importSettings = ->
   return settings
 
 exportSettings = (settings) ->
-  $.cookie "character-enabled", String(settings.character)
-  $.cookie "pronunciation-enabled", String(settings.pronunciation)
-  $.cookie "part-of-speech-enabled", String(settings.partOfSpeech)
-  $.cookie "meaning-enabled", String(settings.meaning)
+  $.cookie "character-enabled", String(settings.character), path: "/"
+  $.cookie "pronunciation-enabled", String(settings.pronunciation), path: "/"
+  $.cookie "part-of-speech-enabled", String(settings.partOfSpeech), path: "/"
+  $.cookie "meaning-enabled", String(settings.meaning), path: "/"
 
 $(document).ready ->
   # Only apply for quiz actions

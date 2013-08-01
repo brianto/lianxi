@@ -36,7 +36,7 @@ $(document).ready ->
       $(this).val(next.data)
       $(this).text(next.text)
 
-      $.cookie(key, next.data)
+      $.cookie key, next.data, path: "/"
 
   preferences_default_for = (selector, key, cycle, fallback) ->
     selector_default = $.cookie(key) || fallback
