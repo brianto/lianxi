@@ -18,4 +18,9 @@ body.quiz {
   #meaning {
     text-indent: 20%;
   }
+
+  #flash-card:hover p,
+  #flash-card:active p {
+    visibility: visible !important;
+  }
 }
