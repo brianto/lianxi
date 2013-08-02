@@ -2,7 +2,8 @@
 
 <ul>
   <% @cards.each do |card| %>
-    <!-- so jank -->
-    <li><%= link_to card.meaning, eval("#{@clazz_string}_flash_card_path(@teachable, card)") %></li>
+    <li>
+      <%= link_to card.meaning, polymorphic_url([@teachable, card]) %>
+    </li>
   <% end %>
 </ul>

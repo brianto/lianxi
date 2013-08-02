@@ -1,9 +1,6 @@
 class FlashCardsController < ApplicationController
-  include Type
-
-  before_filter :determine_teachables
-
   def index # GET /[teachable]/:teachable_id/flash_cards
+    @teachable = teachable
     @cards = @teachable.flash_cards
 
     respond_to do |format|
@@ -38,9 +35,11 @@ class FlashCardsController < ApplicationController
 
   private
 
-  def determine_teachables
-    @clazz = lesson_of params
-    @clazz_string = @clazz.to_s.downcase
-    @teachable = @clazz.find params["#{@clazz_string}_id"]
+  def teachable
+    params.each do |name, value|
+      if name =~ /(.+)_id$/ then
+        return $1.classify.constantize.find(value)
+      end
+    end
   end
 end
