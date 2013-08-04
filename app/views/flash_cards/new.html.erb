@@ -1,48 +1,8 @@
-<%= form_for [@teachable, @card],
-  :url => { :action => "create" },
-  :html => { :class => "form-horizontal" },
-  :method => :post do |form| %>
-
-  <fieldset>
-    <legend>Characters</legend>
-
-    <%= render_field form, @errors, :simplified, :text_field, {
-      :placeholder => "ex. 汉字"
-    } %>
-
-    <%= render_field form, @errors, :traditional, :text_field, {
-      :placeholder => "ex. 漢字"
-    } %>
-  </fieldset>
-
-  <fieldset>
-    <legend>Pronunciation</legend>
-
-    <%= render_field form, @errors, :pinyin, :text_field, {
-      :placeholder => "ex. hàn zì"
-    } %>
-
-    <%= render_field form, @errors, :zhuyin, :text_field, {
-      :placeholder => "ex. ㄏㄢˋ ㄗˋ"
-    } %>
-
-    <%= render_field form, @errors, :jyutping, :text_field, {
-      :placeholder => "ex. hon6 zi3"
-    } %>
-  </fieldset>
-
-  <fieldset>
-    <legend>Language</legend>
-
-    <%= render_field form, @errors, :part_of_speech, :text_field, {
-      :placeholder => "ex. noun"
-    } %>
-
-    <%= render_field form, @errors, :meaning, :text_area, {
-      :rows => 5,
-      :placeholder => "ex. chinese characters"
-    } %>
-  </fieldset>
-
-  <%= form.submit :class => "btn btn-primary" %>
-<% end %>
+<div class="row">
+  <div class="span6">
+    <%= render :partial => "form" %>
+  </div>
+  <div class="span6">
+    <%= render :partial => "partials/tools" %>
+  </div>
+</div>
