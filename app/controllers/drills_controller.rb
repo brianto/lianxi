@@ -15,16 +15,24 @@ class DrillsController < TeachablesController
   end
 
   def create # POST /drills
-    @drill = Drill.create params[:drill]
+    @drill = Drill.new params[:drill]
 
     respond_to do |format|
-      format.html { redirect_to drill_path(@drill) }
-      format.json { render :json => @drill.to_json }
+      if @drill.save
+        format.html { redirect_to @drill, :notice => "Drill was successfully created" }
+        format.json { render :json => @drill.to_json, :status => :created, :location => @drill }
+      else
+        @errors = @drill.errors.messages
+
+        format.html { render :action => "new" }
+        format.json { render :json => @drill.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
   def new # GET /drills/new (new_drill) [html only]
-
+    @drill = Drill.new
+    @errors = Hash.new
   end
 
   def edit # GET /drills/:id/edit (edit_drill) [html only]

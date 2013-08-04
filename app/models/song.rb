@@ -4,4 +4,6 @@ class Song < ActiveRecord::Base
     accepts_nested_attributes_for :flash_cards
 
   attr_accessible :title, :artist, :url
+
+  validates :title, :artist, :url, :presence => true
 end

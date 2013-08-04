@@ -1,0 +1,9 @@
+<div class="control-group <%= 'error' unless errors[key].nil? %>">
+  <%= form.label key, key.to_s.capitalize, :class => "control-label" %>
+  <div class="controls">
+    <%= form.send field, key, options %>
+    <% unless errors[key].nil? then %>
+      <span class="help-inline"><%= errors[key].first %></span>
+    <% end %>
+  </div>
+</div>

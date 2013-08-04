@@ -6,4 +6,6 @@ class Passage < ActiveRecord::Base
   accepts_nested_attributes_for :flash_cards
 
   attr_accessible :title
+
+  validates :title, :presence => true
 end
