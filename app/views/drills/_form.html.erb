@@ -1,7 +1,7 @@
 <%= form_for @drill,
-  :url => { :action => "create" },
+  :url => { :action => action },
   :html => { :class => "form-horizontal" },
-  :method => :post do |form| %>
+  :method => method do |form| %>
 
   <%= render_field form, @errors, :title, :text_field, {
     :placeholder => "ex. school life"

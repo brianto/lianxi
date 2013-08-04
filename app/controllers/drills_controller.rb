@@ -37,6 +37,7 @@ class DrillsController < TeachablesController
 
   def edit # GET /drills/:id/edit (edit_drill) [html only]
     @drill = Drill.find params[:id]
+    @errors = Hash.new
   end
 
   def show # GET /drills/:id (drill)

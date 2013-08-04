@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130727155714) do
+ActiveRecord::Schema.define(:version => 20130804140311) do
 
   create_table "drills", :force => true do |t|
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.string   "title"
-    t.text     "description"
+    t.string   "title",       :null => false
+    t.string   "description", :null => false
   end
 
   create_table "examples", :force => true do |t|
@@ -30,15 +30,15 @@ ActiveRecord::Schema.define(:version => 20130727155714) do
   create_table "flash_cards", :force => true do |t|
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.integer  "teachable_id"
-    t.string   "teachable_type"
-    t.string   "meaning"
-    t.string   "part_of_speech"
-    t.string   "simplified"
-    t.string   "traditional"
-    t.string   "pinyin"
-    t.string   "zhuyin"
-    t.string   "jyutping"
+    t.integer  "teachable_id",   :null => false
+    t.string   "teachable_type", :null => false
+    t.string   "meaning",        :null => false
+    t.string   "part_of_speech", :null => false
+    t.string   "simplified",     :null => false
+    t.string   "traditional",    :null => false
+    t.string   "pinyin",         :null => false
+    t.string   "zhuyin",         :null => false
+    t.string   "jyutping",       :null => false
   end
 
   create_table "passages", :force => true do |t|

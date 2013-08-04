@@ -1,8 +1,8 @@
 module HomeHelper
-  def render_teachables(title, teachables)
+  def render_teachables(type, teachables)
     render :partial => "teachables", :locals => {
-      :title => title.to_s,
-      :lessons => teachables.to_a
+      :title => type.to_s.humanize,
+      :lessons => teachables
     }
   end
 end

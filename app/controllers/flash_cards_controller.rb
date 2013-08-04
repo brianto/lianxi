@@ -16,7 +16,7 @@ class FlashCardsController < ApplicationController
 
     respond_to do |format|
       if @card.save
-        format.html { redirect_to [@teachable, @card], :notice => "Flash Card was successfully created" }
+        format.html { redirect_to [@teachable], :notice => "Flash Card was successfully created" }
         format.json { render :json => @card.to_json, :status => :created, :location => [@teachable, @card] }
       else
         @errors = @card.errors.messages
