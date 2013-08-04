@@ -1,5 +1,5 @@
 <div class="control-group <%= 'error' unless errors[key].nil? %>">
-  <%= form.label key, key.to_s.capitalize, :class => "control-label" %>
+  <%= form.label key, key.to_s.humanize, :class => "control-label" %>
   <div class="controls">
     <%= form.send field, key, options %>
     <% unless errors[key].nil? then %>

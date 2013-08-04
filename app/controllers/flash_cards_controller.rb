@@ -10,11 +10,29 @@ class FlashCardsController < ApplicationController
   end
 
   def create # POST /[teachable]/:teachable_id/flash_card
+    @teachable = teachable
+    @card = FlashCard.new params[:flash_card]
+    @card.teachable = @teachable
 
+    respond_to do |format|
+      if @card.save
+        format.html { redirect_to [@teachable, @card], :notice => "Flash Card was successfully created" }
+        format.json { render :json => @card.to_json, :status => :created, :location => [@teachable, @card] }
+      else
+        @errors = @card.errors.messages
+
+        format.html { render :action => "new" }
+        format.json { render :json => @card.errors, :status => :unprocessable_entity }
+      end
+    end
   end
 
   def new
+    @teachable = teachable
+    @card = FlashCard.new :teachable_id => @teachable.id,
+      :teachable_type => @teachable.class.to_s.underscore
 
+    @errors = Hash.new
   end
 
   def edit

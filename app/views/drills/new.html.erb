@@ -3,18 +3,14 @@
   :html => { :class => "form-horizontal" },
   :method => :post do |form| %>
 
-  <fieldset>
-    <legend>Create a Drill</legend>
+  <%= render_field form, @errors, :title, :text_field, {
+    :placeholder => "ex. school life"
+  } %>
 
-    <%= render_field form, @errors, :title, :text_field, {
-      :placeholder => "ex. school life"
-    } %>
+  <%= render_field form, @errors, :description, :text_area, {
+    :rows => 5,
+    :placeholder => "ex. classes, research, dating"
+  } %>
 
-    <%= render_field form, @errors, :description, :text_area, {
-      :rows => 5,
-      :placeholder => "ex. classes, research, dating"
-    } %>
-
-    <%= form.submit :class => "btn btn-primary" %>
-  </fieldset>
+  <%= form.submit :class => "btn btn-primary" %>
 <% end %>
