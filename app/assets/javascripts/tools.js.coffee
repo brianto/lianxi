@@ -5,16 +5,13 @@ $(document).ready ->
 
   frame = container.find "iframe"
 
-  urls =
-    google: "http://translate.google.com/m/translate"
-    wiktionary: "http://en.m.wiktionary.org"
-    cantodict: "http://www.cantonese.sheik.co.uk/dictionary/"
-    toshuo: "http://toshuo.com/chinese-tools/pinyin-to-zhuyin-live-converter"
-
   container.find("li a").on "click", (event) ->
-    # Set up frame src
+    # Figure out which iframe is desired
     tool = $(this).attr "class"
-    frame.attr "src", urls[tool]
+
+    # Adjust iframes to reflect chosen tab
+    container.find("iframe").hide()
+    container.find("iframe.#{tool}").show()
 
     # Adjust tab classes to reflect clicked
     $(this).parent("li").siblings().removeClass "active"
