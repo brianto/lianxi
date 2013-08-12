@@ -41,6 +41,7 @@ class FlashCardsController < ApplicationController
 
   def show # GET /[teachable]/:teachable_id/flashcards/:id
     @card = FlashCard.find params[:id]
+    @teachable = @card.teachable
   end
 
   def update

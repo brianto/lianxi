@@ -8,10 +8,41 @@ Drill.create({
   :flash_cards_attributes => [
     { :simplified => "烧", :traditional => "燒",
       :pinyin => "shāo", :zhuyin => "ㄕㄠ", :jyutping => "siu1",
-      :meaning => "roast", :part_of_speech => "verb" },
+      :meaning => "roast", :part_of_speech => "verb",
+      :examples_attributes => [
+        {
+          :simplified => "我燒了鴨",
+          :traditional => "我燒了鴨",
+          :pinyin => "wǒ shāo le yā",
+          :zhuyin => "ㄨㄛˇ ㄕㄠ ㄌㄜ˙ ㄧㄚ",
+          :jyutping => "ngo5 siu1 le5 aap3",
+          :translation => "I roasted the duck",
+          :notes => "'Roast Duck' is a verb-object and in this case is separated by a modifier. In this usage, the original meaning 'to roast a duck' is modified by the past participle 'le' to create the new meaning 'I roasted (the) duck.'"
+        },
+        {
+          :simplified => "半隻燒鴨",
+          :traditional => "半隻燒鴨",
+          :pinyin => "bàn zhī shāo yā",
+          :zhuyin => "ㄅㄢˋ ㄓ ㄕㄠ ㄧㄚ",
+          :jyutping => "bun3 zek3 siu1 aap3",
+          :translation => "half roast duck"
+        }
+      ]
+    },
     { :simplified => "炒", :traditional => "炒",
       :pinyin => "chǎo", :zhuyin => "ㄔㄠˇ", :jyutping => "caau2",
-      :meaning => "to fry", :part_of_speech => "verb" }
+      :meaning => "to fry", :part_of_speech => "verb",
+      :examples_attributes => [
+        {
+          :simplified => "我嗌咗碟炒飯好耐,重未嚟呀",
+          :traditional => "我嗌咗碟炒飯好耐,重未嚟呀",
+          :pinyin => "wǒ ài zuo dié chǎo fàn hǎo nài, zhòng wèi lí ya",
+          :zhuyin => "ㄨㄛˇ ㄞˋ ㄗㄨㄛ˙ ㄉㄧㄝˊ ㄔㄠˇ ㄈㄢˋ ㄏㄠˇ ㄋㄞˋ, ㄓㄨㄥˋ ㄨㄟˋ ㄌㄧˊ ㄧㄚ˙",
+          :jyutping => "ngo5 ai3 zuo2 dip6 caau2 fan6 hou2 noi6, zung2 mei6 lai4 aa5",
+          :translation => "I've ordered a dish of fried rice a long time ago, but it still hasn't come yet"
+        }
+      ]
+    }
   ]
 })
 

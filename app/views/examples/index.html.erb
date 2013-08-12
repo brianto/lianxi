@@ -1,0 +1,14 @@
+<h1>Examples</h1>
+
+<%= link_to "New example", polymorphic_path([:new, @teachable, @card, :example]) %>
+
+<% @examples.each do |e| %>
+  <ul class="unstyled">
+    <li><%= e.send @transcript %></li>
+    <li><%= e.send @charset %></li>
+    <li><%= e.translation %></li>
+    <% if e.notes? %>
+      <li><blockquote><%= e.notes %></blockquote></li>
+    <% end %>
+  </ul>
+<% end %>

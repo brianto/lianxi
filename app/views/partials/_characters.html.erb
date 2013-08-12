@@ -10,7 +10,8 @@
   <tbody>
     <% flash_cards.each do |fc| %>
       <tr>
-        <td><%= fc.send @charset %></td>
+        <td><%= link_to fc.send(@charset), polymorphic_url([fc.teachable, fc]) %></td>
+        <%# <td><%= fc.send @charset %1></td> %>
         <td><%= fc.send @transcript %></td>
         <td><%= fc.part_of_speech %></td>
         <td><%= fc.meaning %></td>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130804140311) do
+ActiveRecord::Schema.define(:version => 20130809084743) do
 
   create_table "drills", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(:version => 20130804140311) do
     t.datetime "updated_at",      :null => false
     t.integer  "flash_card_id"
     t.string   "flash_card_type"
+    t.text     "simplified",      :null => false
+    t.text     "traditional",     :null => false
+    t.text     "pinyin",          :null => false
+    t.text     "zhuyin",          :null => false
+    t.text     "jyutping",        :null => false
+    t.text     "translation",     :null => false
+    t.text     "notes"
   end
 
   create_table "flash_cards", :force => true do |t|
