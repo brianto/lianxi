@@ -2,6 +2,7 @@ Lianxi::Application.routes.draw do
   root :to => "home#index"
   
   get "/about" => "home#about"
+
   post "/login" => "home#login"
   post "/logout" => "home#logout"
 
@@ -17,6 +18,8 @@ Lianxi::Application.routes.draw do
       end
     end
   end
+
+  resources :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

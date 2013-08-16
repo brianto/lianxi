@@ -1,0 +1,21 @@
+<%= form_for @user, :html => { :class => "form-horizontal" } do |form| %>
+  <fieldset>
+    <%= render_field form, @errors, :username, :text_field, {
+      :placeholder => "username"
+    } %>
+
+    <%= render_field form, @errors, :email, :email_field, {
+      :placeholder => "you@example.com"
+    } %>
+
+    <%= render_field form, @errors, :password, :password_field, {
+      :placeholder => "password"
+    } %>
+
+    <%= render_field form, @errors, :password_confirmation, :password_field, {
+      :placeholder => "password again"
+    } %>
+  </fieldset>
+
+  <%= form.submit :class => "btn btn-primary" %>
+<% end %>
