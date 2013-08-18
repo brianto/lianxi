@@ -1,10 +1,14 @@
-<%= form_tag login_path, :class => "navbar-form pull-right" do %>
+<%= form_tag login_path,
+  :class => "navbar-form pull-right",
+  :method => "POST" do %>
+
   <%= text_field_tag :email, nil,
       :class => "input-small",
       :placeholder => "email" %>
   <%= password_field_tag :password, nil,
       :class => "input-small",
       :placeholder => "password" %>
+
   <%= submit_tag "Sign in", :class => "btn btn-primary" %>
   <%= submit_tag "Sign up", :class => "btn" %>
 <% end %>

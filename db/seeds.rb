@@ -2,6 +2,15 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+if Rails.env.eql? "development" then
+  User.create({
+    :username => "laoshi",
+    :email => "laoshi@example.com",
+    :password => "laoshi",
+    :password_confirmation => "laoshi"
+  })
+end
+
 Drill.create({
   :title => "Food and Cooking",
   :description => "Chinese cuisine foods",
