@@ -7,10 +7,10 @@ class FlashCard < ActiveRecord::Base
     attr_accessible :teachable_id, :teachable_type
 
   attr_accessible :traditional, :simplified
-  attr_accessible :pinyin, :zhuyin, :jyutping
+  attr_accessible :pinyin, :jyutping
   attr_accessible :meaning, :part_of_speech
 
   validates :traditional, :simplified, :presence => true
-  validates :pinyin, :zhuyin, :jyutping, :presence => true
+  validates :pinyin, :jyutping, :presence => true
   validates :meaning, :part_of_speech, :presence => true
 end

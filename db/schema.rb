@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130815040814) do
+ActiveRecord::Schema.define(:version => 20130818024723) do
 
   create_table "drills", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(:version => 20130815040814) do
     t.text     "simplified",      :null => false
     t.text     "traditional",     :null => false
     t.text     "pinyin",          :null => false
-    t.text     "zhuyin",          :null => false
     t.text     "jyutping",        :null => false
     t.text     "translation",     :null => false
     t.text     "notes"
@@ -44,7 +43,6 @@ ActiveRecord::Schema.define(:version => 20130815040814) do
     t.string   "simplified",     :null => false
     t.string   "traditional",    :null => false
     t.string   "pinyin",         :null => false
-    t.string   "zhuyin",         :null => false
     t.string   "jyutping",       :null => false
   end
 

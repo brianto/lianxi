@@ -26,7 +26,6 @@ $(document).ready ->
 
   transcript = new CyclicSelector
     pinyin: "Pinyin"
-    zhuyin: "Zhuyin"
     jyutping: "Jyutping"
 
   preferences_handler_for = (selector, key, cycle) ->
