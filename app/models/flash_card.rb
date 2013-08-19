@@ -4,7 +4,7 @@ class FlashCard < ActiveRecord::Base
     accepts_nested_attributes_for :examples
 
   belongs_to :teachable, :polymorphic => true
-    attr_accessible :teachable_id, :teachable_type
+    attr_accessible :teachable, :teachable_id, :teachable_type
 
   attr_accessible :traditional, :simplified
   attr_accessible :pinyin, :jyutping
@@ -13,4 +13,8 @@ class FlashCard < ActiveRecord::Base
   validates :traditional, :simplified, :presence => true
   validates :pinyin, :jyutping, :presence => true
   validates :meaning, :part_of_speech, :presence => true
+
+  def user
+    return self.teachable.user
+  end
 end

@@ -12,10 +12,15 @@ class DrillsControllerTest < ActionController::TestCase
   end
 
   test "create with full data goes to show" do
+    u = User.create :username => "user", :email => "user@user.com",
+      :password => "user", :password_confirmation => "user"
+
     post :create, :drill => {
       :title => "title",
-      :description => "description"
+      :description => "description",
+      :user_id => u.id
     }
+
     assert_redirected_to drill_path(assigns(:drill))
   end
 end

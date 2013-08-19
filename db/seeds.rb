@@ -2,18 +2,17 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-if Rails.env.eql? "development" then
-  User.create({
-    :username => "laoshi",
-    :email => "laoshi@example.com",
-    :password => "laoshi",
-    :password_confirmation => "laoshi"
-  })
-end
+laoshi = User.create({
+  :username => "laoshi",
+  :email => "laoshi@example.com",
+  :password => "laoshi",
+  :password_confirmation => "laoshi"
+})
 
 Drill.create({
   :title => "Food and Cooking",
   :description => "Chinese cuisine foods",
+  :user => laoshi,
   :flash_cards_attributes => [
     { :simplified => "烧", :traditional => "燒",
       :pinyin => "shāo", :jyutping => "siu1",
@@ -55,6 +54,7 @@ Drill.create({
 Drill.create({
   :title => "Sports and Activities",
   :description => "American sports",
+  :user => laoshi,
   :flash_cards_attributes => [
     { :simplified => "网球", :traditional => "網球",
       :pinyin => "wǎng qiú", :jyutping => "mong5 kau4",
@@ -69,6 +69,7 @@ Song.create({
   :title => "Windy Season 風的季節",
   :artist => "Paula Tsui 甄妮",
   :url => "http://www.youtube.com/embed/KQ2W1RbwsRw",
+  :user => laoshi,
   :flash_cards_attributes => [
     { :simplified => "涼", :traditional => "涼",
       :pinyin => "liáng", :jyutping => "loeng4",
@@ -83,6 +84,7 @@ Song.create({
   :title => "Love You Ten Thousand Years 愛你一萬年",
   :artist => "Jenny Tseng 徐小鳳",
   :url => "http://www.youtube.com/embed/pwzZ5em0Erg",
+  :user => laoshi,
   :flash_cards_attributes => [
     { :simplified => "一万", :traditional => "一萬",
       :pinyin => "yī wàn", :jyutping => "jat1 maan6",
