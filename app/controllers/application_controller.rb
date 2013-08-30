@@ -27,4 +27,15 @@ class ApplicationController < ActionController::Base
       @user = nil
     end
   end
+
+  def logged_in?
+    !@user.nil?
+  end
+
+  def require_login
+    unless logged_in? then
+      flash[:notice] = "Insufficient permissions"
+      redirect_to root_url
+    end
+  end
 end

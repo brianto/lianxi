@@ -1,5 +1,6 @@
 class DrillsController < TeachablesController
   before_filter :setup_teachables
+  before_filter :require_login, :only => [:edit, :update, :destroy]
 
   def setup_teachables
     @model_class = Drill
@@ -38,6 +39,7 @@ class DrillsController < TeachablesController
   def edit # GET /drills/:id/edit (edit_drill) [html only]
     @drill = Drill.find params[:id]
     @errors = Hash.new
+    @debug = self
   end
 
   def show # GET /drills/:id (drill)

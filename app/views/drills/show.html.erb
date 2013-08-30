@@ -5,14 +5,17 @@
 <div class="page-header">
   <h1><%= @drill.title %></h1>
   <em><%= @drill.description %></em>
-  <div class="btn-group">
-    <button class="btn btn-link">
-      <%= link_to "Edit", edit_drill_path(@drill) %>
-    </button>
-    <button class="btn btn-link">
-      <%= link_to "Add Flash Card", new_drill_flash_card_path(@drill) %>
-    </button>
-  </div>
+
+  <% if @user and @user.owns? @drill %>
+    <div class="btn-group">
+      <button class="btn btn-link">
+        <%= link_to "Edit", edit_drill_path(@drill) %>
+      </button>
+      <button class="btn btn-link">
+        <%= link_to "Add Flash Card", new_drill_flash_card_path(@drill) %>
+      </button>
+    </div>
+  <% end %>
 </div>
 
 <div class="row">
