@@ -12,10 +12,15 @@ class HomeController < ApplicationController
 
   # POST /login
   def login
-    @login = Login.new :email => params[:email],
-      :password => params[:password]
+    if params[:commit].eql? "Sign in"
+      @login = Login.new :email => params[:email],
+        :password => params[:password]
 
-    redirect_to root_path if @login.save
+      flash[:notice] = "Wrong username/password" if not @login.save
+      redirect_to root_path
+    elsif params[:commit].eql? "Sign up"
+      redirect_to new_user_path
+    end
 
     return # stops double render
   end

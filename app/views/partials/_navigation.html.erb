@@ -18,7 +18,7 @@
       <button id="pref-transcript" class="btn btn-link input-small">
       </button>
 
-      <% if @user.nil? %>
+      <% if @user.nil? or not @user.valid? %>
         <%= render :partial => "partials/sign_in" %>
       <% else %>
         <%= render :partial => "partials/sign_out" %>
