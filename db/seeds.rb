@@ -81,7 +81,7 @@ Song.create({
   :lyric_attributes => {
     :dialect => "cantonese",
     :traditional => <<TRADITIONAL,
-涼風輕輕吹到俏然進了我衣襟
+[涼]風輕[輕]吹到俏然進了我衣襟
 夏天偷去聽不見聲音
 日子匆匆走過倍令我有百感生
 記掛那一片景象繽紛
@@ -104,7 +104,7 @@ Song.create({
 TRADITIONAL
 
     :simplified => <<SIMPLIFIED,
-凉风轻轻吹到俏然进了我衣襟
+[凉]风轻[轻]吹到俏然进了我衣襟
 夏天偷去听不见声音
 日子匆匆走过倍令我有百感生
 记挂那一片景象缤纷

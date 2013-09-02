@@ -1,0 +1,6 @@
+<abbr class="tooltip-hint text-info"
+  data-toggle="tooltip"
+  data-html=true
+  data-title="<%= controller.render_to_string :partial => "tooltip_content",
+    :locals => { :card => card } %>"
+  ><%= card.send @charset %></abbr>
