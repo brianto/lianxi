@@ -25,6 +25,8 @@
 
 <div class="row">
   <div class="span6">
-    <%= @song.lyric.traditional %>
+    <% @song.lyric.lines.each do |line| %>
+      <p>[<%= line.timing %>]<%= line.traditional %></p>
+    <% end %>
   </div>
 </div>
