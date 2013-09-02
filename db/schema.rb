@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130819013400) do
+ActiveRecord::Schema.define(:version => 20130901220401) do
 
   create_table "drills", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -45,6 +45,18 @@ ActiveRecord::Schema.define(:version => 20130819013400) do
     t.string   "traditional",    :null => false
     t.string   "pinyin",         :null => false
     t.string   "jyutping",       :null => false
+  end
+
+  create_table "lyrics", :force => true do |t|
+    t.text     "traditional"
+    t.text     "simplified"
+    t.text     "pronunciation"
+    t.string   "dialect"
+    t.text     "translation"
+    t.string   "timing"
+    t.integer  "song_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "passages", :force => true do |t|

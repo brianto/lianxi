@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  traditional: MyText
+  simplified: MyText
+  pronunciation: MyText
+  dialect: MyString
+  translation: MyText
+  timing: MyString
+
+two:
+  traditional: MyText
+  simplified: MyText
+  pronunciation: MyText
+  dialect: MyString
+  translation: MyText
+  timing: MyString
