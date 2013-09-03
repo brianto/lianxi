@@ -26,7 +26,7 @@
 <div class="row">
   <div class="span6">
     <% @song.lyric.lines.each do |line| %>
-      <p><%= inject_tooltip_hints line.traditional, @song.flash_cards %></p>
+      <p><%= inject_tooltip_hints line.traditional, @song.flash_cards %><br><%= line.translation %></p>
     <% end %>
   </div>
 </div>

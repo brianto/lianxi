@@ -10,10 +10,11 @@ module SongsHelper
 
     # Do substitutions
     return line.gsub(/\[([^\[\]]*)\]/) do |match|
-      controller.render_to_string(:partial => "tooltip", :locals => {
+      # TODO un-uglify ternary
+      lookup[$1] ? controller.render_to_string(:partial => "tooltip", :locals => {
         :card => lookup[$1],
         :character => $1
-      }).strip
+      }).strip : match
     end.html_safe
   end
 end

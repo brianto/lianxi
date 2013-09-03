@@ -76,14 +76,26 @@ Song.create({
       :meaning => "cold", :part_of_speech => "adjective" },
     { :simplified => "轻", :traditional => "輕",
       :pinyin => "qīng", :jyutping => "hing1",
-      :meaning => "lightly", :part_of_speech => "adjective" }
+      :meaning => "lightly", :part_of_speech => "adjective" },
+    { :simplified => "衣襟", :traditional => "衣襟",
+      :pinyin => "yī jīn", :jyutping => "yi1 kam1",
+      :meaning => "skirt", :part_of_speech => "noun" },
+    { :simplified => "俏然", :traditional => "俏然",
+      :pinyin => "qiào rán", :jyutping => "chiu3 yin4",
+      :meaning => "pretty natural", :part_of_speech => "adjective" },
+    { :simplified => "偷", :traditional => "偷",
+      :pinyin => "tōu", :jyutping => "tau1",
+      :meaning => "steal", :part_of_speech => "verb" },
+    { :simplified => "声音", :traditional => "聲音",
+      :pinyin => "shēng yīn", :jyutping => "seng1 yam1",
+      :meaning => "sound", :part_of_speech => "noun" }
   ],
   :lyric_attributes => {
     :dialect => "cantonese",
     :traditional => <<TRADITIONAL,
-[涼]風輕[輕]吹到俏然進了我衣襟
-夏天偷去聽不見聲音
-日子匆匆走過倍令我有百感生
+[涼]風輕[輕]吹到[俏然]進了我[衣襟]
+夏天[偷]去聽不見[聲音]
+[日子]匆匆走過倍令我有百感生
 記掛那一片景象繽紛
 隨風輕輕吹到你步進了我的心
 在一息間改變我一生
@@ -209,5 +221,13 @@ Song.create({
     { :simplified => "忘记", :traditional => "忘記",
       :pinyin => "wàng jì", :jyutping => "mong4 gei3",
       :meaning => "to forget", :part_of_speech => "verb" }
-  ]
+  ],
+  :lyric_attributes => {
+    :dialect => "mandarin",
+    :traditional => "",
+    :simplified => "",
+    :pronunciation => "",
+    :timing => "",
+    :translation => ""
+  }  
 })
