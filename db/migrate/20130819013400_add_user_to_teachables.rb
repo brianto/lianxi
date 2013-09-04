@@ -1,7 +1,7 @@
 class AddUserToTeachables < ActiveRecord::Migration
   def change
-    add_reference :drills, :users, :index => true
-    add_reference :passages, :users, :index => true
-    add_reference :songs, :users, :index => true
+    add_column :drills, :user_id, :integer, :null => false
+    add_column :passages, :user_id, :integer, :null => false
+    add_column :songs, :user_id, :integer, :null => false
   end
 end
