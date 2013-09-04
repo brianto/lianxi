@@ -224,10 +224,215 @@ Song.create({
   ],
   :lyric_attributes => {
     :dialect => "mandarin",
-    :traditional => "",
-    :simplified => "",
-    :pronunciation => "",
-    :timing => "",
-    :translation => ""
-  }  
+    :traditional => <<TRADITIONAL,
+寒風吹起細雨迷離
+風雨揭開我的記憶
+我像小船尋找港灣
+不能把你[忘記]
+愛的希望愛的回味
+愛的往事難以追憶
+風中花蕊深怕枯萎
+我願為你祝福
+我愛你我心已屬於你
+今生今世不移
+在我心中再沒有誰
+代替你的地位
+我愛你對你付出真意
+不會飄浮不移
+你要為我再想一想
+我決定愛你[一萬]年
+寒風吹起細雨迷離
+風雨揭開我的記憶
+我像小船尋找港灣
+不能把你忘記
+愛的希望愛的回味
+愛的往事難以追憶
+風中花蕊深怕枯萎
+我願為你祝福
+我愛你我心已屬於你
+今生今世不移
+在我心中再沒有誰
+代替你的地位
+我愛你對你付出真意
+不會飄浮不移
+你要為我再想一想
+我決定愛你一萬年
+我愛你我心已屬於你
+今生今世不移
+在我心中再沒有誰
+代替你的地位
+我愛你對你付出真意
+不會飄浮不移
+你要為我再想一想
+我決定愛你一萬年
+TRADITIONAL
+    :simplified => <<SIMPLIFIED,
+寒风吹起细雨迷离
+风雨揭开我的记忆
+我像小船寻找港湾
+不能把你[忘记]
+爱的希望爱的回味
+爱的往事难以追忆
+风中花蕊深怕枯萎
+我愿为你祝福
+我爱你我心已属于你
+今生今世不移
+在我心中再没有谁
+代替你的地位
+我爱你对你付出真意
+不会飘浮不移
+你要为我再想一想
+我决定爱你[一万]年
+寒风吹起细雨迷离
+风雨揭开我的记忆
+我像小船寻找港湾
+不能把你忘记
+爱的希望爱的回味
+爱的往事难以追忆
+风中花蕊深怕枯萎
+我愿为你祝福
+我爱你我心已属于你
+今生今世不移
+在我心中再没有谁
+代替你的地位
+我爱你对你付出真意
+不会飘浮不移
+你要为我再想一想
+我决定爱你一万年
+我爱你我心已属于你
+今生今世不移
+在我心中再没有谁
+代替你的地位
+我爱你对你付出真意
+不会飘浮不移
+你要为我再想一想
+我决定爱你一万年
+SIMPLIFIED
+    :pronunciation => <<PRONUNCIATION,
+hán fēngchuī qǐ xì yǔ mílí
+fēngyǔ jiē kāi wǒ de jìyì
+wǒ xiàng xiǎochuán xúnzhǎo gǎngwān
+bùnéng bǎ nǐ wàngjì
+ài de xīwàng ài de huíwèi
+ài de wǎngshì nányǐ zhuīyì
+fēng zhōng huāruǐ shēn pà kūwěi
+wǒ yuàn wéi nǐ zhùfú
+wǒ ài nǐ wǒ xīn yǐ shǔyú nǐ
+jīnshēng jīnshì bù yí
+zài wǒ xīnzhōng zài méiyǒu shuí
+dàitì nǐ dì dìwèi
+wǒ ài nǐ duì nǐ fùchū zhēnyì
+bù huì piāofú bù yí
+nǐ yào wèi wǒ zài xiǎng yī xiǎng
+wǒ juédìng ài nǐ yī wàn nián
+hán fēngchuī qǐ xì yǔ mílí
+fēngyǔ jiē kāi wǒ de jìyì
+wǒ xiàng xiǎochuán xúnzhǎo gǎngwān
+bùnéng bǎ nǐ wàngjì
+ài de xīwàng ài de huíwèi
+ài de wǎngshì nányǐ zhuīyì
+fēng zhōng huāruǐ shēn pà kūwěi
+wǒ yuàn wéi nǐ zhùfú
+wǒ ài nǐ wǒ xīn yǐ shǔyú nǐ
+jīnshēng jīnshì bù yí
+zài wǒ xīnzhōng zài méiyǒu shuí
+dàitì nǐ dì dìwèi
+wǒ ài nǐ duì nǐ fùchū zhēnyì
+bù huì piāofú bù yí
+nǐ yào wèi wǒ zài xiǎng yī xiǎng
+wǒ juédìng ài nǐ yī wàn nián
+wǒ ài nǐ wǒ xīn yǐ shǔyú nǐ
+jīnshēng jīnshì bù yí
+zài wǒ xīnzhōng zài méiyǒu shuí
+dàitì nǐ dì dìwèi
+wǒ ài nǐ duì nǐ fùchū zhēnyì
+bù huì piāofú bù yí
+nǐ yào wèi wǒ zài xiǎng yī xiǎng
+wǒ juédìng ài nǐ yī wàn nián
+PRONUNCIATION
+    :timing => <<TIMING,
+00:19.96
+00:23.30
+00:26.32
+00:29.76
+00:32.61
+00:36.23
+00:39.47
+00:42.85
+00:45.36
+00:49.32
+00:52.28
+00:55.85
+00:58.32
+01:02.35
+01:05.16
+01:09.43
+01:24.41
+01:28.21
+01:31.20
+01:34.81
+01:37.49
+01:41.22
+01:44.14
+01:47.65
+01:50.18
+01:54.97
+01:57.20
+02:00.66
+02:03.19
+02:07.20
+02:10.77
+02:14.18
+02:22.96
+02:26.64
+02:29.58
+02:33.19
+02:35.74
+02:39.43
+02:42.44
+02:46.11
+TIMING
+    :translation => <<TRANSLATION
+The cold wind blows, rain blurred
+The storm brings back my meories
+Like a boat searching for a harbor
+Just couldn't forget you
+Love's wish, love's aftertaste
+It's hard to recollect past love
+The flower in the wind fears withering
+I am willing to bless you
+I love you, my heart alreay belongs to you
+This life is unwavering
+In my heart, there is no one
+who can take your place
+I love you, you've paid the true meaning
+undrifting, not uncertain
+For me, you want to think again
+I decided to love you a thousand years
+The cold wind blows, rain blurred
+The storm brings back my meories
+Like a boat searching for a harbor
+Just couldn't forget you
+Love's wish, love's aftertaste
+It's hard to recollect past love
+The flower in the wind fears withering
+I am willing to bless you
+I love you, my heart alreay belongs to you
+This life is unwavering
+In my heart, there is no one
+who can take your place
+I love you, you've paid the true meaning
+undrifting, not uncertain
+For me, you want to think again
+I decided to love you a thousand years
+I love you, my heart alreay belongs to you
+This life is unwavering
+In my heart, there is no one
+who can take your place
+I love you, you've paid the true meaning
+undrifting, not uncertain
+For me, you want to think again
+I decided to love you a thousand years
+TRANSLATION
+  }
 })

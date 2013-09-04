@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130901220401) do
+ActiveRecord::Schema.define(:version => 20130904003032) do
 
   create_table "drills", :force => true do |t|
     t.datetime "created_at",  :null => false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20130901220401) do
     t.text     "pronunciation"
     t.string   "dialect"
     t.text     "translation"
-    t.string   "timing"
+    t.text     "timing"
     t.integer  "song_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
