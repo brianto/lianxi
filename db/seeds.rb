@@ -220,14 +220,59 @@ Song.create({
       :meaning => "ten thousand", :part_of_speech => "noun" },
     { :simplified => "忘记", :traditional => "忘記",
       :pinyin => "wàng jì", :jyutping => "mong4 gei3",
-      :meaning => "to forget", :part_of_speech => "verb" }
+      :meaning => "to forget", :part_of_speech => "verb" },
+    { :simplified => "细雨", :traditional => "細雨",
+      :pinyin => "xì yǔ", :jyutping => "sai3 jyu6",
+      :meaning => "drizzle", :part_of_speech => "noun" },
+    { :simplified => "揭开", :traditional => "揭開",
+      :pinyin => "jiē kāi", :jyutping => "kit3 hoi1",
+      :meaning => "uncover, reveal", :part_of_speech => "verb" },
+    { :simplified => "船", :traditional => "船",
+      :pinyin => "chuán", :jyutping => "syun4",
+      :meaning => "boat", :part_of_speech => "noun" },
+    { :simplified => "港湾", :traditional => "港灣",
+      :pinyin => "gǎng wān", :jyutping => "gong2 waan1",
+      :meaning => "harbor", :part_of_speech => "noun" },
+    { :simplified => "寻找", :traditional => "尋找",
+      :pinyin => "xún zhǎo", :jyutping => "cam4 zaau2",
+      :meaning => "search", :part_of_speech => "noun-verb" },
+    { :simplified => "追忆", :traditional => "追憶",
+      :pinyin => "zhuī yì", :jyutping => "zeoi1 jik1",
+      :meaning => "recall", :part_of_speech => "noun-verb" },
+    { :simplified => "往事", :traditional => "往事",
+      :pinyin => "wǎng shì", :jyutping => "wong5 si6",
+      :meaning => "past", :part_of_speech => "noun" },
+    { :simplified => "枯萎", :traditional => "枯萎",
+      :pinyin => "kū wěi", :jyutping => "fu1 wai2",
+      :meaning => "wither", :part_of_speech => "adjective" },
+    { :simplified => "花蕊", :traditional => "花蕊",
+      :pinyin => "huā ruǐ", :jyutping => "faa1 jeoi5",
+      :meaning => "flower bud", :part_of_speech => "noun" },
+    { :simplified => "属", :traditional => "屬",
+      :pinyin => "shǔ", :jyutping => "suk6",
+      :meaning => "belongs", :part_of_speech => "adjective" },
+    { :simplified => "代替", :traditional => "代替",
+      :pinyin => "dài tì", :jyutping => "doi6 tai3",
+      :meaning => "substitute", :part_of_speech => "verb" },
+    { :simplified => "愿为", :traditional => "願為",
+      :pinyin => "yuàn wéi", :jyutping => "jyun6 wai6",
+      :meaning => "willing", :part_of_speech => "adjective" },
+    { :simplified => "祝福", :traditional => "祝福",
+      :pinyin => "zhù fú", :jyutping => "zuk1 fuk1",
+      :meaning => "bless", :part_of_speech => "verb" },
+    { :simplified => "飘浮", :traditional => "飄浮",
+      :pinyin => "piāo fú", :jyutping => "piu1 fau4",
+      :meaning => "floating", :part_of_speech => "adjective" },
+    { :simplified => "移", :traditional => "移",
+      :pinyin => "yí", :jyutping => "ji4",
+      :meaning => "shift, change", :part_of_speech => "verb" }
   ],
   :lyric_attributes => {
     :dialect => "mandarin",
     :traditional => <<TRADITIONAL,
-寒風吹起細雨迷離
+寒風吹起[細雨]迷離
 風雨揭開我的記憶
-我像小船尋找港灣
+我像小船尋找[港灣]
 不能把你[忘記]
 愛的希望愛的回味
 愛的往事難以追憶
