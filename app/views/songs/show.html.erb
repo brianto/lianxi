@@ -8,6 +8,7 @@
 </div>
 
 <div class="row">
+  <!-- Video -->
   <div class="span6">
     <iframe
       width="100%"
@@ -18,15 +19,20 @@
   </div>
 
   <div class="span6">
-    <%= render_actions @song %>
-    <%= render_characters @song.flash_cards %>
   </div>
 </div>
 
 <div class="row">
+  <!-- Lyrics -->
   <div class="span6">
     <% @song.lyric.lines.each do |line| %>
       <p><%= inject_tooltip_hints line.traditional, @song.flash_cards %><br><%= line.translation %></p>
     <% end %>
+  </div>
+
+  <!-- Characters Table -->
+  <div class="span6">
+    <%= render_actions @song %>
+    <%= render_characters @song.flash_cards %>
   </div>
 </div>
