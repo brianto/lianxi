@@ -21,8 +21,6 @@ class HomeController < ApplicationController
     elsif params[:commit].eql? "Sign up"
       redirect_to new_user_path
     end
-
-    return # stops double render
   end
 
   # POST /logout
