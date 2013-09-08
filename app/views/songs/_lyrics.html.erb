@@ -1,0 +1,13 @@
+<% song.lyric.lines.each do |line| %>
+  <div class="row">
+    <div class="span1">
+      <%= line.timing %>
+    </div>
+
+    <div class="span5">
+      <%= inject_tooltip_hints line.traditional, song.flash_cards %>
+      <br>
+      <%= line.translation %>
+    </div>
+  </div>
+<% end %>

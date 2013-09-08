@@ -212,7 +212,7 @@ TRANSLATION
 Song.create({
   :title => "Love You Ten Thousand Years 愛你一萬年",
   :artist => "Jenny Tseng 徐小鳳",
-  :url => "http://www.youtube.com/embed/pwzZ5em0Erg",
+  :url => "pwzZ5em0Erg",
   :user => laoshi,
   :flash_cards_attributes => [
     { :simplified => "一万", :traditional => "一萬",
