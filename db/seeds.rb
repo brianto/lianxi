@@ -68,7 +68,7 @@ Drill.create({
 Song.create({
   :title => "Windy Season 風的季節",
   :artist => "Paula Tsui 甄妮",
-  :url => "http://www.youtube.com/embed/KQ2W1RbwsRw",
+  :url => "KQ2W1RbwsRw",
   :user => laoshi,
   :flash_cards_attributes => [
     { :simplified => "涼", :traditional => "涼",
