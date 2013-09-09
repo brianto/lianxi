@@ -57,13 +57,7 @@ class Lyric
     @$karaoke = $ "##{karaokeId}"
     @lines = $ ".lyric"
     @timings = _.map @lines, (line) =>
-      timing = $(line).data "timing"
-
-      # Because of the janky implementation, TODO fix
-      timing = timing.split ":"
-      minutes = parseFloat timing[0], 10
-      seconds = parseFloat timing[1], 10
-      return seconds + 60 * minutes
+      return parseFloat $(line).data("timing"), 10
 
     @index = 0
 

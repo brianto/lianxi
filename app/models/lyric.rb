@@ -24,4 +24,8 @@ end
 class Line
   attr_accessor :simplified, :traditional,
     :pronunciation, :timing, :translation
+
+  def formatted_timing
+    Time.at(@timing.to_f).utc.strftime "%M:%S"
+  end
 end
