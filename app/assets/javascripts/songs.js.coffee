@@ -75,7 +75,7 @@ class Lyric
         @$karaoke.html "&nbsp;"
       else
         line = $ @lines[@index]
-        @$karaoke.html line.contents()
+        @$karaoke.html line.html()
 
 $(document).ready ->
   # Only apply for song#show
