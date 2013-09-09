@@ -1,5 +1,5 @@
 <% song.lyric.lines.each do |line| %>
-  <div class="row">
+  <div class="row lyric" data-timing="<%= line.timing %>">
     <div class="span1">
       <%= line.timing %>
     </div>

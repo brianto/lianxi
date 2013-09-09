@@ -52,6 +52,37 @@ class Youtube
 
     @$video.trigger Youtube.EVENTS[eventIndex], event
 
+class Lyric
+  constructor: (karaokeId) ->
+    @$karaoke = $ "##{karaokeId}"
+    @lines = $ ".lyric"
+    @timings = _.map @lines, (line) =>
+      timing = $(line).data "timing"
+
+      # Because of the janky implementation, TODO fix
+      timing = timing.split ":"
+      minutes = parseFloat timing[0], 10
+      seconds = parseFloat timing[1], 10
+      return seconds + 60 * minutes
+
+    @index = 0
+
+  update_line: (time) =>
+    index = 0
+
+    index++ while @timings[index] < time
+
+    index--
+
+    if @index != index
+      @index = index
+
+      if @index < 0 # before start time
+        @$karaoke.html "&nbsp;"
+      else
+        line = $ @lines[@index]
+        @$karaoke.html line.contents()
+
 $(document).ready ->
   # Only apply for song#show
   return unless $("#songs.show").length
@@ -60,6 +91,7 @@ $(document).ready ->
   $(".tooltip-hint").tooltip();
 
   player = null
+  lyric = new Lyric "karaoke-stub"
 
   window.onYouTubeIframeAPIReady = () ->
     player = new Youtube "video-stub"
@@ -72,8 +104,10 @@ $(document).ready ->
     player.on Youtube.PLAYING, playerPlaying
     player.on Youtube.ENDED, playerEnded
 
+    return player
+
   playerTick = (jqEvent, event) ->
-    $("#karaoke-stub").text event.time
+    lyric.update_line event.time
 
   playerCued = (jqEvent, event) ->
     player.start()
