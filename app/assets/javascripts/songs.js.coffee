@@ -76,6 +76,7 @@ class Lyric
       else
         line = $ @lines[@index]
         @$karaoke.html line.html()
+        @$karaoke.find(".tooltip-hint").tooltip()
 
 $(document).ready ->
   # Only apply for song#show
