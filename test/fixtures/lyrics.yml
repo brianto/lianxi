@@ -1,17 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  traditional: MyText
-  simplified: MyText
-  pronunciation: MyText
-  dialect: MyString
-  translation: MyText
-  timing: MyString
-
-two:
-  traditional: MyText
-  simplified: MyText
-  pronunciation: MyText
-  dialect: MyString
-  translation: MyText
-  timing: MyString
+empty:
+  traditional: 無
+  simplified: 无
+  pronunciation: wu
+  dialect: mandarin
+  translation: empty
+  timing: 0.00
+  song: Song emtpy

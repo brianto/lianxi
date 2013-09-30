@@ -45,6 +45,11 @@ gem 'unicorn'
 # To use debugger
 # gem 'debugger'
 
+group :test do
+  gem 'turn'
+  gem 'minitest'
+end
+
 group :development do
   gem 'foreman'
 end

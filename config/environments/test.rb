@@ -34,4 +34,6 @@ Lianxi::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  Turn.config.format = :progress
 end

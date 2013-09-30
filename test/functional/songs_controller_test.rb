@@ -1,7 +1,7 @@
 require 'test_helper'
+require 'test/base_controller_test'
 
 class SongsControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  include BaseControllerTest
+
 end

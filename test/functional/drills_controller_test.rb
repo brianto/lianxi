@@ -1,10 +1,8 @@
 require 'test_helper'
+require 'test/base_controller_test'
 
 class DrillsControllerTest < ActionController::TestCase
-  test "can get new" do
-    get :new
-    assert_response :success
-  end
+  include BaseControllerTest
 
   test "create with no data gives error" do
     post :create, :drill => { }
