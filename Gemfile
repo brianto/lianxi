@@ -20,7 +20,7 @@ group :assets do
 end
 
 # CSS
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.0.2'
 
 # Javascript
 gem 'jquery-rails', '~> 2.3.0'

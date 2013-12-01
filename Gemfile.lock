@@ -33,7 +33,7 @@ GEM
     authlogic (3.3.0)
       activerecord (>= 3.2)
       activesupport (>= 3.2)
-    bootstrap-sass (2.3.2.0)
+    bootstrap-sass (3.0.2.1)
       sass (~> 3.2)
     builder (3.0.4)
     coffee-rails (3.2.2)
@@ -135,7 +135,7 @@ PLATFORMS
 
 DEPENDENCIES
   authlogic
-  bootstrap-sass
+  bootstrap-sass (~> 3.0.2)
   coffee-rails (~> 3.2.1)
   foreman
   jquery-cookie-rails
