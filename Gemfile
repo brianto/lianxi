@@ -6,6 +6,7 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+gem 'routing_concerns', '~> 0.1.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,6 +24,7 @@ end
 gem 'bootstrap-sass', '~> 3.0.2'
 
 # Javascript
+gem 'requirejs-rails', '~> 0.9.1'
 gem 'jquery-rails', '~> 2.3.0'
 gem 'jquery-cookie-rails'
 gem 'underscore-rails'

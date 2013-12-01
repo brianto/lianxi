@@ -8,5 +8,5 @@ class Drill < ActiveRecord::Base
 
   attr_accessible :title, :description
 
-  validates :title, :description, :presence => true
+  validates :title, :presence => true
 end

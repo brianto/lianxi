@@ -1,57 +1,42 @@
 class DrillsController < TeachablesController
   before_filter :setup_teachables
-  before_filter :require_login, :only => [:edit, :update, :destroy]
+  before_filter :require_login, :only => [:new, :create, :edit, :update, :destroy]
 
   def setup_teachables
     @model_class = Drill
   end
 
-  def index # GET /drills (drills)
+  def index
     @drills = Drill.find(:all)
-
-    respond_to do |format|
-      format.html
-      format.json { render :json => @drills.to_json }
-    end
   end
 
-  def create # POST /drills
+  def create
     @drill = Drill.new params[:drill]
 
-    respond_to do |format|
-      if @drill.save
-        format.html { redirect_to @drill, :notice => "Drill was successfully created" }
-        format.json { render :json => @drill.to_json, :status => :created, :location => @drill }
-      else
-        @errors = @drill.errors.messages
-
-        format.html { render :action => "new" }
-        format.json { render :json => @drill.errors, :status => :unprocessable_entity }
-      end
+    if @drill.save
+      redirect_to @drill, :notice => "Drill was successfully created"
+    else
+      @errors = @drill.errors.messages
+      render :action => "new"
     end
   end
 
-  def new # GET /drills/new (new_drill) [html only]
+  def new
     @drill = Drill.new
     @errors = Hash.new
   end
 
-  def edit # GET /drills/:id/edit (edit_drill) [html only]
+  def edit
     @drill = Drill.find params[:id]
     @errors = Hash.new
     @debug = self
   end
 
-  def show # GET /drills/:id (drill)
+  def show
     @drill = Drill.find params[:id]
-
-    respond_to do |format|
-      format.html
-      format.json { render :json => @drill.to_json }
-    end
   end
 
-  def update # PUT /drills/:id
+  def update
     @drill = Drill.find params[:id]
 
     updates = params[:drill]
@@ -60,14 +45,14 @@ class DrillsController < TeachablesController
     @drill.description = updates[:description]
 
     if @drill.save then
-      respond_to do |format|
-        format.html { redirect_to drill_path(@drill) }
-        format.json { render :json => @drill.to_json }
-      end
+      redirect_to drill_path(@drill)
+    else
+      @errors = @drill.errors.messages
+      render :action => "edit"
     end
   end
 
-  def destroy # DELETE /drills/:id
+  def destroy
 
   end
 end
