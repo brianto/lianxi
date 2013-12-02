@@ -1,4 +1,4 @@
-<h1><%= title %></h1>
+<h1><%= type.to_s.pluralize.humanize %></h1>
 <ul>
   <% lessons.each do |lesson| %>
     <li><%= link_to lesson.title, polymorphic_url(lesson) %></li>
