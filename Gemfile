@@ -24,7 +24,6 @@ end
 gem 'bootstrap-sass', '~> 3.0.2'
 
 # Javascript
-gem 'requirejs-rails', '~> 0.9.1'
 gem 'jquery-rails', '~> 2.3.0'
 gem 'jquery-cookie-rails'
 gem 'underscore-rails'
