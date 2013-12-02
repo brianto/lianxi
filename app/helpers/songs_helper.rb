@@ -17,10 +17,4 @@ module SongsHelper
       }).strip : match
     end.html_safe
   end
-
-  def render_lyrics(song)
-    render :partial => "lyrics", :locals => {
-      :song => song
-    }
-  end
 end
