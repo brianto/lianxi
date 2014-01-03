@@ -1,58 +1,33 @@
-class CyclicSelector
-  constructor: (choices) ->
-    @choices = choices
-    @keys = _.keys(choices)
-    @index = 0
+CHARSETS =
+  simplified: "Simplified"
+  traditional: "Traditional"
 
-  current: =>
-    data: @keys[@index]
-    text: @choices[@keys[@index]]
+TRANSCRIPTS =
+  pinyin: "Pinyin"
+  jyutping: "Jyutping"
 
-  next: =>
-    @index = (@index + 1) % _.size(@choices)
-    @current()
+cyclicSelector = (store, choices, key) ->
+  keys = _.keys choices
 
-  to: (key) =>
-    if !_.contains(@keys, key)
-      throw "Could not find #{key} in #{@keys}"
+  return ->
+    position = _.indexOf keys, store[key]
+    next = (position + 1) % keys.length
+    store[key] = keys[next]
 
-    @index = _.indexOf(@keys, key)
-    @current()
+sanitizePreferences = (store, choices, key) ->
+  keys = _.keys choices
 
-$(document).ready ->
-  charset = new CyclicSelector
-    simplified: "Simplified"
-    traditional: "Traditional"
+  if not _.contains keys, store[key]
+    store[key] = _.chain(choices).keys().first().value()
 
-  transcript = new CyclicSelector
-    pinyin: "Pinyin"
-    jyutping: "Jyutping"
+window.lianxi.controller 'NavigationController', ($scope, $cookies) ->
+  sanitizePreferences $cookies, CHARSETS, 'charset'
+  sanitizePreferences $cookies, TRANSCRIPTS, 'transcript'
 
-  preferences_handler_for = (selector, key, cycle) ->
-    $(selector).on "click", (event) ->
-      next = cycle.next()
+  $scope.handlers =
+    charset: cyclicSelector $cookies, CHARSETS, 'charset'
+    transcript: cyclicSelector $cookies, TRANSCRIPTS, 'transcript'
 
-      $(this).val(next.data)
-      $(this).text(next.text)
-
-      $.cookie key, next.data, path: "/"
-
-  preferences_default_for = (selector, key, cycle, fallback) ->
-    selector_default = $.cookie(key) || fallback
-
-    cycle.to selector_default
-
-    current = cycle.current()
-
-    $(selector).val(current.data)
-    $(selector).text(current.text)
-
-  preferences_for = (selector, key, cycle, fallback) ->
-    preferences_default_for selector, key, cycle, fallback
-    preferences_handler_for selector, key, cycle
-
-  preferences_for "#pref-charset",
-    "charset", charset, "simplified"
-
-  preferences_for "#pref-transcript",
-    "transcript", transcript, "pinyin"
+  $scope.display =
+    charset: -> CHARSETS[$cookies.charset]
+    transcript: -> TRANSCRIPTS[$cookies.transcript]
