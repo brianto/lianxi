@@ -20,14 +20,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-# CSS
-gem 'bootstrap-sass', '~> 3.0.2'
-
-# Javascript
-gem 'jquery-rails', '~> 2.3.0'
-gem 'jquery-cookie-rails'
-gem 'underscore-rails'
-
 # Authentication
 gem 'authlogic'
 
