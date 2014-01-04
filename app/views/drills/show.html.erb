@@ -1,10 +1,10 @@
 <% content_for :title do %>
-  <%= @drill.title %>
+  <%= @drill[:title] %>
 <% end %>
 
 <div class="page-header">
-  <h1><%= @drill.title %></h1>
-  <em><%= @drill.description %></em>
+  <h1><%= @drill[:title] %></h1>
+  <em><%= @drill[:description] %></em>
 </div>
 
 <div class="row">

@@ -34,6 +34,13 @@ class DrillsController < TeachablesController
 
   def show
     @drill = Drill.find params[:id]
+    respond_to do |format|
+      format.html
+
+      format.json do
+        render :json => @drill.to_json(:include => :flash_cards)
+      end
+    end
   end
 
   def update

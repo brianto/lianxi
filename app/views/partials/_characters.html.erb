@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover">
+<table ng-controller="CharacterGridController" class="table table-bordered table-hover">
   <thead>
     <tr>
       <th>Character</th>
@@ -8,14 +8,11 @@
     </tr>
   </thead>
   <tbody>
-    <% flash_cards.each do |fc| %>
-      <tr>
-        <td><%= link_to fc.send(@charset), polymorphic_url(fc) %></td>
-        <%# <td><%= fc.send @charset %1></td> %>
-        <td><%= fc.send @transcript %></td>
-        <td><%= fc.part_of_speech %></td>
-        <td><%= fc.meaning %></td>
-      </tr>
-    <% end %>
+    <tr ng-repeat="fc in model.flash_cards">
+      <td>{{ display.character(fc) }}</td>
+      <td>{{ display.pronounciation(fc) }}</td>
+      <td>{{ fc.part_of_speech }}</td>
+      <td>{{ fc.meaning }}</td>
+    </tr>
   </tbody>
 </table>

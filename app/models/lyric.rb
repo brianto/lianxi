@@ -1,7 +1,7 @@
 class Lyric < ActiveRecord::Base
   belongs_to :song
 
-  attr_accessible :dialect, :pronunciation,
+  attr_accessor :dialect, :pronunciation,
     :simplified, :timing, :traditional, :translation
 
   def lines
