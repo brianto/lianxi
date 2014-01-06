@@ -27,7 +27,7 @@
       </li>
     </ul>
 
-    <% if @user.nil? or not @user.valid? %>
+    <% if @user.nil? %>
       <%= render :partial => "partials/sign_in" %>
     <% else %>
       <%= render :partial => "partials/sign_out" %>

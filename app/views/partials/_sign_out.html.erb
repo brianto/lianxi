@@ -1,5 +1,7 @@
 <%= form_tag logout_path, :class => "navbar-form pull-right" do %>
-  <%= link_to @user.username, @user %>
+  <div class="form-group">
+    <%= link_to @user[:username], @user, :class => "btn btn-link" %>
+  </div>
 
-  <%= submit_tag "Sign out", :class => "btn" %>
+  <%= submit_tag "Sign out", :class => "btn btn-default" %>
 <% end %>

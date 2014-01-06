@@ -13,10 +13,15 @@ class HomeController < ApplicationController
   # POST /login
   def login
     if params[:commit].eql? "Sign in"
-      @login = Login.new :email => params[:email],
-        :password => params[:password]
+      @login = Login.new :email => params[:email], :password => params[:password]
 
-      flash[:notice] = "Wrong username/password" if not @login.save
+      begin
+        @login.save!
+      rescue Exception => e
+        flash[:notice] = e.to_s
+        raise e
+      end
+
       redirect_to root_path
     elsif params[:commit].eql? "Sign up"
       redirect_to new_user_path
