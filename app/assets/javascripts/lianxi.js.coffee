@@ -1,1 +1,1 @@
-window.lianxi = angular.module 'lianxi', ['ngCookies']
+window.lianxi = angular.module 'lianxi', ['ngCookies', 'ngSanitize']

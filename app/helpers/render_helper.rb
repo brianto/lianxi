@@ -33,4 +33,8 @@ module RenderHelper
       :song => song
     }
   end
+
+  def render_hidden_angular_field(options)
+    render :partial => "partials/form_hidden_angular_field", :locals => options
+  end
 end

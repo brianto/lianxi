@@ -11,18 +11,33 @@ class DrillsController < TeachablesController
   end
 
   def create
-    @drill = Drill.new params[:drill]
+    @drill = Drill.new drill_params
+    @drill.user = @user
 
-    if @drill.save
-      redirect_to @drill, :notice => "Drill was successfully created"
-    else
-      @errors = @drill.errors.messages
-      render :action => "new"
+    @flash_cards = cards_params[:cards].collect do |card_param|
+      FlashCard.new card_param
     end
+
+    Drill.transaction do
+      begin
+        @drill.save!
+        @flash_cards.each &:save!
+
+        @drill.flash_cards = @flash_cards
+        @drill.save!
+      rescue Exception => e
+        @errors = @drill.errors.messages
+        render :action => "new"
+      end
+    end
+
+    redirect_to drill_path(@drill)
   end
 
   def new
     @drill = Drill.new
+    @flash_cards = Array.new
+
     @errors = Hash.new
   end
 
@@ -54,5 +69,16 @@ class DrillsController < TeachablesController
 
   def destroy
 
+  end
+
+  private
+
+  def drill_params
+    params.require(:drill).permit(:title, :description)
+  end
+
+  def cards_params
+    params.permit(:cards => [
+      :simplified, :traditional, :pinyin, :jyutping, :part_of_speech, :meaning])
   end
 end

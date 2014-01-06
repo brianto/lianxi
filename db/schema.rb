@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130904003032) do
+ActiveRecord::Schema.define(version: 20140106170902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(version: 20130904003032) do
   create_table "drills", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title",       null: false
-    t.string   "description", null: false
-    t.integer  "user_id",     null: false
+    t.string   "title"
+    t.string   "description"
+    t.integer  "user_id"
   end
 
   create_table "examples", force: true do |t|
@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(version: 20130904003032) do
     t.datetime "updated_at"
     t.integer  "flash_card_id"
     t.string   "flash_card_type"
-    t.text     "simplified",      null: false
-    t.text     "traditional",     null: false
-    t.text     "pinyin",          null: false
-    t.text     "jyutping",        null: false
+    t.text     "simplified"
+    t.text     "traditional"
+    t.text     "pinyin"
+    t.text     "jyutping"
     t.text     "translation",     null: false
     t.text     "notes"
   end
@@ -40,14 +40,14 @@ ActiveRecord::Schema.define(version: 20130904003032) do
   create_table "flash_cards", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "teachable_id",   null: false
-    t.string   "teachable_type", null: false
-    t.string   "meaning",        null: false
-    t.string   "part_of_speech", null: false
-    t.string   "simplified",     null: false
-    t.string   "traditional",    null: false
-    t.string   "pinyin",         null: false
-    t.string   "jyutping",       null: false
+    t.integer  "teachable_id"
+    t.string   "teachable_type"
+    t.string   "meaning"
+    t.string   "part_of_speech"
+    t.string   "simplified"
+    t.string   "traditional"
+    t.string   "pinyin"
+    t.string   "jyutping"
   end
 
   create_table "lyrics", force: true do |t|
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20130904003032) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
-    t.integer  "user_id",    null: false
+    t.integer  "user_id"
   end
 
   create_table "sessions", force: true do |t|

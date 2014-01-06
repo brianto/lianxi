@@ -1,16 +1,156 @@
 <%= form_for @drill,
   :url => { :action => action },
-  :html => { :class => "form-horizontal" },
+  :html => {
+    "ng-controller" => "NewDrillController",
+    :class => "form-horizontal",
+    :role => "form"
+  },
   :method => method do |form| %>
 
-  <%= render_field form, @errors, :title, :text_field, {
-    :placeholder => "ex. school life"
-  } %>
+  <fieldset>
+    <legend>Drill</legend>
+    <%= render_field form, @errors, :title, :text_field, {
+      :placeholder => "ex. school life",
+      :class => "form-control"
+    } %>
 
-  <%= render_field form, @errors, :description, :text_area, {
-    :rows => 5,
-    :placeholder => "ex. classes, research, dating"
-  } %>
+    <%= render_field form, @errors, :description, :text_field, {
+      :rows => 5,
+      :placeholder => "ex. classes, research, dating",
+      :class => "form-control"
+    } %>
+  </fieldset>
+
+  <%# TODO extract? %>
+  <fieldset>
+    <legend>Flash Cards</legend>
+
+    <!-- hidden form -->
+    <ol hidden>
+      <li ng-repeat="card in cards">
+        <%= render_hidden_angular_field :model => "card.simplified",
+          :name => "cards[][simplified]" %>
+        <%= render_hidden_angular_field :model => "card.traditional",
+          :name => "cards[][traditional]" %>
+        <%= render_hidden_angular_field :model => "card.pinyin",
+          :name => "cards[][pinyin]" %>
+        <%= render_hidden_angular_field :model => "card.jyutping",
+          :name => "cards[][jyutping]" %>
+        <%= render_hidden_angular_field :model => "card.jyutping",
+          :name => "cards[][meaning]" %>
+        <%= render_hidden_angular_field :model => "card.part_of_speech",
+          :name => "cards[][part_of_speech]" %>
+      </li>
+    </ol>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-group form-group">
+          <a
+            ng-click="handlers.card.add()"
+            class="btn btn-success">
+            <span class="glyphicon glyphicon-plus"></span> Add Card
+          </a>
+          <a
+            ng-click="handlers.card.delete()"
+            ng-disabled="!permissions.card.delete()"
+            class="btn btn-danger">
+            <span class="glyphicon glyphicon-remove"></span> Delete Card
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <ul class="list-inline form-group">
+          <li ng-repeat="c in cards">
+            <a
+              class="btn"
+              ng-class="style.picker($index)"
+              ng-click="handlers.card.edit($index)"
+              ng-bind-html="display.card(c)">
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6" ng-disabled="!permissions.card.edit()">
+        <div class="form-group">
+          <label for="card-pinyin" class="control-label col-md-2">Simplified</label>
+          <div class="col-md-10">
+            <input
+              id="card-simplified"
+              ng-model="model.card().simplified"
+              ng-disabled="!permissions.card.edit()"
+              class="form-control col-md-10"
+              type="text"></input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="card-pinyin" class="control-label col-md-2">Traditional</label>
+          <div class="col-md-10">
+            <input
+              id="card-traditional"
+              ng-model="model.card().traditional"
+              ng-disabled="!permissions.card.edit()"
+              class="form-control col-md-10"
+              type="text"></input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="card-pinyin" class="control-label col-md-2">Pinyin</label>
+          <div class="col-md-10">
+            <input
+              id="card-pinyin"
+              ng-model="model.card().pinyin"
+              ng-disabled="!permissions.card.edit()"
+              class="form-control col-md-10"
+              type="text"></input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="card-pinyin" class="control-label col-md-2">Jyutping</label>
+          <div class="col-md-10">
+            <input
+              id="card-jyutping"
+              ng-model="model.card().jyutping"
+              ng-disabled="!permissions.card.edit()"
+              class="form-control col-md-10"
+              type="text"></input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="card-part-of-speech" class="control-label col-md-2">Part of Speech</label>
+          <div class="col-md-10">
+            <input
+              id="card-part-of-speech"
+              ng-list
+              ng-model="model.card().part_of_speech"
+              ng-disabled="!permissions.card.edit()"
+              class="form-control col-md-10"
+              type="text"></input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="card-meaning" class="control-label col-md-2">Meaning</label>
+          <div class="col-md-10">
+            <input
+              id="card-meaning"
+              ng-model="model.card().meaning"
+              ng-disabled="!permissions.card.edit()"
+              class="form-control col-md-10"
+              type="text"></input>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </fieldset>
 
   <%= form.submit :class => "btn btn-primary" %>
 <% end %>

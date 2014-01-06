@@ -1,6 +1,6 @@
-<div class="control-group <%= 'error' unless errors[key].nil? %>">
-  <%= form.label key, key.to_s.humanize, :class => "control-label" %>
-  <div class="controls">
+<div class="form-group <%= 'error' unless errors[key].nil? %>">
+  <%= form.label key, key.to_s.humanize, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
     <%= form.send field, key, options %>
     <% unless errors[key].nil? then %>
       <span class="help-inline"><%= errors[key].first %></span>

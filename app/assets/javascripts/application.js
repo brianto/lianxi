@@ -14,6 +14,7 @@
 //= require bootstrap
 //= require angular
 //= require angular-cookies
+//= require angular-sanitize
 //= require underscore
 //
 //= require lianxi

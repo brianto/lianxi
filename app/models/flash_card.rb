@@ -3,10 +3,6 @@ class FlashCard < ActiveRecord::Base
 
   belongs_to :teachable, :polymorphic => true
 
-  attr_accessor :traditional, :simplified
-  attr_accessor :pinyin, :jyutping
-  attr_accessor :meaning, :part_of_speech
-
   # TODO make a better version of this
   validates :traditional, :simplified, :presence => true
   validates :pinyin, :jyutping, :presence => true
