@@ -4,16 +4,8 @@
 
 # TODO async call for data
 window.lianxi.controller 'CharacterGridController', ($scope, $cookies) ->
-  $.ajax
-    url : window.location.href + '.json'
-    success : (response) ->
-      $scope.$apply ->
-        $scope.model = response
-    error : (jqXHR, status, error) ->
-      console.log error
-
-  $scope.display =
-    character: (fc) ->
-      fc[$cookies.charset]
-    pronounciation: (fc) ->
-      fc[$cookies.transcript]
+  $scope.show =
+    simplified: -> $cookies.charset == 'simplified'
+    traditional: -> $cookies.charset == 'traditional'
+    pinyin: -> $cookies.transcript == 'pinyin'
+    jyutping: -> $cookies.transcript == 'jyutping'

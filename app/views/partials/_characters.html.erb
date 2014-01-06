@@ -8,11 +8,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="fc in model.flash_cards">
-      <td>{{ display.character(fc) }}</td>
-      <td>{{ display.pronounciation(fc) }}</td>
-      <td>{{ fc.part_of_speech }}</td>
-      <td>{{ fc.meaning }}</td>
-    </tr>
+    <% flash_cards.each do |fc| %>
+      <tr>
+        <td ng-show="show.simplified()"><%= fc[:simplified] %></td>
+        <td ng-show="show.traditional()"><%= fc[:traditional] %></td>
+        <td ng-show="show.pinyin()"><%= fc[:pinyin] %></td>
+        <td ng-show="show.jyutping()"><%= fc[:jyutping] %></td>
+        <td><%= fc[:part_of_speech] %></td>
+        <td><%= fc[:meaning] %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>

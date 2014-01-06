@@ -8,3 +8,8 @@ empty:
   title: Empty Drill
   description: userless, cardless
   user: User default
+
+foods:
+  title: Foods
+  description: has a few flash cards
+  user: User default

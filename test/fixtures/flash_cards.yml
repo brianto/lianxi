@@ -3,3 +3,13 @@
 # This model initially had no columns defined.  If you add columns to the
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
+
+# for drill "foods"
+jielan:
+  simplified: 芥兰
+  traditional: 芥蘭
+  pinyin: jiè lán
+  jyutping: gaai3 lan4
+  meaning: Chinese Broccoli, Kale
+  part_of_speech: noun
+  teachable: foods (Drill)

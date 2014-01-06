@@ -3,7 +3,5 @@ class Drill < ActiveRecord::Base
 
   has_many :flash_cards, :as => :teachable
 
-  attr_accessor :title, :description
-
   validates :title, :presence => true
 end
