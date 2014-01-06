@@ -10,23 +10,27 @@
 
   <div id="navbar-content" class="collapse navbar-collapse">
     <ul class="nav navbar-nav navbar-left">
-      <button id="pref-charset"
-        ng-click="handlers.charset()"
-        class="btn btn-link input-small">
-        {{ display.charset() }}
-      </button>
+      <li>
+        <a id="pref-charset"
+          ng-click="handlers.charset()"
+          class="btn btn-link">
+          {{ display.charset() }}
+        </a>
+      </li>
 
-      <button id="pref-transcript"
-        ng-click="handlers.transcript()"
-        class="btn btn-link input-small">
-        {{ display.transcript() }}
-      </button>
+      <li>
+        <a id="pref-transcript"
+          ng-click="handlers.transcript()"
+          class="btn btn-link">
+          {{ display.transcript() }}
+        </a>
+      </li>
     </ul>
 
-      <% if @user.nil? or not @user.valid? %>
-        <%= render :partial => "partials/sign_in" %>
-      <% else %>
-        <%= render :partial => "partials/sign_out" %>
-      <% end %>
+    <% if @user.nil? or not @user.valid? %>
+      <%= render :partial => "partials/sign_in" %>
+    <% else %>
+      <%= render :partial => "partials/sign_out" %>
+    <% end %>
   </div>
 </div>
