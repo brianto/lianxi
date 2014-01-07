@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset ng-controller="NewDrillController">
   <legend>Flash Cards</legend>
 
   <%# Hidden form to populate params[:cards] %>
@@ -42,7 +42,6 @@
       <ul class="list-inline form-group">
         <li ng-repeat="c in cards">
           <a
-            class="btn"
             ng-class="style.picker($index)"
             ng-click="handlers.card.edit($index)"
             ng-bind-html="display.card(c)">

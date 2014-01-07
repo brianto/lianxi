@@ -28,9 +28,13 @@ lianxi.controller 'NewDrillController', ($scope, $cookies) ->
     pronunciation: (card) ->
       card[$cookies.transcript] || card.pinyin || card.jyutping
 
+  # TODO should this really be here?
   $scope.style =
     picker: (index) ->
-      return if $scope.cardIndex == index then 'btn-default' else 'btn-link'
+      return if $scope.cardIndex == index
+        'btn btn-default'
+      else
+        'btn btn-link'
 
   $scope.display =
     card: (card) ->
