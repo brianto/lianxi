@@ -4,17 +4,6 @@ EMPTY_TEMPLATE = '<em>new</em>'
 lianxi.controller 'NewDrillController', ($scope, $cookies) ->
   $scope.cards = []
 
-  $scope.enum =
-    partsOfSpeech: null
-
-  $.ajax
-    url: STATIC.urls.partsOfSpeech
-    success: (response) ->
-      $scope.$apply ->
-        $scope.enum.partOfSpeech = response
-    error: (jqXHR, error, status) ->
-      console.log error, status
-
   $scope.model =
     card: ->
       if _.isEmpty $scope.cards
