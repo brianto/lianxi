@@ -36,8 +36,6 @@ class DrillsController < TeachablesController
 
   def new
     @drill = Drill.new
-    @flash_cards = Array.new
-
     @errors = Hash.new
   end
 
