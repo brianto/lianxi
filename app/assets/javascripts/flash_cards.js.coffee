@@ -1,11 +1,11 @@
 PICKER_TEMPLATE = _.template '<ul class="list-unstyled"><li><%= character %></li><li><em><%= pronunciation %></em></li></ul>'
 EMPTY_TEMPLATE = '<em>new</em>' 
 ACCENT_MAP = _.reduce
-  a: ['ā', 'á', 'à', 'ǎ', 'a']
-  e: ['ē', 'é', 'è', 'ě', 'e']
-  i: ['ī', 'í', 'ì', 'ǐ', 'i']
-  o: ['ī', 'í', 'ì', 'ǐ', 'i']
-  u: ['ū', 'ú', 'ù', 'ǔ', 'u']
+  a: ['ā', 'á', 'ǎ', 'à', 'a']
+  e: ['ē', 'é', 'ě', 'è', 'e']
+  i: ['ī', 'í', 'ǐ', 'ì', 'i']
+  o: ['ō', 'ó', 'ǒ', 'ò', 'o']
+  u: ['ū', 'ú', 'ǔ', 'ù', 'u']
 , (map, variants) ->
   _.each variants, (variant) ->
     map[variant] = variants
@@ -35,12 +35,14 @@ explodeMap = (mappings) ->
 accentedChoices = (original) ->
   matches = original.match ACCENTS_REGEX
 
-  return [] if not matches
+  return [original] if not matches
 
-  vowel = _.last matches
-
-  _.map ACCENT_MAP[vowel], (accentedVowel) ->
-    return original.replace vowel, accentedVowel
+  _.chain(matches)
+  .map (vowel) ->
+    _.map ACCENT_MAP[vowel], (accentedVowel) ->
+      original.replace vowel, accentedVowel
+  .flatten()
+  .value()
 
 $(document).ready ->
   inputs =
@@ -86,10 +88,17 @@ $(document).ready ->
     url: STATIC.urls.hanziMap
   .done (response) ->
     HANZI_MAP = explodeMap response
+    VALID_PINYIN = _.chain(HANZI_MAP)
+    .keys()
+    .filter (key) ->
+      key.match /[a-z]/i
+    .value()
 
-    inputs.simplified.on 'keyup', (event) ->
+    triggerSearchFn = (event) ->
       if event.keyCode == 16
-        inputs.simplified.autocomplete 'search', inputs.simplified.val()
+        $(this).autocomplete 'search', $(this).val()
+
+    inputs.simplified.on 'keyup', triggerSearchFn
     inputs.simplified.autocomplete
       delay: 0
       minLength: 0
@@ -100,6 +109,7 @@ $(document).ready ->
         characterSuggestSource: inputs.traditional
         pinyinSuggestSource: inputs.pinyin
 
+    inputs.traditional.on 'keyup', triggerSearchFn
     inputs.traditional.autocomplete
       delay: 0
       minLength: 0
@@ -110,13 +120,29 @@ $(document).ready ->
         characterSuggestSource: inputs.simplified
         pinyinSuggestSource: inputs.pinyin
 
-    # TODO make suggest function smarter
+    inputs.pinyin.on 'keyup', triggerSearchFn
     inputs.pinyin.autocomplete
       delay: 0
       minLength: 0
-      source: _.chain(HANZI_MAP).keys().filter (key) ->
-        key.match /[a-z]/i
-      .value()
+      source: (request, callbackFn) ->
+        inputs = request.term.trim().split /\s+/
+        workingInput = _.last inputs
+
+        if workingInput.length < 1
+          return callbackFn([])
+
+        inferredInputs = accentedChoices workingInput
+        suggestionRegex = new RegExp '^(' + inferredInputs.join('|') + ')'
+        suggestions = _.chain(VALID_PINYIN)
+        .filter (pinyin) ->
+          pinyin.match suggestionRegex
+        .map (pinyin) ->
+          suggestion = _.clone inputs
+          suggestion[suggestion.length - 1] = pinyin
+          suggestion.join ' '
+        .value()
+
+        callbackFn suggestions
 
 lianxi.controller 'NewDrillController', ($scope, $cookies) ->
   $scope.cards = []
