@@ -147,11 +147,19 @@ $(document).ready ->
 
         callbackFn suggestions
 
+localStorageCardsOrEmpty = ->
+  savedCards = localStorage.getItem 'cards'
+
+  if not savedCards
+    return []
+
+  JSON.parse savedCards
+
 lianxi.controller 'FlashCardFormController', ($scope, $shared, $cookies) ->
   $shared.includeScope $scope
 
   $scope.model =
-    cards: []
+    cards: localStorageCardsOrEmpty()
     card: ->
       if _.isEmpty $scope.model.cards
         return null
@@ -308,3 +316,12 @@ lianxi.controller 'ExampleFormController', ($scope, $shared, $cookies) ->
 lianxi.controller 'FlashCardSubmitController', ($scope, $shared) ->
   $scope.cards = ->
     $shared.model.cards
+
+  sanitize = (jsonString) ->
+    jsonString.replace /,"\$\$hashKey":"[A-Z0-9]{3}"/g, ''
+
+  $scope.$watch ->
+    sanitize JSON.stringify $scope.cards()
+  , (current, previous) ->
+    localStorage.setItem 'cards', current
+
