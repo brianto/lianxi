@@ -1,4 +1,7 @@
-PICKER_TEMPLATE = _.template '<ul class="list-unstyled"><li><%= character %></li><li><em><%= pronunciation %></em></li></ul>'
+CARD_TABLET_TEMPLATE =
+  _.template '<ul class="list-unstyled"><li><%= character %></li><li><em><%= pronunciation %></em></li></ul>'
+EXAMPLE_TABLET_TEMPLATE =
+  _.template '<ul class="list-unstyled"><li><%= character %></li><li><em><%= translation %></em></li></ul>'
 EMPTY_TEMPLATE = '<em>new</em>' 
 ACCENT_MAP = _.reduce
   a: ['ā', 'á', 'ǎ', 'à', 'a']
@@ -144,46 +147,49 @@ $(document).ready ->
 
         callbackFn suggestions
 
-lianxi.controller 'FlashCardFormController', ($scope, $cookies) ->
-  $scope.cards = []
+lianxi.controller 'FlashCardFormController', ($scope, $shared, $cookies) ->
+  $shared.includeScope $scope
 
   $scope.model =
+    cards: []
     card: ->
-      if _.isEmpty $scope.cards
+      if _.isEmpty $scope.model.cards
         return null
 
-      $scope.cards[$scope.cardIndex]
-
-    character: (card) ->
-      card[$cookies.charset] || card.simplified || card.traditional
-
-    pronunciation: (card) ->
-      card[$cookies.transcript] || card.pinyin || card.jyutping
+      $scope.model.cards[$scope.cardIndex]
 
   # TODO should this really be here?
   $scope.style =
-    picker: (index) ->
-      return if $scope.cardIndex == index
-        'btn btn-default'
-      else
-        'btn btn-link'
+    card:
+      picker: (index) ->
+        return if $scope.cardIndex == index
+          'btn btn-default'
+        else
+          'btn btn-link'
 
   $scope.display =
-    card: (card) ->
-      character = $scope.model.character card
-      pronunciation = $scope.model.pronunciation card
+    card:
+      character: (card) ->
+        card[$cookies.charset] || card.simplified || card.traditional
 
-      if character || pronunciation
-        return PICKER_TEMPLATE
-          character: character
-          pronunciation: pronunciation
+      pronunciation: (card) ->
+        card[$cookies.transcript] || card.pinyin || card.jyutping
 
-      EMPTY_TEMPLATE
+      asTablet: (card) ->
+        character = $scope.display.card.character card
+        pronunciation = $scope.display.card.pronunciation card
+
+        if character || pronunciation
+          return CARD_TABLET_TEMPLATE
+            character: character
+            pronunciation: pronunciation
+
+        EMPTY_TEMPLATE
 
   $scope.handlers =
     card:
       add: ->
-        $scope.cards.push
+        $scope.model.cards.push
           simplified: ''
           traditional: ''
           pinyin: ''
@@ -192,18 +198,18 @@ lianxi.controller 'FlashCardFormController', ($scope, $cookies) ->
           meaning: ''
           examples: []
 
-        $scope.cardIndex = $scope.cards.length - 1
+        $scope.cardIndex = $scope.model.cards.length - 1
 
       edit: (index) ->
         $scope.cardIndex = index
-        $scope.card = $scope.cards[index]
+        $scope.card = $scope.model.cards[index]
 
       delete: ->
         index = $scope.cardIndex
 
-        $scope.cards.splice index, 1
+        $scope.model.cards.splice index, 1
 
-        while index >= $scope.cards.length
+        while index >= $scope.model.cards.length
           index--
 
         $scope.cardIndex = index
@@ -214,4 +220,91 @@ lianxi.controller 'FlashCardFormController', ($scope, $cookies) ->
         not _.isNull $scope.model.card()
 
       delete: ->
-        not _.isEmpty $scope.cards
+        not _.isEmpty $scope.model.cards
+
+lianxi.controller 'ExampleFormController', ($scope, $shared, $cookies) ->
+  $scope.model =
+    examples: ->
+      card = $shared.model.card()
+
+      return if card
+        card.examples
+      else
+        []
+
+    example: ->
+      examples = $scope.model.examples()
+
+      return if _.isEmpty examples
+        null
+      else
+        examples[$scope.exampleIndex]
+
+  $scope.style =
+    example:
+      picker: (index) ->
+        return if $scope.exampleIndex == index
+          'btn btn-default'
+        else
+          'btn btn-link'
+
+  $scope.display =
+    example:
+      character: (example) ->
+        example[$cookies.charset] || example.simplified || example.traditional
+
+      pronunciation: (example) ->
+        example[$cookies.transcript] || example.pinyin || example.jyutping
+
+      asTablet: (example) ->
+        character = $scope.display.example.character example
+        translation = example.translation
+
+        if character || translation
+          return EXAMPLE_TABLET_TEMPLATE
+            character: character
+            translation: translation
+
+        EMPTY_TEMPLATE
+
+  $scope.handlers =
+    example:
+      add: ->
+        $scope.model.examples().push
+          simplified: ''
+          traditional: ''
+          pinyin: ''
+          jyutping: ''
+          translation: ''
+
+        $scope.exampleIndex = $scope.model.examples().length - 1
+
+      edit: (index) ->
+        $scope.exampleIndex = index
+        $scope.example = $scope.model.examples()[index]
+
+      delete: ->
+        index = $scope.exampleIndex
+        examples = $scope.model.examples()
+
+        examples.splice index, 1
+
+        while index >= examples.length
+          index--
+
+        $scope.exampleIndex = index
+
+  $scope.permissions =
+    example:
+      add: ->
+        !_.isNull $shared.model.card()
+
+      edit: ->
+        !_.isNull $scope.model.example()
+
+      delete: ->
+        $scope.model.examples().length > 0
+
+lianxi.controller 'FlashCardSubmitController', ($scope, $shared) ->
+  $scope.cards = ->
+    $shared.model.cards

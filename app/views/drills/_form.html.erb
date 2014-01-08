@@ -6,21 +6,24 @@
   },
   :method => method do |form| %>
 
-  <fieldset>
+  <fieldset ng-controller="DrillFormController">
     <legend>Drill</legend>
     <%= render_field form, @errors, :title, :text_field, {
-      :placeholder => "ex. school life",
-      :class => "form-control"
+      :class => "form-control",
+      "ng-model" => "model.drill.title",
     } %>
 
     <%= render_field form, @errors, :description, :text_field, {
-      :rows => 5,
-      :placeholder => "ex. classes, research, dating",
-      :class => "form-control"
+      :class => "form-control",
+      "ng-model" => "model.drill.description",
     } %>
+
+    <%= render :partial => "flash_cards/form" %>
+
+    <div class="row">
+      <%= form.submit :class => "btn btn-primary",
+        "ng-disabled" => "!permissions.drill.create()" %>
+    </div>
   </fieldset>
 
-  <%= render :partial => "flash_cards/form" %>
-
-  <%= form.submit :class => "btn btn-primary" %>
 <% end %>

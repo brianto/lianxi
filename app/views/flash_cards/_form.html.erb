@@ -1,23 +1,37 @@
+<%# Hidden form to populate params[:cards] %>
+<ol hidden ng-controller="FlashCardSubmitController">
+  <li ng-repeat="card in cards()">
+    <%= render_hidden_angular_field :model => "card.simplified",
+      :name => "cards[][simplified]" %>
+    <%= render_hidden_angular_field :model => "card.traditional",
+      :name => "cards[][traditional]" %>
+    <%= render_hidden_angular_field :model => "card.pinyin",
+      :name => "cards[][pinyin]" %>
+    <%= render_hidden_angular_field :model => "card.jyutping",
+      :name => "cards[][jyutping]" %>
+    <%= render_hidden_angular_field :model => "card.jyutping",
+      :name => "cards[][meaning]" %>
+    <%= render_hidden_angular_field :model => "card.part_of_speech",
+      :name => "cards[][part_of_speech]" %>
+    <ol>
+      <li ng-repeat="example in card.examples">
+        <%= render_hidden_angular_field :model => "example.simplified",
+          :name => "cards[][examples][][simplified]" %>
+        <%= render_hidden_angular_field :model => "example.traditional",
+          :name => "cards[][examples][][traditional]" %>
+        <%= render_hidden_angular_field :model => "example.pinyin",
+          :name => "cards[][examples][][pinyin]" %>
+        <%= render_hidden_angular_field :model => "example.jyutping",
+          :name => "cards[][examples][][jyutping]" %>
+        <%= render_hidden_angular_field :model => "example.translation",
+          :name => "cards[][examples][][translation]" %>
+      </li>
+    </ol>
+  </li>
+</ol>
+
 <fieldset ng-controller="FlashCardFormController">
   <legend>Flash Cards</legend>
-
-  <%# Hidden form to populate params[:cards] %>
-  <ol hidden>
-    <li ng-repeat="card in cards">
-      <%= render_hidden_angular_field :model => "card.simplified",
-        :name => "cards[][simplified]" %>
-      <%= render_hidden_angular_field :model => "card.traditional",
-        :name => "cards[][traditional]" %>
-      <%= render_hidden_angular_field :model => "card.pinyin",
-        :name => "cards[][pinyin]" %>
-      <%= render_hidden_angular_field :model => "card.jyutping",
-        :name => "cards[][jyutping]" %>
-      <%= render_hidden_angular_field :model => "card.jyutping",
-        :name => "cards[][meaning]" %>
-      <%= render_hidden_angular_field :model => "card.part_of_speech",
-        :name => "cards[][part_of_speech]" %>
-    </li>
-  </ol>
 
   <div class="row">
     <div class="col-md-12">
@@ -38,20 +52,20 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <ul class="list-inline form-group">
-        <li ng-repeat="c in cards">
+        <li ng-repeat="c in model.cards">
           <a
-            ng-class="style.picker($index)"
+            ng-class="style.card.picker($index)"
             ng-click="handlers.card.edit($index)"
-            ng-bind-html="display.card(c)">
+            ng-bind-html="display.card.asTablet(c)">
           </a>
         </li>
       </ul>
     </div>
-    <div class="col-md-6" ng-disabled="!permissions.card.edit()">
+    <div class="col-md-8">
       <div class="form-group">
-        <label for="card-pinyin" class="control-label col-md-2">Simplified</label>
+        <label for="card-simplified" class="control-label col-md-2">Simplified</label>
         <div class="col-md-4">
           <input
             id="card-simplified"
@@ -61,7 +75,7 @@
             type="text"></input>
         </div>
 
-        <label for="card-pinyin" class="control-label col-md-2">Traditional</label>
+        <label for="card-traditional" class="control-label col-md-2">Traditional</label>
         <div class="col-md-4">
           <input
             id="card-traditional"
@@ -83,7 +97,7 @@
             type="text"></input>
         </div>
 
-        <label for="card-pinyin" class="control-label col-md-2">Jyutping</label>
+        <label for="card-jyutping" class="control-label col-md-2">Jyutping</label>
         <div class="col-md-4">
           <input
             id="card-jyutping"
@@ -117,7 +131,107 @@
             type="text"></input>
         </div>
       </div>
-
     </div>
+
+  </div>
+</fieldset>
+
+<fieldset ng-controller="ExampleFormController">
+  <legend>Examples</legend>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group form-group">
+        <a
+          ng-click="handlers.example.add()"
+          ng-disabled="!permissions.example.add()"
+          class="btn btn-success">
+          <span class="glyphicon glyphicon-plus"></span> Add Example
+        </a>
+        <a
+          ng-click="handlers.example.delete()"
+          ng-disabled="!permissions.example.delete()"
+          class="btn btn-danger">
+          <span class="glyphicon glyphicon-remove"></span> Delete Example
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <ul class="list-inline form-group">
+        <li ng-repeat="e in model.examples()">
+          <a
+            ng-class="style.example.picker($index)"
+            ng-click="handlers.example.edit($index)"
+            ng-bind-html="display.example.asTablet(e)">
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-8">
+      <div class="form-group">
+        <label for="example-simplified" class="control-label col-md-2">Simplified</label>
+        <div class="col-md-10">
+          <input
+            id="example-simplified"
+            ng-model="model.example().simplified"
+            ng-disabled="!permissions.example.edit()"
+            class="form-control col-md-10"
+            type="text"></input>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="example-pinyin" class="control-label col-md-2">Traditional</label>
+        <div class="col-md-10">
+          <input
+            id="example-traditional"
+            ng-model="model.example().traditional"
+            ng-disabled="!permissions.example.edit()"
+            class="form-control col-md-10"
+            type="text"></input>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="example-jyutping" class="control-label col-md-2">Pinyin</label>
+        <div class="col-md-10">
+          <input
+            id="example-pinyin"
+            ng-model="model.example().pinyin"
+            ng-disabled="!permissions.example.edit()"
+            class="form-control col-md-10"
+            type="text"></input>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="example-jyutping" class="control-label col-md-2">Jyutping</label>
+        <div class="col-md-10">
+          <input
+            id="example-jyutping"
+            ng-model="model.example().jyutping"
+            ng-disabled="!permissions.example.edit()"
+            class="form-control col-md-10"
+            type="text"></input>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="example-translation" class="control-label col-md-2">Translation</label>
+        <div class="col-md-10">
+          <input
+            id="example-translation"
+            ng-model="model.example().translation"
+            ng-disabled="!permissions.example.edit()"
+            class="form-control col-md-10"
+            type="text"></input>
+        </div>
+      </div>
+    </div>
+
   </div>
 </fieldset>
