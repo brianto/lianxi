@@ -129,7 +129,7 @@ $(document).ready ->
         workingInput = _.last inputs
 
         if workingInput.length < 1
-          return callbackFn([])
+          return callbackFn []
 
         inferredInputs = accentedChoices workingInput
         suggestionRegex = new RegExp '^(' + inferredInputs.join('|') + ')'
@@ -144,7 +144,7 @@ $(document).ready ->
 
         callbackFn suggestions
 
-lianxi.controller 'NewDrillController', ($scope, $cookies) ->
+lianxi.controller 'FlashCardFormController', ($scope, $cookies) ->
   $scope.cards = []
 
   $scope.model =
