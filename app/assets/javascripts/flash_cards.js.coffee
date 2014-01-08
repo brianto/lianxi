@@ -225,7 +225,7 @@ lianxi.controller 'FlashCardFormController', ($scope, $shared, $cookies) ->
   $scope.permissions =
     card:
       edit: ->
-        not _.isNull $scope.model.card()
+        $scope.model.card()
 
       delete: ->
         not _.isEmpty $scope.model.cards
@@ -304,11 +304,8 @@ lianxi.controller 'ExampleFormController', ($scope, $shared, $cookies) ->
 
   $scope.permissions =
     example:
-      add: ->
-        !_.isNull $shared.model.card()
-
       edit: ->
-        !_.isNull $scope.model.example()
+        $scope.model.example()
 
       delete: ->
         $scope.model.examples().length > 0
