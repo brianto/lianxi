@@ -1,6 +1,8 @@
 <%# Hidden form to populate params[:cards] %>
 <ol hidden ng-controller="FlashCardSubmitController">
   <li ng-repeat="card in cards()">
+    <%= render_hidden_angular_field :model => "card.id",
+      :name => "cards[][id]" %>
     <%= render_hidden_angular_field :model => "card.simplified",
       :name => "cards[][simplified]" %>
     <%= render_hidden_angular_field :model => "card.traditional",
@@ -9,7 +11,7 @@
       :name => "cards[][pinyin]" %>
     <%= render_hidden_angular_field :model => "card.jyutping",
       :name => "cards[][jyutping]" %>
-    <%= render_hidden_angular_field :model => "card.jyutping",
+    <%= render_hidden_angular_field :model => "card.meaning",
       :name => "cards[][meaning]" %>
     <%= render_hidden_angular_field :model => "card.part_of_speech",
       :name => "cards[][part_of_speech]" %>

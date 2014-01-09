@@ -60,16 +60,51 @@ class DrillsController < TeachablesController
   def update
     @drill = Drill.find params[:id]
 
-    updates = params[:drill]
+    @drill.update drill_params
 
-    @drill.title = updates[:title]
-    @drill.description = updates[:description]
+    @cards = cards_params[:cards]
+    @delta = {
+      :added => Array.new,
+      :modified => Array.new,
+      :deleted => Array.new
+    }
 
-    if @drill.save then
-      redirect_to drill_path(@drill)
-    else
-      @errors = @drill.errors.messages
-      render :action => "edit"
+    @cards.each do |card|
+      if card[:id].eql? '' # new card
+        @card = FlashCard.new card
+        @card.teachable = @drill
+        @delta[:added] << @card
+      else # existing card
+        @card = FlashCard.find card[:id]
+        @card.update card
+        @delta[:modified] << @card
+      end
+    end
+
+    idsAfterSave = @cards.inject(Array.new) do |result, card|
+      result << card[:id].to_i unless card[:id].eql? ''
+      result
+    end
+
+    idsBeforeSave = @drill.flash_cards.collect do |card|
+      card.id
+    end
+
+    deletedCardIds = idsBeforeSave - idsAfterSave
+    @delta[:deleted] = FlashCard.find deletedCardIds
+
+    Drill.transaction do
+      begin
+        @drill.save!
+        @delta[:added].each &:save!
+        @delta[:modified].each &:save!
+        @delta[:deleted].each &:destroy!
+
+        redirect_to drill_path(@drill)
+      rescue
+        @errors = @drill.errors.messages
+        render :action => "edit"
+      end
     end
   end
 
