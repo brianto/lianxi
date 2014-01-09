@@ -47,6 +47,14 @@ class DrillsController < TeachablesController
 
   def show
     @drill = Drill.find params[:id]
+
+    respond_to do |format|
+      format.html
+      format.json do
+        data = { :drill => @drill, :cards => @drill.flash_cards.as_json(:include => :examples) }
+        render :json => data.to_json
+      end
+    end
   end
 
   def update
@@ -76,7 +84,8 @@ class DrillsController < TeachablesController
   end
 
   def cards_params
-    params.permit(:cards => [
-      :simplified, :traditional, :pinyin, :jyutping, :part_of_speech, :meaning])
+    params.permit :cards => [
+      :simplified, :traditional, :pinyin, :jyutping, :part_of_speech, :meaning, :id, :examples => [
+        :simplified, :traditional, :pinyin, :jyutping, :translation, :id ]]
   end
 end

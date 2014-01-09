@@ -5,7 +5,7 @@ window.STATIC =
     hanziMap: '/hanzimap.json'
 
 lianxi.service '$shared', ->
-  SHARED_KEYS = [ 'model', 'display', 'permissions' ]
+  SHARED_KEYS = [ 'loaders', 'model', 'display', 'permissions' ]
 
   scopes = []
   api = {}

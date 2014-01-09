@@ -23,7 +23,7 @@ explodeMap = (mappings) ->
 
     _.each mappingKeys, (key) ->
       _.each mapping[key], (lookupIndex) ->
-        if !_.has mergedMap, lookupIndex
+        if not _.has mergedMap, lookupIndex
           mergedMap[lookupIndex] =
             hanzi: []
             pinyin: []
@@ -38,7 +38,8 @@ explodeMap = (mappings) ->
 accentedChoices = (original) ->
   matches = original.match ACCENTS_REGEX
 
-  return [original] if not matches
+  if not matches
+    return [original]
 
   _.chain(matches)
   .map (vowel) ->
@@ -59,7 +60,7 @@ $(document).ready ->
       charSuggestSource = options.characterSuggestSource.val()
       pinyinSuggestSource = options.pinyinSuggestSource.val()
 
-      if !_.isEmpty(charSuggestSource) && input.length < charSuggestSource.length
+      if not _.isEmpty(charSuggestSource) && input.length < charSuggestSource.length
         lookupChar = charSuggestSource.charAt input.length
         suggestion = options.hanziMap[lookupChar]
 
@@ -67,7 +68,7 @@ $(document).ready ->
           return callbackFn _.map suggestion.hanzi, (nextHanzi) ->
             input + nextHanzi
 
-      if !_.isEmpty(pinyinSuggestSource)
+      if not _.isEmpty(pinyinSuggestSource)
         pinyin = pinyinSuggestSource.split /\s+/
 
         if input.length < pinyin.length
@@ -147,11 +148,11 @@ $(document).ready ->
 
         callbackFn suggestions
 
-localStorageCardsOrEmpty = ->
+localStorageCards = ->
   savedCards = localStorage.getItem 'cards'
 
   if not savedCards
-    return []
+    return null
 
   JSON.parse savedCards
 
@@ -159,7 +160,7 @@ lianxi.controller 'FlashCardFormController', ($scope, $shared, $cookies) ->
   $shared.includeScope $scope
 
   $scope.model =
-    cards: localStorageCardsOrEmpty()
+    cards: localStorageCards() || []
     card: ->
       if _.isEmpty $scope.model.cards
         return null
@@ -304,6 +305,9 @@ lianxi.controller 'ExampleFormController', ($scope, $shared, $cookies) ->
 
   $scope.permissions =
     example:
+      add: ->
+        $shared.model.card()
+
       edit: ->
         $scope.model.example()
 
