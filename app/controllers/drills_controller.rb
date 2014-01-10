@@ -14,17 +14,40 @@ class DrillsController < TeachablesController
     @drill = Drill.new drill_params
     @drill.user = @user
 
+    @examples = Array.new
     @flash_cards = cards_params[:cards].collect do |card_param|
-      FlashCard.new card_param
+      fc = FlashCard.new do |fc|
+        fc.simplified = card_param[:simplified]
+        fc.traditional = card_param[:traditional]
+        fc.pinyin = card_param[:pinyin]
+        fc.jyutping = card_param[:jyutping]
+        fc.part_of_speech = card_param[:part_of_speech]
+        fc.meaning = card_param[:meaning]
+      end
+
+      @drill.flash_cards << fc
+
+      @examples += card_param[:examples].collect do |example_param|
+        ex = Example.new do |ex|
+          ex.simplified = example_param[:simplified]
+          ex.traditional = example_param[:traditional]
+          ex.pinyin = example_param[:pinyin]
+          ex.jyutping = example_param[:jyutping]
+          ex.translation = example_param[:translation]
+        end
+
+        fc.examples << ex
+        ex
+      end
+
+      fc
     end
 
     Drill.transaction do
       begin
         @drill.save!
         @flash_cards.each &:save!
-
-        @drill.flash_cards = @flash_cards
-        @drill.save!
+        @examples.each &:save!
       rescue Exception => e
         @errors = @drill.errors.messages
         render :action => "new"
@@ -69,6 +92,7 @@ class DrillsController < TeachablesController
       :deleted => Array.new
     }
 
+    # TODO refactor save added/modified/deleted for handling examples as well
     @cards.each do |card|
       if card[:id].eql? '' # new card
         @card = FlashCard.new card
