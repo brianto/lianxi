@@ -1,0 +1,12 @@
+ul.list-example {
+  padding-left: 0;
+  list-style: none;
+
+  li {
+    &:first-child {
+      padding-left: 0;
+    }
+
+    padding-left: 12px;
+  }
+}

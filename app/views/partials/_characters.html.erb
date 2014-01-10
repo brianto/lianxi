@@ -9,13 +9,40 @@
   </thead>
   <tbody>
     <% flash_cards.each do |fc| %>
-      <tr>
-        <td ng-show="show.simplified()"><%= fc[:simplified] %></td>
-        <td ng-show="show.traditional()"><%= fc[:traditional] %></td>
-        <td ng-show="show.pinyin()"><%= fc[:pinyin] %></td>
-        <td ng-show="show.jyutping()"><%= fc[:jyutping] %></td>
+      <tr class="flash-card-row">
+        <td>
+          <span ng-show="show.simplified()"><%= fc[:simplified] %></span>
+          <span ng-show="show.traditional()"><%= fc[:traditional] %></span>
+        </td>
+        <td>
+          <span ng-show="show.pinyin()"><%= fc[:pinyin] %></span>
+          <span ng-show="show.jyutping()"><%= fc[:jyutping] %></span>
+        </td>
         <td><%= fc[:part_of_speech] %></td>
         <td><%= fc[:meaning] %></td>
+      </tr>
+      <tr class="examples-row">
+        <td colspan="4">
+          <% if fc.examples.empty? %>
+            <p class="text-center text-info">no examples exist for this flash card</p>
+          <% else %>
+            <% fc.examples.each do |ex| %>
+              <div>
+                <ul class="list-example">
+                  <li>
+                    <strong ng-show="show.simplified()"><%= ex[:simplified] %></strong>
+                    <strong ng-show="show.traditional()"><%= ex[:traditional] %></strong>
+                  </li>
+                  <li>
+                    <em ng-show="show.pinyin()"><%= ex[:pinyin] %></em>
+                    <em ng-show="show.jyutping()"><%= ex[:jyutping] %></em>
+                  </li>
+                  <li><%= ex[:translation] %></li>
+                </ul>
+              </div>
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
