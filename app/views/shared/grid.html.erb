@@ -1,33 +1,36 @@
-<div class="grid">
+<div class="grid" ng-controller="CharacterGridController">
   <% @words.each do |word| %>
-    <div class="word">
-      <p class="definition"><%= word[:meaning] %></p>
+    <div class="grid-word">
+      <h1 class="grid-meaning"><%= word[:meaning] %></h1>
 
-      <% word[:characters].each do |character| %>
-        <div class="character">
-          <div class="guide-vcenter">
-            <div class="guide">
-              <ruby>
-                <%= character[:hanzi] %>
-                <rt><%= character[:pronounciation] %></rt>
-              </ruby>
-            </div>
+      <% word[:characters].each do |char| %>
+        <div class="grid-row">
+          <div class="grid-guide">
+            <p class="text-center grid-pronunciation">
+              <span ng-show="show.pinyin()"><%= char[:pinyin] %></span>
+              <span ng-show="show.jyutping()"><%= char[:jyutping] %></span>
+            </p>
+            <p class="text-center grid-character">
+              <span ng-show="show.simplified()"><%= char[:simplified] %></span>
+              <span ng-show="show.traditional()"><%= char[:traditional] %></span>
+            </p>
           </div>
 
-          <div class="square sample">
-            <%= character[:hanzi] %>
-            <div class="cross rise"></div>
-            <div class="cross fall"></div>
-            <div class="cross horizontal"></div>
-            <div class="cross vertical"></div>
+          <div class="grid-sample">
+            <div class="grid-decoration grid-horiz"></div>
+            <div class="grid-decoration grid-vert"></div>
+            <div class="grid-decoration grid-rise"></div>
+            <div class="grid-decoration grid-fall"></div>
+            <span ng-show="show.simplified()"><%= char[:simplified] %></span>
+            <span ng-show="show.traditional()"><%= char[:traditional] %></span>
           </div>
 
-          <% 50.times do %>
-            <div class="square empty">
-              <div class="cross rise"></div>
-              <div class="cross fall"></div>
-              <div class="cross horizontal"></div>
-              <div class="cross vertical"></div>
+          <% 20.times do %>
+            <div class="grid-square">
+              <div class="grid-decoration grid-horiz"></div>
+              <div class="grid-decoration grid-vert"></div>
+              <div class="grid-decoration grid-rise"></div>
+              <div class="grid-decoration grid-fall"></div>
             </div>
           <% end %>
         </div>

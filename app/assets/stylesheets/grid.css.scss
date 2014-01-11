@@ -1,124 +1,129 @@
-@mixin floater {
+@mixin skewy($angle) {
+  -moz-transform: skewy($angle);
+  -o-transform: skewy($angle);
+  -webkit-transform: skewy($angle);
+  transform: skewy($angle);
+}
+
+$margin: 3px;
+$border-size: 2px;
+$border-color: gray;
+$muted-color: LightGray;
+$ruby-size: 14px;
+$font-size: 92px;
+$size: 1.1 * $font-size;
+$side-length: $size + 2 * $border-size;
+
+.grid-guide,
+.grid-sample,
+.grid-square {
   display: inline-block;
   position: relative;
   float: left;
+  margin: {
+    right: $margin;
+    bottom: $margin;
+  }
 }
 
-// Configured Values
-$length: 36px;
-$margin: 3px;
-$border: 2px;
-$lines: 2;
-$scale: 0.4;
-$boxline: gray;
+.grid-row,
+.grid-word,
+.grid-meaning,
+.grid-pronunciation,
+.grid-character {
+  width: 100%;
+}
 
-// Derived Values
-$guideline: lighten($boxline, 20%);
-$height-total: $lines * ($length + 2 * ($margin + $border));
-$height-marginless: $height-total - 2 * ($margin + $border);
+.grid-word {
+  page-break-inside: avoid;
+}
 
-body#songs,
-body#drills,
-body#passages {
-  .grid {
-    width: 7.5in;
-    margin: 0.25in;
+.grid-row {
+  height: $side-length;
+  margin-bottom: $margin;
+  overflow: hidden;
+}
 
-    .word {
-      @include floater;
-      width: 100%;
-      page-break-inside: avoid;
+.grid-guide {
+  height: 100%;
+  width: $side-length / 2;
+}
 
-      .character {
-        @include floater;
+.grid-pronunciation,
+.grid-character {
+  margin: 0;
+}
 
-        overflow: hidden;
-        height: $height-total;
+.grid-pronunciation {
+  margin-top: ($size * (1 - 1.1 / 2) - 14 * 1.1) / 2;
+  font-size: $ruby-size;
+}
 
-        .guide {
-          display: table-cell;
-          vertical-align: middle;
-          text-align: center;
+.grid-character {
+  font-size: $font-size / 2;
+}
 
-          ruby {
-            font-size: $length * $scale * $lines;
-          }
-        }
+.grid {
+  @extend center-block;
 
-        .guide-vcenter {
-          @include floater;
+  font-family: sans-serif, DFKai-SB, STKaiti;
 
-          height: 100%;
-          width: 2 * $length;
-          margin: $margin;
-          display: table;
-        }
+  width: 7.5in;
+  margin: 0.25in;
+}
 
-        .square {
-          @include floater;
+.grid-square {
+  height: ($side-length - $margin) / 2;
+  width: ($side-length - $margin) / 2;
+  border: $border-size solid $border-color;
+}
 
-          line-height: 100%;
-          margin: $margin;
+.grid-sample {
+  height: $side-length;
+  width: $side-length;
 
-          border: 2px solid $boxline;
+  text-align: center;
 
-          .cross {
-            position: absolute;
-            background-color: $guideline;
+  border: $border-size solid $border-color;
+  color: $muted-color;
 
-            top: 0;
-            left: 0;
-            height: 1px;
-            width: 1px;
-          }
+  font-size: $font-size;
+  line-height: $side-length;
+}
 
-          .rise {
-            width: 100%;
-            top: 50%;
-
-            -o-transform: skewy(-45deg);
-            -moz-transform: skewy(-45deg);
-            -ms-transform: skewy(-45deg);
-            -webkit-transform: skewy(-45deg);
-            transform: skewy(-45deg);
-          }
-
-          .fall {
-            width: 100%;
-            top: 50%;
-
-            -o-transform: skewy(45deg);
-            -moz-transform: skewy(45deg);
-            -ms-transform: skewy(45deg);
-            -webkit-transform: skewy(45deg);
-            transform: skewy(45deg);
-          }
-
-          .horizontal {
-            width: 100%;
-            top: 50%;
-          }
-
-          .vertical {
-            left: 50%;
-            height: 100%;
-          }
-        }
-
-        .sample {
-          font-size: $height-marginless;
-          color: $boxline;
-        }
-
-        .empty {
-          @include floater;
-
-          width: $length;
-          height: $length;
-          border: 2px solid $boxline;
-          margin: $margin;
-        }
-      }
-    }
+@media print {
+  .grid-sample span {
+    // fuck you bootstrap
+    color: $muted-color !important;
   }
+}
+
+.grid-decoration {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid $muted-color;
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+}
+
+.grid-horiz {
+  width: 100%;
+  top: 50%;
+}
+
+.grid-vert {
+  height: 100%;
+  left: 50%;
+}
+
+.grid-rise {
+  @extend .grid-horiz;
+  @include skewy(-45deg);
+}
+
+.grid-fall {
+  @extend .grid-horiz;
+  @include skewy(45deg);
 }
