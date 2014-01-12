@@ -3,8 +3,6 @@ class User < ActiveRecord::Base
   has_many :passages
   has_many :songs
 
-  attr_accessor :username, :email, :password, :password_confirmation
-
   acts_as_authentic do |auth|
     auth.login_field = :email
   end

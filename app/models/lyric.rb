@@ -1,9 +1,6 @@
 class Lyric < ActiveRecord::Base
   belongs_to :song
 
-  attr_accessor :dialect, :pronunciation,
-    :simplified, :timing, :traditional, :translation
-
   def lines
     [ timing.split("\n"),
       simplified.split("\n"),

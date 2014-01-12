@@ -5,5 +5,5 @@
 # below each fixture, per the syntax in the comments below
 
 empty:
-  title: No Passage
+  title: Empty Passage
   user: User default
