@@ -1,135 +1,53 @@
-index = 0
-cards = null
+lianxi.controller 'QuizController', ($scope, $cookies) ->
+  $scope.model =
+    cards: null
+    card: ->
+      cards = $scope.model.cards
 
-CHARSET = ["simplified", "traditional"]
-TRANSCRIPT = ["pinyin", "zhuyin", "jyutping"]
+      return if _.isEmpty $scope.model.cards
+        null 
+      else
+        $scope.model.cards[$scope.cardIndex]
 
-cleanPreferences = (choices, key, fallback) ->
-  pref = $.cookie key
+    examples: ->
+      card = $scope.model.card()
 
-  if _.contains choices, pref
-    return pref
+      return if not card
+        []
+      else
+        card.examples
 
-  return fallback
+    example: ->
+      examples = $scope.model.examples()
 
-importSettings = ->
-  settings =
-    character: $.cookie "character-enabled"
-    pronunciation: $.cookie "pronunciation-enabled"
-    partOfSpeech: $.cookie "part-of-speech-enabled"
-    meaning: $.cookie "meaning-enabled"
+      return if _.isEmpty examples
+        null
+      else
+        examples[$scope.exampleIndex]
 
-  _.each settings, (setting, key) ->
-    if _.isNull setting
-      settings[key] = true
-    else
-      settings[key] = setting == "true"
-
-  return settings
-
-exportSettings = (settings) ->
-  $.cookie "character-enabled", String(settings.character), path: "/"
-  $.cookie "pronunciation-enabled", String(settings.pronunciation), path: "/"
-  $.cookie "part-of-speech-enabled", String(settings.partOfSpeech), path: "/"
-  $.cookie "meaning-enabled", String(settings.meaning), path: "/"
-
-$(document).ready ->
-  # Only apply for quiz actions
-  return unless $("body.quiz").length
-
-  preferences =
-    charset: cleanPreferences CHARSET, "charset", "simplified"
-    transcript: cleanPreferences TRANSCRIPT, "transcript", "pinyin"
-
-  settings = importSettings()
-
-  controls =
-    settings:
-      pronunciation: $("#settings #pronunciation-enabled")
-      character: $("#settings #character-enabled")
-      partOfSpeech: $("#settings #part-of-speech-enabled")
-      meaning: $("#settings #meaning-enabled")
-
-    flashCard:
-      pronunciation: $("#flash-card #pronunciation")
-      character: $("#flash-card #character")
-      partOfSpeech: $("#flash-card #part-of-speech")
-      meaning: $("#flash-card #meaning")
-
-    actions:
-      know: $("#actions #know")
-      goBack: $("#actions #go-back")
-      goForward: $("#actions #go-forward")
-      dontKnow: $("#actions #dont-know")
-
-  # Refreshes setting controls' state based on current values
-  refreshControls = ->
-    s = controls.settings
-
-    s.pronunciation.toggleClass "active", settings.pronunciation
-    s.character.toggleClass "active", settings.character
-    s.partOfSpeech.toggleClass "active", settings.partOfSpeech
-    s.meaning.toggleClass "active", settings.meaning
-
-  # Refreshes flash card div based on current card and preferences
-  refreshFlashCard = ->
-    card = cards[index]
-    fc = controls.flashCard
-
-    fc.pronunciation.text card[preferences.transcript]
-    fc.character.text card[preferences.charset]
-    fc.partOfSpeech.text card["part_of_speech"]
-    fc.meaning.text card.meaning
-
-    _.each fc, (display) ->
-      display.css "visibility", "hidden"
-
-    if settings.pronunciation
-      fc.pronunciation.css "visibility", "visible"
-
-    if settings.character
-      fc.character.css "visibility", "visible"
-
-    if settings.partOfSpeech
-      fc.partOfSpeech.css "visibility", "visible"
-
-    if settings.meaning
-      fc.meaning.css "visibility", "visible"
-
-  # Adjusts settings value based on controls, saves, and refreshes flash card
-  changePreferences = (setting) ->
-    _.defer (event) =>
-      settings[setting] = $(this).hasClass("active")
-      exportSettings(settings)
-      refreshFlashCard()
-
-  ### Listeners ###
-  controls.settings.character.on "click",
-    _.partial(changePreferences, "character")
-
-  controls.settings.pronunciation.on "click",
-    _.partial(changePreferences, "pronunciation")
-
-  controls.settings.partOfSpeech.on "click",
-    _.partial(changePreferences, "partOfSpeech")
-
-  controls.settings.meaning.on "click",
-    _.partial(changePreferences, "meaning")
-
-  controls.actions.goForward.on "click", ->
-    index = (index + 1) % cards.length
-    refreshFlashCard()
-
-  controls.actions.goBack.on "click", ->
-    index = (index + cards.length - 1) % cards.length
-    refreshFlashCard()
-
-  # TODO handlers for know and don't know
+  $scope.show =
+    simplified: -> $cookies.charset == 'simplified'
+    traditional: -> $cookies.charset == 'traditional'
+    pinyin: -> $cookies.transcript == 'pinyin'
+    jyutping: -> $cookies.transcript == 'jyutping'
 
   $.ajax
-    url: window.location.pathname.replace "quiz", "flash_cards.json"
-    success: (response, status, jqXHR) ->
-      if response.length
-        cards = _.shuffle response
-        refreshControls()
-        refreshFlashCard()
+    url: globals.jsonUrl
+  .done (response) ->
+    cards = response.cards
+
+    if not _.isEmpty cards
+      $scope.$apply ->
+        $scope.model.cards = response.cards
+        $scope.cardIndex = 0
+        $scope.exampleIndex = 0
+      
+  .fail (jqXHR, status, error) ->
+    debugger
+
+$(document).ready ->
+  $('.quiz-config').hide()
+
+  $('button').click ->
+    $('.quiz-display').toggle()
+    $('.quiz-config').toggle()

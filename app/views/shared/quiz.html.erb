@@ -6,67 +6,159 @@
   <h1><%= @teachable.title %></h1>
 </div>
 
-<div class="row">
-  <div id="settings" class="span5">
-    <div class="btn-group btn-group-vertical btn-block">
-      <button
-        id="pronunciation-enabled"
-        class="btn btn-large btn-block"
-        data-toggle="button">
-        Pronunciation
+<script>
+  globals.jsonUrl = '<%= polymorphic_url(@teachable, { :format => :json }) %>';
+</script>
+
+<div class="center-block quiz" ng-controller="QuizController">
+  <div class="btn-toolbar quiz-toolbar" role="toolbar">
+    <div class="btn-group">
+      <button class="btn btn-success" ng-click="handlers.card.easy()">
+        <span class="glyphicon glyphicon-ok"></span>
       </button>
-      <button
-        id="character-enabled"
-        class="btn btn-large btn-block"
-        data-toggle="button">
-        Character
+      <button class="btn btn-danger" ng-click="handlers.card.hard()">
+        <span class="glyphicon glyphicon-remove"></span>
       </button>
-      <button
-        id="part-of-speech-enabled"
-        class="btn btn-large btn-block"
-        data-toggle="button">
-        Part of Speech
+      <button class="btn btn-info" ng-click="handlers.card.configure()">
+        <span class="glyphicon glyphicon-cog"></span>
       </button>
-      <button
-        id="meaning-enabled"
-        class="btn btn-large btn-block"
-        data-toggle="button">
-        Meaning
+    </div>
+    <div class="btn-group quiz-toolbar pull-right">
+      <button class="btn btn-default" ng-click="handlers.card.next()">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </button>
+      <button class="btn btn-default" ng-click="handlers.card.previous()">
+        <span class="glyphicon glyphicon-chevron-right"></span>
       </button>
     </div>
   </div>
 
-  <div id="flash-card" class="span6" ontouchstart="">
-    <p id="pronunciation"></p>
-    <p id="character"></p>
-    <p id="part-of-speech" class="muted"></p>
-    <p id="meaning"></p>
+  <div class="quiz-config">
   </div>
 
-  <div id="actions" class="span1">
-    <div class="btn-group btn-group-vertical btn-block">
-      <button
-        id="know"
-        class="btn btn-large btn-block btn-success"
-        data-toggle="button">
-        <i class="icon-ok"></i>
-      </button>
-      <button
-        id="go-back"
-        class="btn btn-large btn-block">
-        <i class="icon-arrow-left"></i>
-      </button>
-      <button
-        id="go-forward"
-        class="btn btn-large btn-block">
-        <i class="icon-arrow-right"></i>
-      </button>
-      <button
-        id="dont-know"
-        class="btn btn-large btn-block btn-danger"
-        data-toggle="button">
-        <i class="icon-remove"></i>
-      </button>
+  <div class="quiz-display">
+    <div class="quiz-flash-card">
+      <p class="text-center quiz-pronunciation">
+        <em>
+          <span ng-show="show.pinyin()">{{ model.card().pinyin }}</span>
+          <span ng-show="show.jyutping()">{{ model.card().jyutping }}</span>
+        </em>
+      </p>
+
+      <p class="text-center quiz-characters">
+        <span ng-show="show.simplified()">{{ model.card().simplified }}</span>
+        <span ng-show="show.traditional()">{{ model.card().traditional }}</span>
+      </p>
+
+      <p class="quiz-definition">
+        <em class="text-muted">{{ model.card().part_of_speech }}</em>
+        {{ model.card().meaning }}
+      </p>
     </div>
+
+    <hr class="quiz-divider" />
+
+    <div class="quiz-example">
+      <div class="btn-toolbar quiz-toolbar" role="toolbar">
+        <div class="btn-group quiz-toolbar pull-right">
+          <button class="btn btn-default" ng-click="handlers.example.next()">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </button>
+          <button class="btn btn-default" ng-click="handlers.example.previous()">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </button>
+        </div>
+      </div>
+
+      <p class="small quiz-example-characters">
+        <span ng-show="show.simplified()">{{ model.example().simplified }}</span>
+        <span ng-show="show.traditional()">{{ model.example().traditional }}</span>
+      </p>
+
+      <p class="small quiz-example-translation">
+        <em>{{ model.example().translation }}</em>
+      </p>
+    </div>
+  </div>
+
+  <form class="quiz-config" role="form">
+    <fieldset>
+      <legend>Selection</legend>
+
+      <div class="field-group">
+        <input id="selection-all"
+        type="radio"
+        name="selection[]"
+        value="all"
+        ng-model="model.quiz.selection" />
+        <label for="selection-all">All Cards</label>
+      </div>
+
+      <div class="field-group">
+        <input id="selection-hardest"
+        type="radio"
+        name="selection[]"
+        value="hardest"
+        ng-model="model.quiz.selection" />
+        <label for="selection-all">Hardest Cards</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Flash Cards</legend>
+
+      <div class="field-group">
+        <input id="visible-card-characters"
+        type="checkbox"
+        ng-model="model.quiz.visible.card.characters" />
+        <label for="visible-card-characters">Characters</label>
+      </div>
+
+      <div class="field-group">
+        <input id="visible-card-pronunciation"
+        type="checkbox"
+        ng-model="model.quiz.visible.card.pronunciation" />
+        <label for="visible-card-pronunciation">Pronunciation</label>
+      </div>
+
+      <div class="field-group">
+        <input id="visible-card-part-of-speech"
+        type="checkbox"
+        ng-model="model.quiz.visible.card.partOfSpeech" />
+        <label for="visible-card-part-of-speech">Part of speech</label>
+      </div>
+
+      <div class="field-group">
+        <input id="visible-card-meaning"
+        type="checkbox"
+        ng-model="model.quiz.visible.card.meaning" />
+        <label for="visible-card-meaning">Pronunciation</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Examples</legend>
+
+      <div class="field-group">
+        <input id="visible-example-characters"
+        type="checkbox"
+        ng-model="model.quiz.visible.example.characters" />
+        <label for="visible-example-characters">Characters</label>
+      </div>
+
+      <div class="field-group">
+        <input id="visible-example-pronunciation"
+        type="checkbox"
+        ng-model="model.quiz.visible.example.pronunciation" />
+        <label for="visible-example-pronunciation">Pronunciation</label>
+      </div>
+
+      <div class="field-group">
+        <input id="visible-example-translation"
+        type="checkbox"
+        ng-model="model.quiz.visible.example.translation" />
+        <label for="visible-example-translation">Translation</label>
+      </div>
+    </fieldset>
   </div>
 </div>

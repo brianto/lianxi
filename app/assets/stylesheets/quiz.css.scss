@@ -1,26 +1,52 @@
-body.quiz {
-  #pronunciation {
-    text-align: center;
-    font-size: 16pt;
-    line-height: 16pt;
+.quiz {
+  width: 240px;
+  min-height: 320px;
+  padding: 6px;
+
+  border: {
+    width: 2px;
+    style: none;
+    color: grey;
+    radius: 6px;
+  }
+  box-shadow: 6px 6px 6px 6px lightgrey;
+}
+
+.quiz-flash-card {
+  min-height: 120px;
+}
+
+.quiz-toolbar {
+  button {
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
   }
 
-  #character {
-    text-align: center;
-    font-size: 48pt;
-    line-height: 48pt;
+  margin-bottom: 6px;
+}
+
+.quiz-divider {
+  margin-bottom: 6px;
+}
+
+.quiz-pronunciation {
+  font-size: 18px;
+}
+
+.quiz-characters {
+  font-family: sans-serif, DFKai-SB, STKaiti;
+
+  font-size: 48px;
+}
+
+.quiz-config {
+  fieldset {
+    margin-bottom: 12px;
   }
 
-  #part-of-speech {
-    font-style: italic;
-  }
-
-  #meaning {
-    text-indent: 20%;
-  }
-
-  #flash-card:hover p,
-  #flash-card:active p {
-    visibility: visible !important;
+  legend {
+    margin-bottom: 6px;
   }
 }
