@@ -19,21 +19,23 @@
       <button class="btn btn-danger" ng-click="handlers.card.hard()">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
-      <button class="btn btn-info" ng-click="handlers.card.configure()">
+      <button class="btn btn-info" ng-click="handlers.quiz.configure()">
         <span class="glyphicon glyphicon-cog"></span>
       </button>
     </div>
-    <div class="btn-group quiz-toolbar pull-right">
-      <button class="btn btn-default" ng-click="handlers.card.next()">
+    <div class="btn-group quiz-toolbar pull-right"
+      ng-show="show.card.controls()">
+      <button class="btn btn-default"
+        ng-disabled="!permissions.card.previous()"
+        ng-click="handlers.card.previous()">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </button>
-      <button class="btn btn-default" ng-click="handlers.card.previous()">
+      <button class="btn btn-default"
+        ng-disabled="!permissions.card.next()"
+        ng-click="handlers.card.next()">
         <span class="glyphicon glyphicon-chevron-right"></span>
       </button>
     </div>
-  </div>
-
-  <div class="quiz-config">
   </div>
 
   <div class="quiz-display">
@@ -56,15 +58,19 @@
       </p>
     </div>
 
-    <hr class="quiz-divider" />
+    <div class="quiz-example" ng-show="show.example.container()">
+      <hr class="quiz-divider" />
 
-    <div class="quiz-example">
       <div class="btn-toolbar quiz-toolbar" role="toolbar">
         <div class="btn-group quiz-toolbar pull-right">
-          <button class="btn btn-default" ng-click="handlers.example.next()">
+          <button class="btn btn-default"
+            ng-disabled="!permissions.example.previous()"
+            ng-click="handlers.example.previous()">
             <span class="glyphicon glyphicon-chevron-left"></span>
           </button>
-          <button class="btn btn-default" ng-click="handlers.example.previous()">
+          <button class="btn btn-default"
+            ng-disabled="!permissions.example.next()"
+            ng-click="handlers.example.next()">
             <span class="glyphicon glyphicon-chevron-right"></span>
           </button>
         </div>
