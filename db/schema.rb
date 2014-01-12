@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20140106170902) do
     t.text     "traditional"
     t.text     "pinyin"
     t.text     "jyutping"
-    t.text     "translation",     null: false
+    t.text     "translation"
     t.text     "notes"
   end
 
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20140106170902) do
     t.string   "title"
     t.string   "artist"
     t.string   "url"
-    t.integer  "user_id",    null: false
+    t.integer  "user_id"
   end
 
   create_table "users", force: true do |t|

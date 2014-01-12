@@ -6,6 +6,8 @@ class RelaxNullConstraints < ActiveRecord::Migration
 
     change_column_null :passages, :user_id, true
 
+    change_column_null :songs, :user_id, true
+
     change_column_null :flash_cards, :teachable_id, true
     change_column_null :flash_cards, :teachable_type, true
     change_column_null :flash_cards, :meaning, true
@@ -19,5 +21,6 @@ class RelaxNullConstraints < ActiveRecord::Migration
     change_column_null :examples, :traditional, true
     change_column_null :examples, :pinyin, true
     change_column_null :examples, :jyutping, true
+    change_column_null :examples, :translation, true
   end
 end
