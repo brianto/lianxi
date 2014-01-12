@@ -1,5 +1,23 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+zhenghao_adv:
+  simplified: 我今天正好有时间,我跟你走买衣服吧.
+  traditional: 我今天正好有時間,我跟你走買衣服吧.
+  pinyin: wǒ jīn tiān zhèng hǎo yǒu shí jiān, wǒ gēn nǐ zǒu mǎi yī fú ba.
+  jyutping: ngo gam tin zing hou yau si gaan, ngo gen nei zau mai yi fu a.
+  translation: I happen to have some free time today. Let me go with you to buy some clothes.
+  flash_card: zhenghao
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
+zhenghao_pred:
+  simplified: 这双鞋我穿者不大不小,正好
+  traditional: 這雙鞋我穿者不大不小,正好
+  pinyin: zhè shuāng xié wǒ chuān zhě bù dà bù xiǎo, zhèng hǎo.
+  jyutping: ze soeng hai ngo cyun ze bat dai bat sai, zing hou.
+  translation: This pair of shoes is not too big and not too small (for me). It's just right.
+  flash_card: zhenghao
+
+zhenghhao_adj:
+  simplified: 你来得正好,我们都在找你呢.
+  traditional: 你來得正好,我們都在找你呢.
+  pinyin: nǐ lái de zhèng hǎo, wǒ men dōu zài zhǎo nǐ ne.
+  jyutping: nei lai dik zing hou, ngo dei dou zoi zaau nei na.
+  translation: You came at just the right time. We were all looking for you.
+  flash_card: zhenghao

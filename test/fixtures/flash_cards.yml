@@ -13,3 +13,21 @@ jielan:
   meaning: Chinese Broccoli, Kale
   part_of_speech: noun
   teachable: foods (Drill)
+
+suancai:
+  simplified: 酸菜
+  traditional: 酸菜
+  pinyin: suān cài
+  jyutping: syun1 coi3
+  meaning: Sauerkraut
+  part_of_speech: noun
+  teachable: foods (Drill)
+
+zhenghao:
+  simplified: 正好
+  traditional: 正好
+  pinyin: zhèng hǎo
+  jyutping: zing3 hou2
+  meaning: Coincidentally; just right
+  part_of_speech: adverb, adjective
+  teachable: foods (Drill)
