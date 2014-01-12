@@ -1,6 +1,7 @@
 lianxi.controller 'QuizController', ($scope, $cookies) ->
 
   configuring = false
+  revealing = false
   cardIndex = 0
   exampleIndex = 0
 
@@ -41,7 +42,6 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
           meaning: true
         example:
           characters: true
-          pronunciation: true
           translation: true
 
   $scope.show =
@@ -57,12 +57,37 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
       container: ->
         not _.isEmpty $scope.model.examples()
 
+  $scope.style =
+    card:
+      pronunciation: ->
+        return if not $scope.model.quiz.visible.card.pronunciation && not revealing
+          'quiz-blur'
+      characters: ->
+        return if not $scope.model.quiz.visible.card.characters && not revealing
+          'quiz-blur'
+      partOfSpeech: ->
+        return if not $scope.model.quiz.visible.card.partOfSpeech && not revealing
+          'quiz-blur'
+      meaning: ->
+        return if not $scope.model.quiz.visible.card.meaning && not revealing
+          'quiz-blur'
+
+    example:
+      characters: ->
+        return if not $scope.model.quiz.visible.example.characters && not revealing
+          'quiz-blur'
+      translation: ->
+        return if not $scope.model.quiz.visible.example.translation && not revealing
+          'quiz-blur'
+
   $scope.handlers =
     card:
       next: ->
+        revealing = false
         exampleIndex = 0
         cardIndex++
       previous: ->
+        revealing = false
         exampleIndex = 0
         cardIndex--
 
@@ -73,6 +98,8 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
         exampleIndex--
 
     quiz:
+      reveal: ->
+        revealing = not revealing
       configure: ->
         configuring = not configuring
         $('.quiz-display').toggle()

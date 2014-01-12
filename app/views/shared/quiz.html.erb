@@ -39,22 +39,30 @@
   </div>
 
   <div class="quiz-display">
-    <div class="quiz-flash-card">
-      <p class="text-center quiz-pronunciation">
+    <div class="quiz-flash-card" ng-click="handlers.quiz.reveal()">
+      <p class="text-center quiz-pronunciation"
+        ng-class="style.card.pronunciation()">
         <em>
           <span ng-show="show.pinyin()">{{ model.card().pinyin }}</span>
           <span ng-show="show.jyutping()">{{ model.card().jyutping }}</span>
         </em>
       </p>
 
-      <p class="text-center quiz-characters">
+      <p class="text-center quiz-characters"
+        ng-class="style.card.characters()">
+        <em>
         <span ng-show="show.simplified()">{{ model.card().simplified }}</span>
         <span ng-show="show.traditional()">{{ model.card().traditional }}</span>
       </p>
 
       <p class="quiz-definition">
-        <em class="text-muted">{{ model.card().part_of_speech }}</em>
-        {{ model.card().meaning }}
+        <em class="text-muted"
+          ng-class="style.card.partOfSpeech()">
+          {{ model.card().part_of_speech }}
+        </em>
+        <span ng-class="style.card.meaning()">
+          {{ model.card().meaning }}
+        </span>
       </p>
     </div>
 
@@ -76,12 +84,14 @@
         </div>
       </div>
 
-      <p class="small quiz-example-characters">
+      <p class="small quiz-example-characters"
+        ng-class="style.example.characters()">
         <span ng-show="show.simplified()">{{ model.example().simplified }}</span>
         <span ng-show="show.traditional()">{{ model.example().traditional }}</span>
       </p>
 
-      <p class="small quiz-example-translation">
+      <p class="small quiz-example-translation"
+        ng-class="style.example.translation()">
         <em>{{ model.example().translation }}</em>
       </p>
     </div>
@@ -114,17 +124,17 @@
       <legend>Flash Cards</legend>
 
       <div class="field-group">
-        <input id="visible-card-characters"
-        type="checkbox"
-        ng-model="model.quiz.visible.card.characters" />
-        <label for="visible-card-characters">Characters</label>
-      </div>
-
-      <div class="field-group">
         <input id="visible-card-pronunciation"
         type="checkbox"
         ng-model="model.quiz.visible.card.pronunciation" />
         <label for="visible-card-pronunciation">Pronunciation</label>
+      </div>
+
+      <div class="field-group">
+        <input id="visible-card-characters"
+        type="checkbox"
+        ng-model="model.quiz.visible.card.characters" />
+        <label for="visible-card-characters">Characters</label>
       </div>
 
       <div class="field-group">
@@ -138,7 +148,7 @@
         <input id="visible-card-meaning"
         type="checkbox"
         ng-model="model.quiz.visible.card.meaning" />
-        <label for="visible-card-meaning">Pronunciation</label>
+        <label for="visible-card-meaning">Meaning</label>
       </div>
     </fieldset>
 
@@ -150,13 +160,6 @@
         type="checkbox"
         ng-model="model.quiz.visible.example.characters" />
         <label for="visible-example-characters">Characters</label>
-      </div>
-
-      <div class="field-group">
-        <input id="visible-example-pronunciation"
-        type="checkbox"
-        ng-model="model.quiz.visible.example.pronunciation" />
-        <label for="visible-example-pronunciation">Pronunciation</label>
       </div>
 
       <div class="field-group">
