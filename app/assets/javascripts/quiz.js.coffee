@@ -31,18 +31,19 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
       else
         examples[exampleIndex]
 
-    quiz:
-      selection: 'all'
-      visible:
-        # TODO make this into prefs
-        card:
-          characters: true
-          pronunciation: true
-          partOfSpeech: true
-          meaning: true
-        example:
-          characters: true
-          translation: true
+    quiz: if $cookies.quiz
+        JSON.parse $cookies.quiz
+      else
+        selection: 'all'
+        visible:
+          card:
+            characters: true
+            pronunciation: true
+            partOfSpeech: true
+            meaning: true
+          example:
+            characters: true
+            translation: true
 
   $scope.show =
     simplified: -> $cookies.charset == 'simplified'
@@ -50,6 +51,8 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
     pinyin: -> $cookies.transcript == 'pinyin'
     jyutping: -> $cookies.transcript == 'jyutping'
 
+    configuring: -> configuring
+    displaying: -> not configuring
     card:
       controls: ->
         not configuring
@@ -102,8 +105,6 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
         revealing = not revealing
       configure: ->
         configuring = not configuring
-        $('.quiz-display').toggle()
-        $('.quiz-config').toggle()
 
   $scope.permissions =
     card:
@@ -132,6 +133,12 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
         else
           0 < exampleIndex
 
+
+  $scope.$watch ->
+    JSON.stringify $scope.model.quiz
+  , (current, previous) ->
+    $cookies.quiz = current
+
   $.ajax
     url: globals.jsonUrl
   .done (response) ->
@@ -145,6 +152,3 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
       
   .fail (jqXHR, status, error) ->
     debugger
-
-$(document).ready ->
-  $('.quiz-config').hide()
