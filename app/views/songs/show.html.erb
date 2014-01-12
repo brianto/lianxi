@@ -7,17 +7,18 @@
 <% end %>
 
 <div class="page-header">
-  <h1><%= @song.title %></h1>
-  <em>by <%=@song.artist%></em>
+  <h1>
+    <%= @song[:title] %>
+    <small>by <%= @song[:artist] %></small>
+  </h1>
 </div>
 
 <div class="row">
   <div class="span6">
-    <div id="video-stub" data-url="<%= @song.url %>">
+    <div id="video-stub" data-url="<%= @song[:url] %>">
       <!-- Generated -->
     </div>
     <div id="karaoke-stub" class="row">
-      &nbsp;
       <!-- Generated -->
     </div>
   </div>
@@ -29,7 +30,7 @@
 <div class="row">
   <!-- Lyrics -->
   <div class="span6">
-    <%= render_lyrics @song unless @song.lyric.nil? %>
+    <%= render_lyrics @song unless @song[:lyric].nil? %>
   </div>
 
   <!-- Characters Table -->
