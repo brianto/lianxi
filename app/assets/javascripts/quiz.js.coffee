@@ -1,5 +1,4 @@
 lianxi.controller 'QuizController', ($scope, $cookies) ->
-
   configuring = false
   revealing = false
   cardIndex = 0
@@ -63,47 +62,36 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
 
     configuring: -> configuring
     displaying: -> not configuring
-    card:
-      controls: ->
-        not configuring
     example:
       container: ->
         not _.isEmpty $scope.model.examples()
 
   $scope.style =
+    _difficultyButton: (difficulty, matchStyle, defaultStyle) ->
+      return if $scope.model.difficulty() == difficulty
+        matchStyle
+      else
+        defaultStyle
+
     difficulty:
-      easy: ->
-        return if $scope.model.difficulty() == 'easy'
-          'btn-success'
-        else
-          'btn-default'
-      hard: ->
-        return if $scope.model.difficulty() == 'hard'
-          'btn-danger'
-        else
-          'btn-default'
+      easy: -> $scope.style._difficultyButton 'easy', 'btn-success', 'btn-default'
+      hard: -> $scope.style._difficultyButton 'hard', 'btn-danger', 'btn-default'
+
+    _quizStyleBlur: (type, key) ->
+      quizVisible = $scope.model.quiz.visible
+
+      return if not quizVisible[type][key] && not revealing
+        'quiz-blur'
 
     card:
-      pronunciation: ->
-        return if not $scope.model.quiz.visible.card.pronunciation && not revealing
-          'quiz-blur'
-      characters: ->
-        return if not $scope.model.quiz.visible.card.characters && not revealing
-          'quiz-blur'
-      partOfSpeech: ->
-        return if not $scope.model.quiz.visible.card.partOfSpeech && not revealing
-          'quiz-blur'
-      meaning: ->
-        return if not $scope.model.quiz.visible.card.meaning && not revealing
-          'quiz-blur'
+      pronunciation: -> $scope.style._quizStyleBlur('card', 'pronunciation')
+      characters: -> $scope.style._quizStyleBlur('card', 'characters')
+      partOfSpeech: -> $scope.style._quizStyleBlur('card', 'partOfSpeech')
+      meaning: -> $scope.style._quizStyleBlur('card', 'meaning')
 
     example:
-      characters: ->
-        return if not $scope.model.quiz.visible.example.characters && not revealing
-          'quiz-blur'
-      translation: ->
-        return if not $scope.model.quiz.visible.example.translation && not revealing
-          'quiz-blur'
+      characters: -> $scope.style._quizStyleBlur('example', 'characters')
+      translation: -> $scope.style._quizStyleBlur('example', 'translation')
 
   $scope.handlers =
     card:
@@ -117,13 +105,11 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
         cardIndex--
 
     example:
-      next: ->
-        exampleIndex++
-      previous: ->
-        exampleIndex--
+      next: -> exampleIndex++
+      previous: -> exampleIndex--
 
     difficulty:
-      easy: ->
+      _update: (difficulty) ->
         card = $scope.model.card()
         cardId = card.id.toString()
         difficulties = $scope.model.difficulties
@@ -133,32 +119,26 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
             flash_card_id: cardId
             difficulty: ''
 
-        difficulties[cardId].difficulty = if difficulties[cardId].difficulty == 'easy'
+        difficultyRef = difficulties[cardId]
+        currentDifficulty = difficultyRef.difficulty
+
+        difficultyRef.difficulty = if currentDifficulty == difficulty
           ''
         else
-          'easy'
+          difficulty
 
-      hard: ->
-        card = $scope.model.card()
-        cardId = card.id.toString()
-        difficulties = $scope.model.difficulties
+      easy: -> $scope.handlers.difficulty._update 'easy'
+      hard: -> $scope.handlers.difficulty._update 'hard'
 
-        if not _.has difficulties, cardId
-          difficulties[cardId] =
-            flash_card_id: cardId
-            difficulty: ''
-
-        difficulties[cardId].difficulty = if difficulties[cardId].difficulty == 'hard'
-          ''
-        else
-          'hard'
-
+    quiz:
       reveal: ->
         revealing = not revealing
       configure: ->
         configuring = not configuring
 
   $scope.permissions =
+    action: ->
+      not configuring
     card:
       next: ->
         return if _.isEmpty $scope.model.cards
