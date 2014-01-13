@@ -127,6 +127,11 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
         else
           difficulty
 
+        $.ajax
+          url: globals.updateDifficultiesUrl
+          type: 'POST'
+          data: difficultyRef
+
       easy: -> $scope.handlers.difficulty._update 'easy'
       hard: -> $scope.handlers.difficulty._update 'hard'
 

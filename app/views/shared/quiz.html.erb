@@ -11,6 +11,8 @@
     '<%= polymorphic_url(@teachable, { :format => :json }) %>';
   globals.difficultiesUrl =
     '<%= polymorphic_url([:difficulties, @teachable], { :format => :json }) %>';
+  globals.updateDifficultiesUrl =
+    '<%= polymorphic_url([:difficulties, @teachable]) %>';
 </script>
 
 <div class="center-block quiz" ng-controller="QuizController">
