@@ -19,13 +19,13 @@
   <div class="btn-toolbar quiz-toolbar" role="toolbar">
     <div class="btn-group">
       <button class="btn"
-        ng-disabled="!permissions.action()"
+        ng-disabled="!permission.card.difficulty() || !permissions.action()"
         ng-class="style.difficulty.easy()"
         ng-click="handlers.difficulty.easy()">
         <span class="glyphicon glyphicon-ok"></span>
       </button>
       <button class="btn"
-        ng-disabled="!permissions.action()"
+        ng-disabled="!permissions.card.difficulty() || !permissions.action()"
         ng-class="style.difficulty.hard()"
         ng-click="handlers.difficulty.hard()">
         <span class="glyphicon glyphicon-remove"></span>

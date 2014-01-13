@@ -145,6 +145,8 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
     action: ->
       not configuring
     card:
+      difficulty: ->
+        not _.isEmpty $scope.model.cards
       next: ->
         return if _.isEmpty $scope.model.cards
           false
