@@ -31,6 +31,16 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
       else
         examples[exampleIndex]
 
+    difficulties: []
+    difficulty: ->
+      card = $scope.model.card()
+
+      return if not card
+        null
+      else
+        difficulty = $scope.model.difficulties[card.id]
+        difficulty && difficulty.difficulty
+
     quiz: if $cookies.quiz
         JSON.parse $cookies.quiz
       else
@@ -61,6 +71,18 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
         not _.isEmpty $scope.model.examples()
 
   $scope.style =
+    difficulty:
+      easy: ->
+        return if $scope.model.difficulty() == 'easy'
+          'btn-success'
+        else
+          'btn-default'
+      hard: ->
+        return if $scope.model.difficulty() == 'hard'
+          'btn-danger'
+        else
+          'btn-default'
+
     card:
       pronunciation: ->
         return if not $scope.model.quiz.visible.card.pronunciation && not revealing
@@ -100,7 +122,37 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
       previous: ->
         exampleIndex--
 
-    quiz:
+    difficulty:
+      easy: ->
+        card = $scope.model.card()
+        cardId = card.id.toString()
+        difficulties = $scope.model.difficulties
+
+        if not _.has difficulties, cardId
+          difficulties[cardId] =
+            flash_card_id: cardId
+            difficulty: ''
+
+        difficulties[cardId].difficulty = if difficulties[cardId].difficulty == 'easy'
+          ''
+        else
+          'easy'
+
+      hard: ->
+        card = $scope.model.card()
+        cardId = card.id.toString()
+        difficulties = $scope.model.difficulties
+
+        if not _.has difficulties, cardId
+          difficulties[cardId] =
+            flash_card_id: cardId
+            difficulty: ''
+
+        difficulties[cardId].difficulty = if difficulties[cardId].difficulty == 'hard'
+          ''
+        else
+          'hard'
+
       reveal: ->
         revealing = not revealing
       configure: ->
@@ -152,3 +204,10 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
       
   .fail (jqXHR, status, error) ->
     debugger
+
+  $.ajax
+    url: globals.difficultiesUrl
+  .done (response) ->
+    $scope.$apply ->
+      $scope.model.difficulties =
+        _.indexBy response, 'flash_card_id'

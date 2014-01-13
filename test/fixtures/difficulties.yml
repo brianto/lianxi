@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+laoshijielan:
+  difficulty: 'easy'
+  user: laoshi
+  flash_card:  jielan
+
+laoshizhenghao:
+  difficulty: 'easy'
+  user: laoshi
+  flash_card:  zhenghao

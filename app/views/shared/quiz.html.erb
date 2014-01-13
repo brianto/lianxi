@@ -7,16 +7,23 @@
 </div>
 
 <script>
-  globals.jsonUrl = '<%= polymorphic_url(@teachable, { :format => :json }) %>';
+  globals.jsonUrl =
+    '<%= polymorphic_url(@teachable, { :format => :json }) %>';
+  globals.difficultiesUrl =
+    '<%= polymorphic_url([:difficulties, @teachable], { :format => :json }) %>';
 </script>
 
 <div class="center-block quiz" ng-controller="QuizController">
   <div class="btn-toolbar quiz-toolbar" role="toolbar">
     <div class="btn-group">
-      <button class="btn btn-success" ng-click="handlers.card.easy()">
+      <button class="btn"
+        ng-class="style.difficulty.easy()"
+        ng-click="handlers.difficulty.easy()">
         <span class="glyphicon glyphicon-ok"></span>
       </button>
-      <button class="btn btn-danger" ng-click="handlers.card.hard()">
+      <button class="btn"
+        ng-class="style.difficulty.hard()"
+        ng-click="handlers.difficulty.hard()">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
       <button class="btn btn-info" ng-click="handlers.quiz.configure()">

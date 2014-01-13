@@ -6,10 +6,12 @@ Lianxi::Application.routes.draw do
   post "/login" => "home#login"
   post "/logout" => "home#logout"
 
-  concern :quizable do
+  concern :teachable do
     member do
       get :grid
       get :quiz
+      get :difficulties, :action => :get_difficulties
+      post :difficulties, :action => :update_difficulties
     end
 
     resources :flash_cards, :only => [:create] do
@@ -17,13 +19,13 @@ Lianxi::Application.routes.draw do
     end
   end
 
-  resources :drills, :concerns => :quizable
+  resources :drills, :concerns => :teachable
 
-  resources :songs, :concerns => :quizable do
+  resources :songs, :concerns => :teachable do
     resources :lyrics, :only => [:create]
   end
 
-  resources :passages, :concerns => :quizable do
+  resources :passages, :concerns => :teachable do
     resources :articles, :only => [:create]
   end
 
