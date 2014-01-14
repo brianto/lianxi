@@ -7,9 +7,9 @@
 empty:
   title: Empty Drill
   description: userless, cardless
-  user: User default
+  user: laoshi
 
 foods:
   title: Foods
   description: has a few flash cards
-  user: User default
+  user: laoshi
