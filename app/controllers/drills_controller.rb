@@ -64,6 +64,9 @@ class DrillsController < TeachablesController
 
   def edit
     @drill = Drill.find params[:id]
+
+    redirect_to root_path unless @drill.user.eql? @user
+
     @errors = Hash.new
     @debug = self
   end

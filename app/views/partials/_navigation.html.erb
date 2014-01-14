@@ -25,6 +25,20 @@
           {{ display.transcript() }}
         </a>
       </li>
+
+      <% unless @user.nil? %>
+        <li class="dropdown">
+          <a class="dropdown-toggle btn btn-link" data-toggle="dropdown">
+            Create <b class="caret"></b>
+          </a>
+
+          <ul class="dropdown-menu">
+            <li><%= link_to "Drill", new_drill_path %></li>
+            <li><%= link_to "Passage", new_passage_path %></li>
+            <li><%= link_to "Song", new_song_path %></li>
+          </ul>
+        </li>
+      <% end %>
     </ul>
 
     <% if @user.nil? %>

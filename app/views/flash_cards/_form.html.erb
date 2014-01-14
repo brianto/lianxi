@@ -36,7 +36,7 @@
   <legend>Flash Cards</legend>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
       <div class="btn-group form-group">
         <a
           ng-click="handlers.card.add()"
@@ -50,11 +50,7 @@
           <span class="glyphicon glyphicon-remove"></span> Delete Card
         </a>
       </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-4">
       <ul class="list-inline form-group">
         <li ng-repeat="c in model.cards">
           <a
@@ -142,7 +138,7 @@
   <legend>Examples</legend>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
       <div class="btn-group form-group">
         <a
           ng-click="handlers.example.add()"
@@ -157,11 +153,7 @@
           <span class="glyphicon glyphicon-remove"></span> Delete Example
         </a>
       </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-4">
       <ul class="list-inline form-group">
         <li ng-repeat="e in model.examples()">
           <a
