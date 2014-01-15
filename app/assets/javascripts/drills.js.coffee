@@ -1,4 +1,4 @@
-lianxi.controller 'DrillFormController', ($scope, $shared, $cookies) ->
+lianxi.controller 'DrillFormController', ($scope, $shared) ->
   $shared.includeScope $scope
 
   if location.pathname.match /\/drills\/(\d+)\/edit$/

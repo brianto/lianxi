@@ -1,4 +1,4 @@
-lianxi.controller 'QuizController', ($scope, $cookies) ->
+lianxi.controller 'QuizController', ($scope) ->
   configuring = false
   revealing = false
   cardIndex = 0
@@ -40,8 +40,8 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
         difficulty = $scope.model.difficulties[card.id]
         difficulty && difficulty.difficulty
 
-    quiz: if $cookies.quiz
-        JSON.parse $cookies.quiz
+    quiz: if localStorage.quiz
+        JSON.parse localStorage.quiz
       else
         selection: 'all'
         visible:
@@ -55,10 +55,10 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
             translation: true
 
   $scope.show =
-    simplified: -> $cookies.charset == 'simplified'
-    traditional: -> $cookies.charset == 'traditional'
-    pinyin: -> $cookies.transcript == 'pinyin'
-    jyutping: -> $cookies.transcript == 'jyutping'
+    simplified: -> localStorage.charset == 'simplified'
+    traditional: -> localStorage.charset == 'traditional'
+    pinyin: -> localStorage.transcript == 'pinyin'
+    jyutping: -> localStorage.transcript == 'jyutping'
 
     configuring: -> configuring
     displaying: -> not configuring
@@ -176,7 +176,7 @@ lianxi.controller 'QuizController', ($scope, $cookies) ->
   $scope.$watch ->
     JSON.stringify $scope.model.quiz
   , (current, previous) ->
-    $cookies.quiz = current
+    localStorage.quiz = current
 
   $.ajax
     url: globals.jsonUrl

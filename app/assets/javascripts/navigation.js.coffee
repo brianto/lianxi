@@ -20,14 +20,14 @@ sanitizePreferences = (store, choices, key) ->
   if not _.contains keys, store[key]
     store[key] = _.chain(choices).keys().first().value()
 
-window.lianxi.controller 'NavigationController', ($scope, $cookies) ->
-  sanitizePreferences $cookies, CHARSETS, 'charset'
-  sanitizePreferences $cookies, TRANSCRIPTS, 'transcript'
+window.lianxi.controller 'NavigationController', ($scope) ->
+  sanitizePreferences localStorage, CHARSETS, 'charset'
+  sanitizePreferences localStorage, TRANSCRIPTS, 'transcript'
 
   $scope.handlers =
-    charset: cyclicSelector $cookies, CHARSETS, 'charset'
-    transcript: cyclicSelector $cookies, TRANSCRIPTS, 'transcript'
+    charset: cyclicSelector localStorage, CHARSETS, 'charset'
+    transcript: cyclicSelector localStorage, TRANSCRIPTS, 'transcript'
 
   $scope.display =
-    charset: -> CHARSETS[$cookies.charset]
-    transcript: -> TRANSCRIPTS[$cookies.transcript]
+    charset: -> CHARSETS[localStorage.charset]
+    transcript: -> TRANSCRIPTS[localStorage.transcript]

@@ -1,6 +1,6 @@
-lianxi.controller 'CharacterGridController', ($scope, $cookies) ->
+lianxi.controller 'CharacterGridController', ($scope) ->
   $scope.show =
-    simplified: -> $cookies.charset == 'simplified'
-    traditional: -> $cookies.charset == 'traditional'
-    pinyin: -> $cookies.transcript == 'pinyin'
-    jyutping: -> $cookies.transcript == 'jyutping'
+    simplified: -> localStorage.charset == 'simplified'
+    traditional: -> localStorage.charset == 'traditional'
+    pinyin: -> localStorage.transcript == 'pinyin'
+    jyutping: -> localStorage.transcript == 'jyutping'

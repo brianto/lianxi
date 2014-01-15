@@ -179,35 +179,11 @@
       </div>
 
       <div class="form-group">
-        <label for="example-pinyin" class="control-label col-md-2">Traditional</label>
+        <label for="example-traditional" class="control-label col-md-2">Traditional</label>
         <div class="col-md-10">
           <input
             id="example-traditional"
             ng-model="model.example().traditional"
-            ng-disabled="!permissions.example.edit()"
-            class="form-control col-md-10"
-            type="text"></input>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="example-jyutping" class="control-label col-md-2">Pinyin</label>
-        <div class="col-md-10">
-          <input
-            id="example-pinyin"
-            ng-model="model.example().pinyin"
-            ng-disabled="!permissions.example.edit()"
-            class="form-control col-md-10"
-            type="text"></input>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="example-jyutping" class="control-label col-md-2">Jyutping</label>
-        <div class="col-md-10">
-          <input
-            id="example-jyutping"
-            ng-model="model.example().jyutping"
             ng-disabled="!permissions.example.edit()"
             class="form-control col-md-10"
             type="text"></input>

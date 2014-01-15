@@ -148,7 +148,7 @@ $(document).ready ->
 
         callbackFn suggestions
 
-lianxi.controller 'FlashCardFormController', ($scope, $shared, $cookies) ->
+lianxi.controller 'FlashCardFormController', ($scope, $shared) ->
   $shared.includeScope $scope
 
   $scope.model =
@@ -171,10 +171,10 @@ lianxi.controller 'FlashCardFormController', ($scope, $shared, $cookies) ->
   $scope.display =
     card:
       character: (card) ->
-        card[$cookies.charset] || card.simplified || card.traditional
+        card[localStorage.charset] || card.simplified || card.traditional
 
       pronunciation: (card) ->
-        card[$cookies.transcript] || card.pinyin || card.jyutping
+        card[localStorage.transcript] || card.pinyin || card.jyutping
 
       asTablet: (card) ->
         character = $scope.display.card.character card
@@ -223,7 +223,7 @@ lianxi.controller 'FlashCardFormController', ($scope, $shared, $cookies) ->
       delete: ->
         not _.isEmpty $scope.model.cards
 
-lianxi.controller 'ExampleFormController', ($scope, $shared, $cookies) ->
+lianxi.controller 'ExampleFormController', ($scope, $shared) ->
   $scope.model =
     examples: ->
       card = $shared.model.card()
@@ -252,10 +252,10 @@ lianxi.controller 'ExampleFormController', ($scope, $shared, $cookies) ->
   $scope.display =
     example:
       character: (example) ->
-        example[$cookies.charset] || example.simplified || example.traditional
+        example[localStorage.charset] || example.simplified || example.traditional
 
       pronunciation: (example) ->
-        example[$cookies.transcript] || example.pinyin || example.jyutping
+        example[localStorage.transcript] || example.pinyin || example.jyutping
 
       asTablet: (example) ->
         character = $scope.display.example.character example
