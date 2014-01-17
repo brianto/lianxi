@@ -49,7 +49,6 @@ class DrillsController < TeachablesController
         @flash_cards.each &:save!
         @examples.each &:save!
       rescue Exception => e
-        @errors = @drill.errors.messages
         render :action => "new"
       end
     end
@@ -59,7 +58,6 @@ class DrillsController < TeachablesController
 
   def new
     @drill = Drill.new
-    @errors = Hash.new
   end
 
   def edit
@@ -67,7 +65,6 @@ class DrillsController < TeachablesController
 
     redirect_to root_path unless @drill.user.eql? @user
 
-    @errors = Hash.new
     @debug = self
   end
 
@@ -129,7 +126,6 @@ class DrillsController < TeachablesController
 
         redirect_to drill_path(@drill)
       rescue
-        @errors = @drill.errors.messages
         render :action => "edit"
       end
     end

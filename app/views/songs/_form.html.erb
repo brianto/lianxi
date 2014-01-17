@@ -1,0 +1,108 @@
+<%= form_for @song,
+  :url => { :action => action },
+  :html => {
+    :class => "form-horizontal",
+    :role => "form"
+  },
+  :method => method do |form| %>
+
+  <fieldset ng-controller="SongFormController">
+    <legend>Song</legend>
+
+    <div class="row">
+      <div class="col-md-4">
+        <iframe
+          width="100%"
+          height="240"
+          frameborder="0"
+          src="{{ model.song.youtubeUrl() }}"></iframe>
+      </div>
+
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="song-title" class="control-label col-md-2">Title</label>
+          <div class="col-md-4">
+            <input
+              id="song-title"
+              name="song[title]"
+              ng-model="model.song.title"
+              class="form-control"
+              type="text"></input>
+          </div>
+
+          <label for="song-artist" class="control-label col-md-2">Artist</label>
+          <div class="col-md-4">
+            <input
+              id="song-artist"
+              name="song[artist]"
+              ng-model="model.song.artist"
+              class="form-control"
+              type="text"></input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="song-youtube-id" class="control-label col-md-2">Youtube ID</label>
+          <div class="col-md-4">
+            <input
+              id="song-youtube-id"
+              name="song[youtubeId]"
+              ng-model="model.song.youtubeId"
+              class="form-control"
+              type="text"></input>
+          </div>
+
+          <label for="song-dialect" class="control-label col-md-2">Dialect</label>
+          <div class="col-md-4">
+            <input
+              id="song-dialect"
+              name="song[dialect]"
+              ng-model="model.song.dialect"
+              class="form-control"
+              type="text"></input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="song-simplified" class="control-label col-md-2">Simplified</label>
+          <div class="col-md-4">
+            <textarea
+              id="song-simplified"
+              ng-model="model.song.raw.simplified"
+              rows="6"
+              class="form-control"></textarea>
+          </div>
+
+          <label for="song-traditional" class="control-label col-md-2">Traditional</label>
+          <div class="col-md-4">
+            <textarea
+              id="song-traditional"
+              name="song[traditional]"
+              ng-model="model.song.raw.traditional"
+              rows="6"
+              class="form-control"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="song-translation" class="control-label col-md-2">Translation</label>
+          <div class="col-md-10">
+            <textarea
+              id="song-translation"
+              ng-model="model.song.translation"
+              rows="6"
+              class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <%= render :partial => "flash_cards/form" %>
+
+  <div class="row">
+    <%= form.submit :class => "btn btn-primary",
+      "ng-disabled" => "!permissions.drill.post()" %>
+  </div>
+<% end %>

@@ -1,17 +1,4 @@
-<%= form_for :songs, :url => songs_path, :method => :post do |form| %>
-  <%= form.label :title, "Title" %>
-  <br />
-  <%= form.text_field :title %>
-  <br />
-  <%= form.label :arist, "Artist" %>
-  <br />
-  <%= form.text_field :artist %>
-  <br />
-  <%= form.label :url, "Url" %>
-  <br />
-  <%= form.text_field :url %>
-  <br />
-
-  <!-- add preview video -->
-  <%= form.submit %>
-<% end %>
+<%= render :partial => "form", :locals => {
+  :action => "create",
+  :method => "post"
+} %>

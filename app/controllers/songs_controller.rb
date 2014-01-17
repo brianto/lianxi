@@ -23,7 +23,7 @@ class SongsController < TeachablesController
   end
 
   def new
-    
+    @song = Song.new
   end
 
   def edit

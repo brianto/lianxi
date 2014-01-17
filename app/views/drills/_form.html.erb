@@ -8,22 +8,21 @@
 
   <fieldset ng-controller="DrillFormController">
     <legend>Drill</legend>
-    <%= render_field form, @errors, :title, :text_field, {
+    <%= render_field form, :title, :text_field, {
       :class => "form-control",
       "ng-model" => "model.drill.title",
     } %>
 
-    <%= render_field form, @errors, :description, :text_field, {
+    <%= render_field form, :description, :text_field, {
       :class => "form-control",
       "ng-model" => "model.drill.description",
     } %>
-
-    <%= render :partial => "flash_cards/form" %>
-
-    <div class="row">
-      <%= form.submit :class => "btn btn-primary",
-        "ng-disabled" => "!permissions.drill.post()" %>
-    </div>
   </fieldset>
 
+  <%= render :partial => "flash_cards/form" %>
+
+  <div class="row">
+    <%= form.submit :class => "btn btn-primary",
+      "ng-disabled" => "!permissions.drill.post()" %>
+  </div>
 <% end %>

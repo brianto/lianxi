@@ -1,5 +1,11 @@
 window.lianxi = angular.module 'lianxi', ['ngCookies', 'ngSanitize']
 
+lianxi.config ($sceDelegateProvider) ->
+  $sceDelegateProvider.resourceUrlWhitelist [
+    'self',
+    'http://youtube.com/embed/*'
+  ]
+
 window.STATIC =
   urls:
     hanziMap: '/hanzimap.json'

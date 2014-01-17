@@ -1,120 +1,129 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
+  $scope.model =
+    song:
+      title: ''
+      artist: ''
+      youtubeId: ''
+      raw:
+        simplified: ''
+        traditional: ''
 
-class Youtube
-  @INTERVAL: 256 # Time between tick events
+      youtubeUrl: ->
+        "http://youtube.com/embed/tAr4d-9XBjY"
 
-  # Youtube Events
-  @ENDED: "ended"
-  @PLAYING: "playing"
-  @PAUSED: "paused"
-  @BUFFERING: "buffering"
-  @CUED: "cued"
+# class Youtube
+#   @INTERVAL: 256 # Time between tick events
 
-  # Custom Events
-  @TICK: "tick"
+#   # Youtube Events
+#   @ENDED: "ended"
+#   @PLAYING: "playing"
+#   @PAUSED: "paused"
+#   @BUFFERING: "buffering"
+#   @CUED: "cued"
 
-  @EVENTS: [@ENDED, @PLAYING, @PAUSED, @BUFFERING, @CUED]
+#   # Custom Events
+#   @TICK: "tick"
 
-  constructor: (@videoId) ->
-    @$video = $ "##{@videoId}"
+#   @EVENTS: [@ENDED, @PLAYING, @PAUSED, @BUFFERING, @CUED]
 
-    @url = @$video.data "url"
+#   constructor: (@videoId) ->
+#     @$video = $ "##{@videoId}"
 
-    @player = new YT.Player @videoId,
-      height: '240'
-      width: '100%'
-      videoId: @url # TODO refactor to something like youtube
-      events:
-        'onStateChange': @stateChange
+#     @url = @$video.data "url"
 
-  on: (event, callback) =>
-    @$video.on event, callback
+#     @player = new YT.Player @videoId,
+#       height: '240'
+#       width: '100%'
+#       videoId: @url # TODO refactor to something like youtube
+#       events:
+#         'onStateChange': @stateChange
 
-  start: =>
-    if not @timer
-      @timer = setInterval @tick, Youtube.INTERVAL
+#   on: (event, callback) =>
+#     @$video.on event, callback
 
-  stop: =>
-    if @timer
-      clearInterval @timer
-      @timer = null
+#   start: =>
+#     if not @timer
+#       @timer = setInterval @tick, Youtube.INTERVAL
 
-  tick: =>
-    if @player
-      @$video.trigger Youtube.TICK,
-        time: @player.getCurrentTime()
-        state: @player.getPlayerState()
+#   stop: =>
+#     if @timer
+#       clearInterval @timer
+#       @timer = null
 
-  stateChange: (event) =>
-    eventIndex = @player.getPlayerState()
+#   tick: =>
+#     if @player
+#       @$video.trigger Youtube.TICK,
+#         time: @player.getCurrentTime()
+#         state: @player.getPlayerState()
 
-    @$video.trigger Youtube.EVENTS[eventIndex], event
+#   stateChange: (event) =>
+#     eventIndex = @player.getPlayerState()
 
-class Lyric
-  constructor: (karaokeId) ->
-    @$karaoke = $ "##{karaokeId}"
-    @lines = $ ".lyric"
-    @timings = _.map @lines, (line) =>
-      return parseFloat $(line).data("timing"), 10
+#     @$video.trigger Youtube.EVENTS[eventIndex], event
 
-    @index = 0
+# class Lyric
+#   constructor: (karaokeId) ->
+#     @$karaoke = $ "##{karaokeId}"
+#     @lines = $ ".lyric"
+#     @timings = _.map @lines, (line) =>
+#       return parseFloat $(line).data("timing"), 10
 
-  update_line: (time) =>
-    index = 0
+#     @index = 0
 
-    index++ while @timings[index] < time
+#   update_line: (time) =>
+#     index = 0
 
-    index--
+#     index++ while @timings[index] < time
 
-    if @index != index
-      @index = index
+#     index--
 
-      if @index < 0 # before start time
-        @$karaoke.html "&nbsp;"
-      else
-        line = $ @lines[@index]
-        @$karaoke.html line.html()
-        @$karaoke.find(".tooltip-hint").tooltip()
+#     if @index != index
+#       @index = index
 
-$(document).ready ->
-  # Only apply for song#show
-  return unless $("#songs.show").length
+#       if @index < 0 # before start time
+#         @$karaoke.html "&nbsp;"
+#       else
+#         line = $ @lines[@index]
+#         @$karaoke.html line.html()
+#         @$karaoke.find(".tooltip-hint").tooltip()
 
-  # Initialize tooltips
-  $(".tooltip-hint").tooltip();
+# $(document).ready ->
+#   # Only apply for song#show
+#   return unless $("#songs.show").length
 
-  player = null
-  lyric = new Lyric "karaoke-stub"
+#   # Initialize tooltips
+#   $(".tooltip-hint").tooltip();
 
-  window.onYouTubeIframeAPIReady = () ->
-    player = new Youtube "video-stub"
+#   player = null
+#   lyric = new Lyric "karaoke-stub"
 
-    player.on Youtube.TICK, playerTick
+#   window.onYouTubeIframeAPIReady = () ->
+#     player = new Youtube "video-stub"
 
-    player.on Youtube.CUED, playerCued
-    player.on Youtube.PAUSED, playerPaused
-    player.on Youtube.BUFFERING, playerBuffering
-    player.on Youtube.PLAYING, playerPlaying
-    player.on Youtube.ENDED, playerEnded
+#     player.on Youtube.TICK, playerTick
 
-    return player
+#     player.on Youtube.CUED, playerCued
+#     player.on Youtube.PAUSED, playerPaused
+#     player.on Youtube.BUFFERING, playerBuffering
+#     player.on Youtube.PLAYING, playerPlaying
+#     player.on Youtube.ENDED, playerEnded
 
-  playerTick = (jqEvent, event) ->
-    lyric.update_line event.time
+#     return player
 
-  playerCued = (jqEvent, event) ->
-    player.start()
+#   playerTick = (jqEvent, event) ->
+#     lyric.update_line event.time
 
-  playerPaused = (jqEvent, event) ->
-    player.stop()
+#   playerCued = (jqEvent, event) ->
+#     player.start()
 
-  playerBuffering = (jqEvent, event) ->
-    player.stop()
+#   playerPaused = (jqEvent, event) ->
+#     player.stop()
 
-  playerPlaying = (jqEvent, event) ->
-    player.start()
+#   playerBuffering = (jqEvent, event) ->
+#     player.stop()
 
-  playerEnded = (jqEvent, event) ->
-    player.stop()
+#   playerPlaying = (jqEvent, event) ->
+#     player.start()
+
+#   playerEnded = (jqEvent, event) ->
+#     player.stop()
