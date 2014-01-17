@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140113024825) do
+ActiveRecord::Schema.define(version: 20140117031430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,6 @@ ActiveRecord::Schema.define(version: 20140113024825) do
     t.string   "flash_card_type"
     t.text     "simplified"
     t.text     "traditional"
-    t.text     "pinyin"
-    t.text     "jyutping"
     t.text     "translation"
     t.text     "notes"
   end
@@ -64,7 +62,6 @@ ActiveRecord::Schema.define(version: 20140113024825) do
   create_table "lyrics", force: true do |t|
     t.text     "traditional"
     t.text     "simplified"
-    t.text     "pronunciation"
     t.string   "dialect"
     t.text     "translation"
     t.text     "timing"

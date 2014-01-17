@@ -3,7 +3,6 @@ class Example < ActiveRecord::Base
 
   # TODO better validators
   validates :traditional, :simplified, :presence => true
-  validates :pinyin, :jyutping, :presence => true
   validates :translation, :presence => true
 
   def user
