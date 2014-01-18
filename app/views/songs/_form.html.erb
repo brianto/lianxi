@@ -16,6 +16,27 @@
           height="240"
           frameborder="0"
           src="{{ model.song.youtubeUrl() }}"></iframe>
+
+        <!-- TODO toolbar -->
+
+        <ul class="list-unstyled">
+          <li ng-repeat="lines in model.song.lyrics">
+            <div class="form-group">
+              <div class="col-md-3">
+                <input type="number" class="form-control" ng-model="model.song.timing[$index]"></input>
+              </div>
+              <div class="col-md-9">
+                <ul class="list-unstyled">
+                  <li>
+                    <span ng-show="show.simplified()">{{ lines.simplified }}</span>
+                    <span ng-show="show.traditional()">{{ lines.traditional }}</span>
+                  </li>
+                  <li class="song-translation-inline">{{ lines.translation }}</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
 
       <div class="col-md-8">
@@ -54,12 +75,15 @@
 
           <label for="song-dialect" class="control-label col-md-2">Dialect</label>
           <div class="col-md-4">
-            <input
+            <select
               id="song-dialect"
               name="song[dialect]"
               ng-model="model.song.dialect"
               class="form-control"
-              type="text"></input>
+              type="text">
+              <option value="mandarin">Mandarin</option>
+              <option value="cantonese">Cantonese</option>
+            </select>
           </div>
         </div>
 
@@ -89,14 +113,13 @@
           <div class="col-md-10">
             <textarea
               id="song-translation"
-              ng-model="model.song.translation"
+              ng-model="model.song.raw.translation"
               rows="6"
               class="form-control"></textarea>
           </div>
         </div>
       </div>
     </div>
-
   </fieldset>
 
   <%= render :partial => "flash_cards/form" %>
