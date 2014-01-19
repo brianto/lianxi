@@ -3,8 +3,9 @@
   overflow: hidden;
 }
 
-.lyric-preview {
-  min-height: 60px;
+.lyric-one-row {
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .cursor-hand {

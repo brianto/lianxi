@@ -4,8 +4,12 @@ LYRICS_CONTEXT_LINES_TEMPLATE =
   _.template '<li class="text-muted"><%= previous %></li>' +
     '<li class="text-primary"><%= current %></li>' +
     '<li class="text-muted"><%= next %></li>'
+ANNOTATION_REPLACEMENT =
+  badge: '<div class="badge">$1</div>'
+  bare: '$1'
 
 FIELD_ORDER = ['simplified', 'traditional', 'translation']
+ANNOTATION_REGEX = /\[([^\s\n\[]+)\]/g
 REWIND_LENGTH = 5 # seconds
 
 lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
@@ -54,8 +58,8 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
   $scope.model.song.artist = "Vivienne Lu"
   $scope.model.song.dialect = "cantonese"
   $scope.model.song.youtubeId = "sYb6q0vGcr4"
-  $scope.model.song.raw.simplified = "遇见你当天一切仍记忆犹新闭起眼仍看到\n从遇见你此刻感到情海轻飘过\n如果这天可许个愿愿和你一起去远飞\n从不管许多未来会如何仍要走过"
-  $scope.model.song.raw.traditional = "遇見你當天一切仍記憶猶新閉起眼仍看到\n從遇見你此刻感到情海輕飄過\n如果這天可許個願願和你一起去遠飛\n從不管許多未來會如何仍要走過"
+  $scope.model.song.raw.simplified = "遇见你当天[一切]仍记忆犹新闭起眼仍看到\n从遇见你此刻感到情海轻飘过\n如果这天可许个愿愿和你一起去远飞\n从不管许多未来会如何仍要走过"
+  $scope.model.song.raw.traditional = "遇見你當天[一切]仍記憶猶新閉起眼仍看到\n從遇見你此刻感到情海輕飄過\n如果這天可許個願願和你一起去遠飛\n從不管許多未來會如何仍要走過"
   $scope.model.song.raw.translation = "When I close my eye, the memory of meeting you that day is still very clear to me\nSince seeing you, till today, I feel like flying above of a sea of emotion\nIf I can make a wish today, I wish to fly away with you\nDoesn't matter how the future turns out. I will still search for it."
 
   watchRaw = (key) ->
@@ -96,23 +100,32 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
       showControls: ->
         $scope.validators.song.lyrics()
       setTime: ->
-        lyricIndex < $scope.model.lyrics.length
+        lyrics = $scope.model.lyrics
+        lyrics && lyricIndex < lyrics.length
       previousLyric: -> lyricIndex > 0
-      nextLyric: -> lyricIndex < $scope.model.lyrics.length - 1
+      nextLyric: ->
+        lyrics = $scope.model.lyrics
+        lyrics && lyricIndex < lyrics.length - 1
 
   $scope.display =
     lyrics:
+      format: (line) ->
+        line.replace ANNOTATION_REGEX, ANNOTATION_REPLACEMENT.badge
+
       contextLines: ->
         lyrics = $scope.model.lyrics
         charset = localStorage.charset
 
-        lyricsAt = (index) ->
-          lyrics[index] && lyrics[index][charset] || ''
+        return '' unless lyrics
+
+        lyricAt = (index) ->
+          lyric = lyrics[index] && lyrics[index][charset] || '&nbsp;'
+          lyric.replace ANNOTATION_REGEX, ANNOTATION_REPLACEMENT.bare
 
         LYRICS_CONTEXT_LINES_TEMPLATE
-          previous: lyricsAt lyricIndex - 1
-          current: lyricsAt lyricIndex
-          next: lyricsAt lyricIndex + 1
+          previous: lyricAt lyricIndex - 1
+          current: lyricAt lyricIndex
+          next: lyricAt lyricIndex + 1
 
   $scope.style =
     lyrics:
@@ -123,6 +136,32 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
           'text-muted'
 
   $scope.handlers =
+    song:
+      annotate: (event) ->
+        meta = event.metaKey || event.ctrlKey
+        key = event.keyCode == 69
+
+        return unless meta && key
+
+        return unless $scope.validators.song.lyrics()
+
+        target = event.target
+        start = target.selectionStart
+        end = target.selectionEnd
+
+        return if start == end
+
+        annotate = (text) ->
+          _.template '<%= head %>[<%= body %>]<%= tail %>',
+            head: text.slice 0, start
+            body: text.slice start, end
+            tail: text.slice end, text.length - 1
+
+        $scope.model.song.raw.simplified =
+          annotate $scope.model.song.raw.simplified
+        $scope.model.song.raw.traditional =
+          annotate $scope.model.song.raw.traditional
+        
     lyrics:
       selectRow: (index) ->
         lyricIndex = index

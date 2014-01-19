@@ -49,21 +49,21 @@
         </div>
 
         <div class="form-group"
+          ng-show="permissions.lyrics.showControls()">
+          <div class="col-md-12">
+            <ul class="list-unstyled song-translation-inline lyric-one-row"
+              ng-bind-html="display.lyrics.contextLines()">
+            </ul>
+          </div>
+        </div>
+
+        <div class="form-group"
           ng-show="!permissions.lyrics.showControls()">
           <p class="text-danger text-center">
             <em>
               The lyrics and translations don't quite line up.
             </em>
           </p>
-        </div>
-
-        <div class="form-group"
-          ng-show="permissions.lyrics.showControls()">
-          <div class="col-md-12">
-            <ul class="list-unstyled song-translation-inline lyric-preview"
-              ng-bind-html="display.lyrics.contextLines()">
-            </ul>
-          </div>
         </div>
 
         <ul class="list-unstyled">
@@ -78,11 +78,11 @@
               </div>
               <div class="col-md-9"
                 ng-click="handlers.lyrics.selectRow($index)">
-                <ul class="list-unstyled cursor-hand"
+                <ul class="list-unstyled cursor-hand lyric-one-row"
                   ng-class="style.lyrics.row($index)">
                   <li>
-                    <span ng-show="show.simplified()">{{ lines.simplified }}</span>
-                    <span ng-show="show.traditional()">{{ lines.traditional }}</span>
+                    <span ng-show="show.simplified()" ng-bind-html="display.lyrics.format(lines.simplified)"></span>
+                    <span ng-show="show.traditional()" ng-bind-html="display.lyrics.format(lines.traditional)"></span>
                   </li>
                   <li class="song-translation-inline">{{ lines.translation }}</li>
                 </ul>
@@ -146,6 +146,7 @@
             <textarea
               id="song-simplified"
               ng-model="model.song.raw.simplified"
+              ng-keydown="handlers.song.annotate($event)"
               rows="6"
               class="form-control"></textarea>
           </div>
@@ -156,6 +157,7 @@
               id="song-traditional"
               name="song[traditional]"
               ng-model="model.song.raw.traditional"
+              ng-keydown="handlers.song.annotate($event)"
               rows="6"
               class="form-control"></textarea>
           </div>
