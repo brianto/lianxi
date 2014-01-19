@@ -1,11 +1,12 @@
 YOUTUBE_TEMPLATE =
-  _.template 'http://youtube.com/embed/<%= youtubeId %>'
+  _.template 'https://www.youtube.com/embed/<%= youtubeId %>?enablejsapi=1'
 LYRICS_CONTEXT_LINES_TEMPLATE =
   _.template '<li class="text-muted"><%= previous %></li>' +
     '<li class="text-primary"><%= current %></li>' +
     '<li class="text-muted"><%= next %></li>'
 
 FIELD_ORDER = ['simplified', 'traditional', 'translation']
+REWIND_LENGTH = 3 # seconds
 
 lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
   splitLyrics = (raw) ->
@@ -26,6 +27,9 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
       , { id: id }
 
   lyricIndex = 0
+
+  window.onYouTubeIframeAPIReady = ->
+    $scope.player = new YT.Player 'youtube-player'
 
   $scope.model =
     song:
@@ -89,8 +93,12 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
 
   $scope.permissions =
     lyrics:
-      setTime: ->
+      showControls: ->
         $scope.validators.song.lyrics()
+      setTime: ->
+        lyricIndex < $scope.model.lyrics.length
+      previousLyric: -> lyricIndex > 0
+      nextLyric: -> lyricIndex < $scope.model.lyrics.length - 1
 
   $scope.display =
     lyrics:
@@ -118,6 +126,18 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
     lyrics:
       selectRow: (index) ->
         lyricIndex = index
+      setTime: ->
+        $scope.model.song.timing[lyricIndex] =
+          $scope.player.getCurrentTime()
+
+        lyricIndex++
+      stepBack: ->
+        newTime = $scope.player.getCurrentTime() - REWIND_LENGTH
+        newTime = 0 if newTime < 0
+        $scope.player.seekTo(newTime)
+
+      previousLyric: -> lyricIndex--
+      nextLyric: -> lyricIndex++
 
 # class Youtube
 #   @INTERVAL: 256 # Time between tick events

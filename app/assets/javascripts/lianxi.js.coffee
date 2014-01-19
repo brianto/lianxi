@@ -3,7 +3,7 @@ window.lianxi = angular.module 'lianxi', ['ngCookies', 'ngSanitize']
 lianxi.config ($sceDelegateProvider) ->
   $sceDelegateProvider.resourceUrlWhitelist [
     'self',
-    'http://youtube.com/embed/*'
+    'https://www.youtube.com/embed/*?enablejsapi=1'
   ]
 
 window.STATIC =
