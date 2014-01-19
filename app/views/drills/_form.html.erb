@@ -20,7 +20,7 @@
 
     <%= render :partial => "flash_cards/form" %>
 
-    <div class="row">
+    <div class="row col-md-12">
       <%= form.submit :class => "btn btn-primary",
         "ng-disabled" => "!permissions.drill.post()" %>
     </div>
