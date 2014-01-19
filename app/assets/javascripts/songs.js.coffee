@@ -6,7 +6,7 @@ LYRICS_CONTEXT_LINES_TEMPLATE =
     '<li class="text-muted"><%= next %></li>'
 
 FIELD_ORDER = ['simplified', 'traditional', 'translation']
-REWIND_LENGTH = 3 # seconds
+REWIND_LENGTH = 5 # seconds
 
 lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
   splitLyrics = (raw) ->
@@ -126,6 +126,15 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
     lyrics:
       selectRow: (index) ->
         lyricIndex = index
+        timing = $scope.model.song.timing[index]
+
+        return if not timing
+
+        duration = $scope.player.getDuration()
+
+        if 0 < timing and timing < duration
+          $scope.player.seekTo timing
+            
       setTime: ->
         $scope.model.song.timing[lyricIndex] =
           $scope.player.getCurrentTime()
@@ -134,6 +143,7 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
       stepBack: ->
         newTime = $scope.player.getCurrentTime() - REWIND_LENGTH
         newTime = 0 if newTime < 0
+        lyricIndex-- if lyricIndex > 0
         $scope.player.seekTo(newTime)
 
       previousLyric: -> lyricIndex--
