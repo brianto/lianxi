@@ -1,4 +1,10 @@
-YOUTUBE_TEMPLATE = _.template 'http://youtube.com/embed/<%= youtubeId %>'
+YOUTUBE_TEMPLATE =
+  _.template 'http://youtube.com/embed/<%= youtubeId %>'
+LYRICS_CONTEXT_LINES_TEMPLATE =
+  _.template '<li class="text-muted"><%= previous %></li>' +
+    '<li class="text-primary"><%= current %></li>' +
+    '<li class="text-muted"><%= next %></li>'
+
 FIELD_ORDER = ['simplified', 'traditional', 'translation']
 
 lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
@@ -19,6 +25,8 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
         lineObj
       , { id: id }
 
+  lyricIndex = 0
+
   $scope.model =
     song:
       title: ''
@@ -38,6 +46,9 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
       timing: []
 
   # For testing, remove later
+  $scope.model.song.title = "Fly"
+  $scope.model.song.artist = "Vivienne Lu"
+  $scope.model.song.dialect = "cantonese"
   $scope.model.song.youtubeId = "sYb6q0vGcr4"
   $scope.model.song.raw.simplified = "遇见你当天一切仍记忆犹新闭起眼仍看到\n从遇见你此刻感到情海轻飘过\n如果这天可许个愿愿和你一起去远飞\n从不管许多未来会如何仍要走过"
   $scope.model.song.raw.traditional = "遇見你當天一切仍記憶猶新閉起眼仍看到\n從遇見你此刻感到情海輕飄過\n如果這天可許個願願和你一起去遠飛\n從不管許多未來會如何仍要走過"
@@ -46,7 +57,7 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
   watchRaw = (key) ->
     $scope.$watch 'model.song.raw.' + key, ->
       $scope.model.song[key] = splitLyrics $scope.model.song.raw[key]
-      $scope.model.song.lyrics = computeLyrics()
+      $scope.model.lyrics = computeLyrics()
 
   _.chain($scope.model.song.raw)
   .keys()
@@ -75,6 +86,38 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
   $scope.show =
     simplified: -> localStorage.charset == 'simplified'
     traditional: -> localStorage.charset == 'traditional'
+
+  $scope.permissions =
+    lyrics:
+      setTime: ->
+        $scope.validators.song.lyrics()
+
+  $scope.display =
+    lyrics:
+      contextLines: ->
+        lyrics = $scope.model.lyrics
+        charset = localStorage.charset
+
+        lyricsAt = (index) ->
+          lyrics[index] && lyrics[index][charset] || ''
+
+        LYRICS_CONTEXT_LINES_TEMPLATE
+          previous: lyricsAt lyricIndex - 1
+          current: lyricsAt lyricIndex
+          next: lyricsAt lyricIndex + 1
+
+  $scope.style =
+    lyrics:
+      row: (index) ->
+        return if index == lyricIndex
+          'text-primary'
+        else
+          'text-muted'
+
+  $scope.handlers =
+    lyrics:
+      selectRow: (index) ->
+        lyricIndex = index
 
 # class Youtube
 #   @INTERVAL: 256 # Time between tick events
