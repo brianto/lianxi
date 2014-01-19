@@ -96,6 +96,10 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
     traditional: -> localStorage.charset == 'traditional'
 
   $scope.permissions =
+    song:
+      post: ->
+        console.log $scope.validators.song.lyrics()
+        $scope.validators.song.lyrics()
     lyrics:
       showControls: ->
         $scope.validators.song.lyrics()

@@ -17,12 +17,13 @@
       :class => "form-control",
       "ng-model" => "model.drill.description",
     } %>
+
+    <%= render :partial => "flash_cards/form" %>
+
+    <div class="row">
+      <%= form.submit :class => "btn btn-primary",
+        "ng-disabled" => "!permissions.drill.post()" %>
+    </div>
+
   </fieldset>
-
-  <%= render :partial => "flash_cards/form" %>
-
-  <div class="row">
-    <%= form.submit :class => "btn btn-primary",
-      "ng-disabled" => "!permissions.drill.post()" %>
-  </div>
 <% end %>
