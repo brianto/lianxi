@@ -60,6 +60,7 @@ lianxi.controller 'SongFormController', ($scope, $shared) ->
   $scope.model.song.raw.simplified = "遇见你当天[一切]仍记忆犹新闭起眼仍看到\n从遇见你此刻感到情海轻飘过\n如果这天可许个愿愿和你一起去远飞\n从不管许多未来会如何仍要走过"
   $scope.model.song.raw.traditional = "遇見你當天[一切]仍記憶猶新閉起眼仍看到\n從遇見你此刻感到情海輕飄過\n如果這天可許個願願和你一起去遠飛\n從不管許多未來會如何仍要走過"
   $scope.model.song.raw.translation = "When I close my eye, the memory of meeting you that day is still very clear to me\nSince seeing you, till today, I feel like flying above of a sea of emotion\nIf I can make a wish today, I wish to fly away with you\nDoesn't matter how the future turns out. I will still search for it."
+  $scope.model.song.timing = [22.4, 32.7, 44.1, 54.7]
 
   watchRaw = (key) ->
     $scope.$watch 'model.song.raw.' + key, ->
