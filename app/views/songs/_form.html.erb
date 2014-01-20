@@ -138,8 +138,10 @@
         </div>
 
         <div class="form-group">
-          <label for="song-simplified" class="control-label col-md-2">Simplified</label>
-          <div class="col-md-4">
+          <label for="song-simplified" class="col-md-6">Simplified</label>
+          <label for="song-traditional" class="col-md-6">Traditional</label>
+
+          <div class="col-md-6">
             <textarea
               id="song-simplified"
               ng-model="model.song.raw.simplified"
@@ -148,8 +150,7 @@
               class="form-control"></textarea>
           </div>
 
-          <label for="song-traditional" class="control-label col-md-2">Traditional</label>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <textarea
               id="song-traditional"
               name="song[traditional]"
@@ -161,8 +162,8 @@
         </div>
 
         <div class="form-group">
-          <label for="song-translation" class="control-label col-md-2">Translation</label>
-          <div class="col-md-10">
+          <label for="song-translation" class="col-md-12">Translation</label>
+          <div class="col-md-12">
             <textarea
               id="song-translation"
               ng-model="model.song.raw.translation"
@@ -171,14 +172,16 @@
           </div>
         </div>
 
-        <div class="col-md-12">
-          <label for="song-annotation-preview">Annotation Preview</label>
-          <ul id="song-annotation-preview" class="list-unstyled">
-            <li class="text-muted"
-              ng-repeat="lines in model.lyrics"
-              ng-bind-html="display.lyrics.format.tagged(lines)">
-            </li>
-          </ul>
+        <div class="form-group">
+          <label for="song-annotation-preview" class="col-md-12">Annotations Preview</label>
+          <div class="col-md-12">
+            <table class="table table-condensed">
+              <tr ng-repeat="lines in model.lyrics">
+                <td ng-bind-html="display.lyrics.format.tagged(lines)"></td>
+                <td>{{ lines.translation }}</td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
