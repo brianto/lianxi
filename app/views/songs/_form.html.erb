@@ -80,10 +80,7 @@
                 ng-click="handlers.lyrics.selectRow($index)">
                 <ul class="list-unstyled cursor-hand lyric-one-row"
                   ng-class="style.lyrics.row($index)">
-                  <li>
-                    <span ng-show="show.simplified()" ng-bind-html="display.lyrics.format(lines.simplified)"></span>
-                    <span ng-show="show.traditional()" ng-bind-html="display.lyrics.format(lines.traditional)"></span>
-                  </li>
+                  <li>{{ display.lyrics.format.clean(lines) }}</li>
                   <li class="song-translation-inline">{{ lines.translation }}</li>
                 </ul>
               </div>
@@ -172,6 +169,16 @@
               rows="6"
               class="form-control"></textarea>
           </div>
+        </div>
+
+        <div class="col-md-12">
+          <label for="song-annotation-preview">Annotation Preview</label>
+          <ul id="song-annotation-preview" class="list-unstyled">
+            <li class="text-muted"
+              ng-repeat="lines in model.lyrics"
+              ng-bind-html="display.lyrics.format.tagged(lines)">
+            </li>
+          </ul>
         </div>
       </div>
     </div>

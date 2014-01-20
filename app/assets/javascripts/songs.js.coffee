@@ -4,15 +4,14 @@ LYRICS_CONTEXT_LINES_TEMPLATE =
   _.template '<li class="text-muted"><%= previous %></li>' +
     '<li class="text-primary"><%= current %></li>' +
     '<li class="text-muted"><%= next %></li>'
-ANNOTATION_REPLACEMENT =
-  badge: '<div class="badge">$1</div>'
-  bare: '$1'
+ANNOTATION_TEMPLATE =
+  _.template '<span class="label <%= classes %>"><%= text %></span>'
 
 FIELD_ORDER = ['simplified', 'traditional', 'translation']
 ANNOTATION_REGEX = /\[([^\s\n\[]+)\]/g
 REWIND_LENGTH = 5 # seconds
 
-lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
+lianxi.controller 'SongFormController', ($scope, $shared) ->
   splitLyrics = (raw) ->
     lines = raw.split /\n/
     _.reject lines, _.isEmpty
@@ -98,7 +97,6 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
   $scope.permissions =
     song:
       post: ->
-        console.log $scope.validators.song.lyrics()
         $scope.validators.song.lyrics()
     lyrics:
       showControls: ->
@@ -113,8 +111,30 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
 
   $scope.display =
     lyrics:
-      format: (line) ->
-        line.replace ANNOTATION_REGEX, ANNOTATION_REPLACEMENT.badge
+      format:
+        clean: (line) ->
+          line[localStorage.charset].replace ANNOTATION_REGEX, '$1'
+        tagged: (line) ->
+          text = line[localStorage.charset]
+          annotations = text.match ANNOTATION_REGEX
+          cards = $shared.model.cards
+          existingCards = []
+
+          if cards
+            existingCards = _.reduce cards, (valid, card) ->
+              valid.push card.simplified
+              valid.push card.traditional
+              valid
+            , []
+
+          _.reduce annotations, (styledLine, annotation) ->
+            annotatedText = annotation.replace /[\[\]]/g, ''
+            valid = _.contains existingCards, annotatedText
+
+            styledLine.replace annotation, ANNOTATION_TEMPLATE
+              classes: if valid then 'label-success' else 'label-danger'
+              text: annotatedText
+          , text
 
       contextLines: ->
         lyrics = $scope.model.lyrics
@@ -124,7 +144,7 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
 
         lyricAt = (index) ->
           lyric = lyrics[index] && lyrics[index][charset] || '&nbsp;'
-          lyric.replace ANNOTATION_REGEX, ANNOTATION_REPLACEMENT.bare
+          lyric.replace ANNOTATION_REGEX, '$1'
 
         LYRICS_CONTEXT_LINES_TEMPLATE
           previous: lyricAt lyricIndex - 1
@@ -141,6 +161,8 @@ lianxi.controller 'SongFormController', ($scope, $shared, $sceDelegate) ->
 
   $scope.handlers =
     song:
+      deannotate: (event) ->
+        console.log event
       annotate: (event) ->
         meta = event.metaKey || event.ctrlKey
         key = event.keyCode == 69
