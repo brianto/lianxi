@@ -8,7 +8,7 @@ ANNOTATION_TEMPLATE =
   _.template '<span class="label <%= classes %>"><%= text %></span>'
 
 FIELD_ORDER = ['simplified', 'traditional', 'translation']
-ANNOTATION_REGEX = /\[([^\s\n\[]+)\]/g
+ANNOTATION_REGEX = /\[([^\s\n\[\]]+)\]/g
 REWIND_LENGTH = 5 # seconds
 
 lianxi.controller 'SongFormController', ($scope, $shared) ->
@@ -160,17 +160,8 @@ lianxi.controller 'SongFormController', ($scope, $shared) ->
           'text-muted'
 
   $scope.handlers =
-    song:
-      deannotate: (event) ->
-        console.log event
-      annotate: (event) ->
-        meta = event.metaKey || event.ctrlKey
-        key = event.keyCode == 69
-
-        return unless meta && key
-
-        return unless $scope.validators.song.lyrics()
-
+    annotations:
+      add: (event) ->
         target = event.target
         start = target.selectionStart
         end = target.selectionEnd
@@ -178,16 +169,56 @@ lianxi.controller 'SongFormController', ($scope, $shared) ->
         return if start == end
 
         annotate = (text) ->
+          head = text.slice 0, start
+          body = text.slice start, end
+          tail = text.slice end, text.length - 1
+
+          return text if body.match /[\n]/
+          return text if body.match ANNOTATION_REGEX
+
           _.template '<%= head %>[<%= body %>]<%= tail %>',
-            head: text.slice 0, start
-            body: text.slice start, end
-            tail: text.slice end, text.length - 1
+            head: head
+            body: body
+            tail: tail
 
         $scope.model.song.raw.simplified =
           annotate $scope.model.song.raw.simplified
         $scope.model.song.raw.traditional =
           annotate $scope.model.song.raw.traditional
-        
+
+      remove: (event) ->
+        target = event.target
+        start = target.selectionStart
+        end = target.selectionEnd
+
+        return if start == end
+
+        deannotate = (text) ->
+          head = text.slice 0, start
+          body = text.slice start, end
+          tail = text.slice end, text.length - 1
+
+          replacement = body.replace ANNOTATION_REGEX, '$1'
+
+          head + replacement + tail
+
+        $scope.model.song.raw.simplified =
+          deannotate $scope.model.song.raw.simplified
+        $scope.model.song.raw.traditional =
+          deannotate $scope.model.song.raw.traditional
+
+      modify: (event) ->
+        meta = event.metaKey || event.ctrlKey
+        shift = event.shiftKey
+        code = event.keyCode == 69
+
+        return unless meta and code and $scope.validators.song.lyrics()
+
+        return if shift
+          $scope.handlers.annotations.remove event
+        else
+          $scope.handlers.annotations.add event
+
     lyrics:
       selectRow: (index) ->
         lyricIndex = index

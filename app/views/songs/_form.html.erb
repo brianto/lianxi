@@ -145,7 +145,7 @@
             <textarea
               id="song-simplified"
               ng-model="model.song.raw.simplified"
-              ng-keydown="handlers.song.annotate($event)"
+              ng-keydown="handlers.annotations.modify($event)"
               rows="6"
               class="form-control"></textarea>
           </div>
@@ -155,7 +155,7 @@
               id="song-traditional"
               name="song[traditional]"
               ng-model="model.song.raw.traditional"
-              ng-keydown="handlers.song.annotate($event)"
+              ng-keydown="handlers.annotations.modify($event)"
               rows="6"
               class="form-control"></textarea>
           </div>
