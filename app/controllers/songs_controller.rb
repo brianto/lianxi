@@ -88,7 +88,7 @@ class SongsController < TeachablesController
     params.
       require(:song).
       permit(:id, :title, :artist, :youtubeId, :dialect,
-             :simplified, :traditional, :timing => [])
+             :simplified, :traditional, :translation, :timing => [])
   end
 
   # TODO refactor into concern

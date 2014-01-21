@@ -6,5 +6,5 @@ class Song < ActiveRecord::Base
   serialize :timing, Array
 
   validates :title, :artist, :youtubeId, :presence => true
-  validates :simplified, :traditional, :timing, :presence => true
+  validates :simplified, :traditional, :translation, :timing, :presence => true
 end

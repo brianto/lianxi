@@ -13,29 +13,24 @@
   </h1>
 </div>
 
-<div class="row">
-  <div class="span6">
-    <div id="video-stub" data-url="<%= @song[:url] %>">
-      <!-- Generated -->
-    </div>
-    <div id="karaoke-stub" class="row">
-      <!-- Generated -->
-    </div>
+<div class="row" ng-controller="KaraokeController">
+  <div class="col-md-4">
+      <iframe
+        id="youtube-player"
+        width="100%"
+        height="240"
+        frameborder="0"
+        src="https://www.youtube.com/embed/<%= @song[:youtubeId] %>?enablejsapi=1"></iframe>
   </div>
 
-  <div class="span6">
-  </div>
-</div>
-
-<div class="row">
-  <!-- Lyrics -->
-  <div class="span6">
-    <%= render_lyrics @song unless @song[:lyric].nil? %>
+  <div class="col-md-4">
+    <span ng-show="show.song.simplified()"><%= @song[:simplified].gsub(/\n/, '<br>').html_safe %></span>
+    <span ng-show="show.song.traditional()"><%= @song[:traditional].gsub(/\n/, '<br>').html_safe  %></span>
   </div>
 
-  <!-- Characters Table -->
-  <div class="span6">
-    <%= render_actions @song %>
-    <%= render_characters @song.flash_cards %>
+  <div class="col-md-4">
+    <% @song[:timing].each do |t| %>
+      <p><%= t %></p>
+    <% end %>
   </div>
 </div>

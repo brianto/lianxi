@@ -245,3 +245,9 @@ lianxi.controller 'SongFormController', ($scope, $shared) ->
 
       previousLyric: -> lyricIndex--
       nextLyric: -> lyricIndex++
+
+lianxi.controller 'KaraokeController', ($scope) ->
+  $scope.show =
+    song:
+      simplified: -> localStorage.charset == 'simplified'
+      traditional: -> localStorage.charset == 'traditional'

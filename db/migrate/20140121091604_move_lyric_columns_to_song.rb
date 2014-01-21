@@ -6,6 +6,7 @@ class MoveLyricColumnsToSong < ActiveRecord::Migration
 
     add_column :songs, :simplified, :text
     add_column :songs, :traditional, :text
+    add_column :songs, :translation, :text
     add_column :songs, :timing, :text
   end
 end
