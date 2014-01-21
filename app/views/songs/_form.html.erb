@@ -72,8 +72,11 @@
               <div class="col-md-3">
                 <input
                   ng-model="model.song.timing[$index]"
+                  name="song[timing][]"
                   class="form-control"
-                  step="0.2"
+                  min="0"
+                  pattern="(\d+)(\.\d+)?"
+                  step="0.001"
                   type="number"></input>
               </div>
               <div class="col-md-9"
@@ -144,6 +147,7 @@
           <div class="col-md-6">
             <textarea
               id="song-simplified"
+              name="song[simplified]"
               ng-model="model.song.raw.simplified"
               ng-keydown="handlers.annotations.modify($event)"
               rows="6"
