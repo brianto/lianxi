@@ -5,6 +5,7 @@
 # below each fixture, per the syntax in the comments below
 empty:
   title: Empty Song
-  artist: Wu Ming
-  url: example.com
+  artist: Priscilla Chan
+  youtubeId: xTkno1FGSwo
+  dialect: cantonese
   user: laoshi

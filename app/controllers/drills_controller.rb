@@ -15,6 +15,7 @@ class DrillsController < TeachablesController
     @drill.user = @user
 
     @examples = Array.new
+    # TODO refactor into concern
     @flash_cards = cards_params[:cards].collect do |card_param|
       fc = FlashCard.new do |fc|
         fc.simplified = card_param[:simplified]
@@ -141,6 +142,7 @@ class DrillsController < TeachablesController
     params.require(:drill).permit(:title, :description)
   end
 
+  # TODO refactor into concern
   def cards_params
     params.permit :cards => [
       :simplified, :traditional, :pinyin, :jyutping, :part_of_speech, :meaning, :id, :examples => [

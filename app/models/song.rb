@@ -3,8 +3,8 @@ class Song < ActiveRecord::Base
 
   has_many :flash_cards, :as => :teachable
 
-  has_one :lyric
+  serialize :timing, Array
 
-  validates :title, :artist, :url, :presence => true
-  # validates :lyric, :presence => true
+  validates :title, :artist, :youtubeId, :presence => true
+  validates :simplified, :traditional, :timing, :presence => true
 end
