@@ -28,12 +28,10 @@ class SongsController < TeachablesController
 
       @song.flash_cards << fc
 
-      @examples += card_param[:examples].collect do |example_param|
+      @examples += !cards_params[:examples] ? [] : card_param[:examples].collect do |example_param|
         ex = Example.new do |ex|
           ex.simplified = example_param[:simplified]
           ex.traditional = example_param[:traditional]
-          ex.pinyin = example_param[:pinyin]
-          ex.jyutping = example_param[:jyutping]
           ex.translation = example_param[:translation]
         end
 
@@ -70,7 +68,12 @@ class SongsController < TeachablesController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @song.to_json }
+      format.json do
+        render :json => {
+          :song => @song,
+          :cards => @song.flash_cards.as_json(:include => :examples)
+        }.to_json
+      end
     end
   end
 
@@ -95,6 +98,6 @@ class SongsController < TeachablesController
   def cards_params
     params.permit :cards => [
       :simplified, :traditional, :pinyin, :jyutping, :part_of_speech, :meaning, :id, :examples => [
-        :simplified, :traditional, :pinyin, :jyutping, :translation, :id ]]
+        :simplified, :traditional, :translation, :id ]]
   end
 end

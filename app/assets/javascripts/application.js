@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery-ujs
-//= require jquery-ui
 //= require bootstrap
+//= require jquery-ui
 //= require angular
 //= require angular-cookies
 //= require angular-sanitize

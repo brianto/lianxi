@@ -10,7 +10,9 @@ window.STATIC =
   urls:
     hanziMap: '/hanzimap.json'
 
-window.globals = {}
+window.globals =
+  urls:
+    get: ''
 
 lianxi.service '$shared', ->
   SHARED_KEYS = [ 'loaders', 'model', 'display', 'permissions' ]

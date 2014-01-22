@@ -11,3 +11,15 @@
 .cursor-hand {
   cursor: pointer;
 }
+
+ruby.annotation {
+  rt {
+    color: transparent;
+  }
+
+  &:hover {
+    rt {
+      color: inherit;
+    }
+  }
+}

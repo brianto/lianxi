@@ -4,6 +4,10 @@
 
 <% content_for :head do %>
   <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    window.globals.urls.get = "<%= song_path(@song, :format => :json) %>";
+  </script>
 <% end %>
 
 <div class="page-header">
@@ -24,13 +28,12 @@
   </div>
 
   <div class="col-md-4">
-    <span ng-show="show.song.simplified()"><%= @song[:simplified].gsub(/\n/, '<br>').html_safe %></span>
-    <span ng-show="show.song.traditional()"><%= @song[:traditional].gsub(/\n/, '<br>').html_safe  %></span>
+    <div class="well well-sm" ng-repeat="verse in model.song.verses">
+      <p
+        ng-repeat="line in verse"
+        ng-bind-html="display.lyrics.format.tooltipped(line, verse)">
+      </p>
+    </div>
   </div>
 
-  <div class="col-md-4">
-    <% @song[:timing].each do |t| %>
-      <p><%= t %></p>
-    <% end %>
-  </div>
 </div>

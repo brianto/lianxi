@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20140121091604) do
     t.string   "dialect"
     t.text     "simplified"
     t.text     "traditional"
+    t.text     "translation"
     t.text     "timing"
   end
 
