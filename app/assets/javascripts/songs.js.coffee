@@ -193,11 +193,11 @@ When I close my eye, the memory of meeting you that day is still very clear to m
           simplified: response.song.simplified
           traditional: response.song.traditional
           translation: response.song.translation
-        $scope.model.song.timing = response.song.timing
         $scope.model.song.title = response.song.title
         $scope.model.song.artist = response.song.artist
         $scope.model.song.youtubeId = response.song.youtubeId
         $scope.model.song.dialect = response.song.dialect
+        $scope.model.song.timing = _.map response.song.timing, parseFloat
 
         cards = $shared.model.cards
         cards.length = 0
@@ -391,6 +391,17 @@ When I close my eye, the memory of meeting you that day is still very clear to m
 lianxi.controller 'KaraokeController', ($scope, $shared) ->
   $shared.includeScope $scope
 
+  window.onYouTubeIframeAPIReady = ->
+    $scope.player = new YT.Player 'youtube-player',
+      events:
+        onReady: ->
+          $scope.playerReady = true
+
+          setInterval ->
+            $scope.$apply ->
+              $scope.time = $scope.player.getCurrentTime()
+          , 200
+
   $scope.model =
     song: {}
 
@@ -404,10 +415,10 @@ lianxi.controller 'KaraokeController', ($scope, $shared) ->
         simplified: response.song.simplified
         traditional: response.song.traditional
         translation: response.song.translation
-      $scope.model.song.timing = response.song.timing || []
+      $scope.model.song.timing = _.map response.song.timing, parseFloat
 
       _.each FIELD_ORDER, (key) ->
-        $scope.model.song[key] = response.song[key].split /\n+/
+        $scope.model.song[key] = response.song[key].replace(/\r/g, '').split /\n+/
 
       verses = response.song.simplified.split /\n{2,}/
 
@@ -437,7 +448,12 @@ lianxi.controller 'KaraokeController', ($scope, $shared) ->
           lyric
         , { id: lineIndex }
 
-        lyricObj.timing = $scope.model.song.timing[lineIndex]
+        timing = $scope.model.song.timing
+
+        lyricObj.timing =
+          start: timing[lineIndex]
+          end: timing[lineIndex + 1] or Infinity
+
         lyricObj
 
       $scope.model.song.verses = _.reduce sliceArgs, (verses, sliceArg) ->
@@ -454,6 +470,21 @@ lianxi.controller 'KaraokeController', ($scope, $shared) ->
 
   $scope.display =
     lyrics:
+      currentLine: ->
+        if not $scope.playerReady
+          return ''
+
+        lyrics = _.find $scope.model.song.lyrics, (lyric) ->
+          start = lyric.timing.start
+          end = lyric.timing.end
+
+          start < $scope.time < end
+
+        return if lyrics
+          $scope.display.lyrics.format.tooltipped lyrics
+        else
+          ''
+
       format:
         tooltipped: (line) ->
           rawLyrics = line[localStorage.charset]

@@ -24,7 +24,11 @@
         width="100%"
         height="240"
         frameborder="0"
-        src="https://www.youtube.com/embed/<%= @song[:youtubeId] %>?enablejsapi=1"></iframe>
+        src="https://www.youtube.com/embed/<%= @song[:youtubeId] %>?enablejsapi=1">
+      </iframe>
+
+      <div ng-bind-html="display.lyrics.currentLine()">
+      </div>
   </div>
 
   <div class="col-md-4">
