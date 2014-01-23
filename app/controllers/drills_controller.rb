@@ -63,8 +63,6 @@ class DrillsController < TeachablesController
     @drill = Drill.find params[:id]
 
     redirect_to root_path unless @drill.user.eql? @user
-
-    @debug = self
   end
 
   def show

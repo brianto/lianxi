@@ -31,9 +31,12 @@ ANNOTATION_REGEX = /\[([^\s\n\[\]]+)\]/g
 REWIND_LENGTH = 5 # seconds
 
 lianxi.controller 'SongFormController', ($scope, $shared) ->
+  $shared.includeScope $scope
+
   splitLyrics = (raw) ->
     lines = raw.split /\n/
-    _.reject lines, _.isEmpty
+    _.reject lines, (line) ->
+      _.isEmpty line.trim()
 
   computeLyrics = ->
     return null unless $scope.validators.song.lyrics()
@@ -180,6 +183,26 @@ When I close my eye, the memory of meeting you that day is still very clear to m
     166.3, 175.7, 184.7, 188.7,
     194.1, 206.3, 210.3, 215.9,
     228.1, 229.4 ]
+
+  if globals.urls.get
+    $.ajax
+      url: globals.urls.get
+    .done (response) ->
+      $scope.$apply ->
+        $scope.model.song.raw =
+          simplified: response.song.simplified
+          traditional: response.song.traditional
+          translation: response.song.translation
+        $scope.model.song.timing = response.song.timing
+        $scope.model.song.title = response.song.title
+        $scope.model.song.artist = response.song.artist
+        $scope.model.song.youtubeId = response.song.youtubeId
+        $scope.model.song.dialect = response.song.dialect
+
+        cards = $shared.model.cards
+        cards.length = 0
+        _.each response.cards, (card) ->
+          cards.push card
 
   watchRaw = (key) ->
     $scope.$watch 'model.song.raw.' + key, ->
@@ -365,7 +388,9 @@ When I close my eye, the memory of meeting you that day is still very clear to m
       previousLyric: -> lyricIndex--
       nextLyric: -> lyricIndex++
 
-lianxi.controller 'KaraokeController', ($scope) ->
+lianxi.controller 'KaraokeController', ($scope, $shared) ->
+  $shared.includeScope $scope
+
   $scope.model =
     song: {}
 
@@ -379,13 +404,12 @@ lianxi.controller 'KaraokeController', ($scope) ->
         simplified: response.song.simplified
         traditional: response.song.traditional
         translation: response.song.translation
-      $scope.model.song.timing = response.song.timing
+      $scope.model.song.timing = response.song.timing || []
 
       _.each FIELD_ORDER, (key) ->
         $scope.model.song[key] = response.song[key].split /\n+/
 
-      # TODO wtf? why on earth does this work?
-      verses = response.song.simplified.split /\n\r\n/
+      verses = response.song.simplified.split /\n{2,}/
 
       sliceArgs = _.chain(verses)
       .map (verse) ->
@@ -407,16 +431,21 @@ lianxi.controller 'KaraokeController', ($scope) ->
           $scope.model.song[key]
 
       lyrics = _.map rawTransposedLyrics, (rawTransposedLyric, lineIndex) ->
-        _.reduce rawTransposedLyric, (lyric, item, fieldIndex) ->
+        lyricObj = _.reduce rawTransposedLyric, (lyric, item, fieldIndex) ->
           fieldName = FIELD_ORDER[fieldIndex]
           lyric[fieldName] = item
           lyric
         , { id: lineIndex }
 
-       $scope.model.song.verses = _.reduce sliceArgs, (verses, sliceArg) ->
-         verses.push lyrics.slice.apply lyrics, sliceArg
-         verses
-       , []
+        lyricObj.timing = $scope.model.song.timing[lineIndex]
+        lyricObj
+
+      $scope.model.song.verses = _.reduce sliceArgs, (verses, sliceArg) ->
+        verses.push lyrics.slice.apply lyrics, sliceArg
+        verses
+      , []
+
+      $scope.model.song.lyrics = _.flatten $scope.model.song.verses
 
   $scope.show =
     song:

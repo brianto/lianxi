@@ -12,6 +12,9 @@ class SongsController < TeachablesController
 
   def create
     @song = Song.new song_params
+    @song.simplified = song_params[:simplified].gsub /\r/, ''
+    @song.traditional = song_params[:traditional].gsub /\r/, ''
+    @song.translation = song_params[:translation].gsub /\r/, ''
     @song.user = @user
 
     @examples = Array.new
@@ -60,7 +63,9 @@ class SongsController < TeachablesController
   end
 
   def edit
+    @song = Song.find params[:id]
 
+    redirect_to root_path unless @song.user.eql? @user
   end
 
   def show
@@ -78,7 +83,57 @@ class SongsController < TeachablesController
   end
 
   def update
+    @song = Song.find params[:id]
 
+    @song.update song_params
+    @song.simplified = song_params[:simplified].gsub /\r/, ''
+    @song.traditional = song_params[:traditional].gsub /\r/, ''
+    @song.translation = song_params[:translation].gsub /\r/, ''
+
+    @cards = cards_params[:cards] || []
+    @delta = {
+      :added => Array.new,
+      :modified => Array.new,
+      :deleted => Array.new
+    }
+
+    # TODO refactor save added/modified/deleted for handling examples as well
+    @cards.each do |card|
+      if card[:id].eql? '' # new card
+        @card = FlashCard.new card
+        @card.teachable = @song
+        @delta[:added] << @card
+      else # existing card
+        @card = FlashCard.find card[:id]
+        @card.update card
+        @delta[:modified] << @card
+      end
+    end
+
+    idsAfterSave = @cards.inject(Array.new) do |result, card|
+      result << card[:id].to_i unless card[:id].eql? ''
+      result
+    end
+
+    idsBeforeSave = @song.flash_cards.collect do |card|
+      card.id
+    end
+
+    deletedCardIds = idsBeforeSave - idsAfterSave
+    @delta[:deleted] = FlashCard.find deletedCardIds
+
+    Song.transaction do
+      begin
+        @song.save!
+        @delta[:added].each &:save!
+        @delta[:modified].each &:save!
+        @delta[:deleted].each &:destroy!
+
+        redirect_to song_path(@song)
+      rescue
+        render :action => "edit"
+      end
+    end
   end
 
   def destroy
