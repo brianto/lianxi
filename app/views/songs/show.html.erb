@@ -2,6 +2,10 @@
   <%= @song.title %>
 <% end %>
 
+<% content_for :navigation do %>
+  <%= render_actions @song %>
+<% end %>
+
 <% content_for :head do %>
   <script src="https://www.youtube.com/iframe_api"></script>
 
@@ -18,8 +22,6 @@
 </div>
 
 <div class="row" ng-controller="KaraokeController">
-  <%= render_actions @song %>
-
   <div class="col-md-6">
       <iframe
         id="youtube-player"

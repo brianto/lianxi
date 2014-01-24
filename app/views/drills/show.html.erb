@@ -2,6 +2,10 @@
   <%= @drill[:title] %>
 <% end %>
 
+<% content_for :navigation do %>
+  <%= render_actions @drill %>
+<% end %>
+
 <div class="page-header">
   <h1>
     <%= @drill[:title] %>
@@ -11,7 +15,6 @@
 
 <div class="row">
   <div class="span12">
-    <%= render_actions @drill %>
     <%= render_characters @drill.flash_cards %>
   </div>
 </div>

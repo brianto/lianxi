@@ -1,8 +1,12 @@
-<ul class="nav nav-pills">
+<li>
+  <%= link_to "Writing Grid", polymorphic_url([:grid, teachable]) %>
+</li>
+<li>
+  <%= link_to "Flash Cards", polymorphic_url([:quiz, teachable]) %>
+</li>
+
+<% if @user.eql? teachable.user %>
   <li>
-    <%= link_to "Writing Grid", polymorphic_url([:grid, teachable]) %>
+    <%= link_to "Edit", polymorphic_url([:edit, teachable]) %>
   </li>
-  <li>
-    <%= link_to "Flash Cards", polymorphic_url([:quiz, teachable]) %>
-  </li>
-</ul>
+<% end %>

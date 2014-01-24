@@ -26,6 +26,8 @@
         </a>
       </li>
 
+      <%= content_for :navigation %>
+
       <% unless @user.nil? %>
         <li class="dropdown">
           <a class="dropdown-toggle btn btn-link" data-toggle="dropdown">
