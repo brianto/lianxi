@@ -418,7 +418,7 @@ lianxi.controller 'KaraokeController', ($scope, $shared) ->
       $scope.model.song.timing = _.map response.song.timing, parseFloat
 
       _.each FIELD_ORDER, (key) ->
-        # fucking carriage returns!
+        response.song[key] = response.song[key] || ''
         response.song[key] = response.song[key].replace /\r/g, ''
         $scope.model.song[key] = response.song[key].split /\n+/
 
