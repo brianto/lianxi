@@ -18,7 +18,9 @@
 </div>
 
 <div class="row" ng-controller="KaraokeController">
-  <div class="col-md-4">
+  <%= render_actions @song %>
+
+  <div class="col-md-6">
       <iframe
         id="youtube-player"
         width="100%"
@@ -29,14 +31,20 @@
 
       <div ng-bind-html="display.lyrics.currentLine()">
       </div>
+
+      <%= render_characters @song.flash_cards %>
   </div>
 
-  <div class="col-md-4">
-    <div class="well well-sm" ng-repeat="verse in model.song.verses">
-      <p
-        ng-repeat="line in verse"
-        ng-bind-html="display.lyrics.format.tooltipped(line, verse)">
-      </p>
+  <div class="col-md-6">
+    <div ng-repeat="verse in model.song.verses">
+      <div ng-repeat="line in verse">
+        <p class="cursor-hand"
+          ng-class="style.song.lyricLine(line)"
+          ng-click="handlers.song.jumpTo(line)"
+          ng-bind-html="display.lyrics.format.tooltipped(line, verse)"></p>
+      </div>
+
+      <hr>
     </div>
   </div>
 

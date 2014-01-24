@@ -418,7 +418,9 @@ lianxi.controller 'KaraokeController', ($scope, $shared) ->
       $scope.model.song.timing = _.map response.song.timing, parseFloat
 
       _.each FIELD_ORDER, (key) ->
-        $scope.model.song[key] = response.song[key].replace(/\r/g, '').split /\n+/
+        # fucking carriage returns!
+        response.song[key] = response.song[key].replace /\r/g, ''
+        $scope.model.song[key] = response.song[key].split /\n+/
 
       verses = response.song.simplified.split /\n{2,}/
 
@@ -463,10 +465,33 @@ lianxi.controller 'KaraokeController', ($scope, $shared) ->
 
       $scope.model.song.lyrics = _.flatten $scope.model.song.verses
 
+  $scope.style =
+    song:
+      lyricLine: (lyric) ->
+        start = lyric.timing.start
+        end = lyric.timing.end
+
+        if start < $scope.time < end
+          'text-primary'
+        else
+          ''
+
+
   $scope.show =
     song:
       simplified: -> localStorage.charset == 'simplified'
       traditional: -> localStorage.charset == 'traditional'
+
+  $scope.handlers =
+    song:
+      jumpTo: (line) ->
+        return unless $scope.playerReady
+
+        start = line && line.timing.start
+
+        return unless start && start != 0
+
+        $scope.player.seekTo line.timing.start
 
   $scope.display =
     lyrics:
@@ -480,10 +505,11 @@ lianxi.controller 'KaraokeController', ($scope, $shared) ->
 
           start < $scope.time < end
 
-        return if lyrics
-          $scope.display.lyrics.format.tooltipped lyrics
-        else
-          ''
+        lyrics = lyrics ||
+          simplified: '&nbsp;'
+          traditional: '&nbsp;'
+
+        $scope.display.lyrics.format.tooltipped lyrics
 
       format:
         tooltipped: (line) ->

@@ -86,9 +86,6 @@ class SongsController < TeachablesController
     @song = Song.find params[:id]
 
     @song.update song_params
-    @song.simplified = song_params[:simplified].gsub /\r/, ''
-    @song.traditional = song_params[:traditional].gsub /\r/, ''
-    @song.translation = song_params[:translation].gsub /\r/, ''
 
     @cards = cards_params[:cards] || []
     @delta = {
