@@ -1,3 +1,9 @@
+<% content_for :head do %>
+  <script>
+    window.globals.urls.get = "<%= drill_path @drill, :format => :json %>";
+  </script>
+<% end %>
+
 <%= render :partial => "form", :locals => {
   :action => "update",
   :method => "put"

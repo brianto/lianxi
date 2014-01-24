@@ -1,9 +1,9 @@
 lianxi.controller 'DrillFormController', ($scope, $shared) ->
   $shared.includeScope $scope
 
-  if location.pathname.match /\/drills\/(\d+)\/edit$/
+  if globals.urls.get
     $.ajax
-      url: location.pathname.replace /\/edit$/, '.json'
+      url: globals.urls.get
     .done (response) ->
       $scope.$apply ->
         $scope.model.drill = response.drill
