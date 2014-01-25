@@ -1,10 +1,4 @@
 class PassagesController < ApplicationController
-  before_filter :setup_teachables
-
-  def setup_teachables
-    @model_class = Passage
-  end
-
   def index
 
   end

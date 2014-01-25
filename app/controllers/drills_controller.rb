@@ -1,13 +1,7 @@
-class DrillsController < TeachablesController
-  before_filter :setup_teachables
-  before_filter :require_login, :only => [:new, :create, :edit, :update, :destroy]
+class DrillsController < ApplicationController
+  before_action :require_login, :only => [:new, :create, :edit, :update, :destroy]
 
   include Teachable
-
-  def setup_teachables
-    # TODO remove
-    @model_class = Drill
-  end
 
   def index
     @drills = Drill.find(:all)
