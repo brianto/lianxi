@@ -12,9 +12,10 @@ class DrillsController < ApplicationController
     @drill.user = @user
 
     begin
-      save_teachable @drill
+      create_teachable @drill
       redirect_to drill_path(@drill)
     rescue Exception => e
+      raise e.to_s
       render :action => "new"
     end
   end
@@ -46,49 +47,12 @@ class DrillsController < ApplicationController
 
     @drill.update drill_params
 
-    @cards = cards_params[:cards]
-    @delta = {
-      :added => Array.new,
-      :modified => Array.new,
-      :deleted => Array.new
-    }
-
-    # TODO refactor save added/modified/deleted for handling examples as well
-    @cards.each do |card|
-      if card[:id].eql? '' # new card
-        @card = FlashCard.new card
-        @card.teachable = @drill
-        @delta[:added] << @card
-      else # existing card
-        @card = FlashCard.find card[:id]
-        @card.update card
-        @delta[:modified] << @card
-      end
-    end
-
-    idsAfterSave = @cards.inject(Array.new) do |result, card|
-      result << card[:id].to_i unless card[:id].eql? ''
-      result
-    end
-
-    idsBeforeSave = @drill.flash_cards.collect do |card|
-      card.id
-    end
-
-    deletedCardIds = idsBeforeSave - idsAfterSave
-    @delta[:deleted] = FlashCard.find deletedCardIds
-
-    Drill.transaction do
-      begin
-        @drill.save!
-        @delta[:added].each &:save!
-        @delta[:modified].each &:save!
-        @delta[:deleted].each &:destroy!
-
-        redirect_to drill_path(@drill)
-      rescue
-        render :action => "edit"
-      end
+    begin
+      update_teachable @drill
+      redirect_to drill_path(@drill)
+    rescue Exception => e
+      raise e.to_s
+      render :action => "edit"
     end
   end
 

@@ -42,7 +42,7 @@ module Teachable
     render :template => "shared/quiz"
   end
 
-  def save_teachable(teachable)
+  def create_teachable(teachable)
     raw_cards = cards_params[:cards] || []
 
     examples = Array.new
@@ -74,10 +74,56 @@ module Teachable
       fc
     end
 
-    teachable.class.transaction do
+    model_class.transaction do
       teachable.save!
       cards.each &:save!
       examples.each &:save!
+    end
+  end
+
+  def update_teachable(teachable)
+    raw_cards = cards_params[:cards]
+
+    delta = {
+      :added => Array.new,
+      :modified => Array.new,
+      :deleted => Array.new
+    }
+
+    raw_cards.each do |card_param|
+      # TODO save examples as well
+      if card_param[:examples]
+        card_param.delete :examples
+      end
+
+      if card_param[:id].eql? '' # new card
+        card = FlashCard.new card_param
+        card.teachable = teachable
+        delta[:added] << card
+      else # existing card
+        card = FlashCard.find card_param[:id]
+        card.update card_param
+        delta[:modified] << card
+      end
+    end
+
+    idsAfterSave = raw_cards.inject(Array.new) do |result, card|
+      result << card[:id].to_i unless card[:id].eql? ''
+      result
+    end
+
+    idsBeforeSave = teachable.flash_cards.collect do |card|
+      card.id
+    end
+
+    deletedCardIds = idsBeforeSave - idsAfterSave
+    delta[:deleted] = FlashCard.find deletedCardIds
+
+    model_class.transaction do
+      teachable.save!
+      delta[:added].each &:save!
+      delta[:modified].each &:save!
+      delta[:deleted].each &:destroy!
     end
   end
 

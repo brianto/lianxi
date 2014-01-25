@@ -15,8 +15,8 @@ class SongsController < ApplicationController
     @song.user = @user
 
     begin
-      save_teachable @song
-      redirect_to drill_path(@song)
+      create_teachable @song
+      redirect_to song_path(@song)
     rescue Exception => e
       render :action => "new"
     end
@@ -51,49 +51,11 @@ class SongsController < ApplicationController
 
     @song.update song_params
 
-    @cards = cards_params[:cards] || []
-    @delta = {
-      :added => Array.new,
-      :modified => Array.new,
-      :deleted => Array.new
-    }
-
-    # TODO refactor save added/modified/deleted for handling examples as well
-    @cards.each do |card|
-      if card[:id].eql? '' # new card
-        @card = FlashCard.new card
-        @card.teachable = @song
-        @delta[:added] << @card
-      else # existing card
-        @card = FlashCard.find card[:id]
-        @card.update card
-        @delta[:modified] << @card
-      end
-    end
-
-    idsAfterSave = @cards.inject(Array.new) do |result, card|
-      result << card[:id].to_i unless card[:id].eql? ''
-      result
-    end
-
-    idsBeforeSave = @song.flash_cards.collect do |card|
-      card.id
-    end
-
-    deletedCardIds = idsBeforeSave - idsAfterSave
-    @delta[:deleted] = FlashCard.find deletedCardIds
-
-    Song.transaction do
-      begin
-        @song.save!
-        @delta[:added].each &:save!
-        @delta[:modified].each &:save!
-        @delta[:deleted].each &:destroy!
-
-        redirect_to song_path(@song)
-      rescue
-        render :action => "edit"
-      end
+    begin
+      update_teachable @song
+      redirect_to song_path(@song)
+    rescue Exception => e
+      render :action => "edit"
     end
   end
 
