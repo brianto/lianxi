@@ -2,6 +2,8 @@ class SongsController < TeachablesController
   before_filter :setup_teachables
   before_filter :require_login, :only => [:new, :create, :edit, :update, :destroy]
 
+  include Teachable
+
   def setup_teachables
     @model_class = Song
   end
@@ -17,45 +19,12 @@ class SongsController < TeachablesController
     @song.translation = song_params[:translation].gsub /\r/, ''
     @song.user = @user
 
-    @examples = Array.new
-    # TODO refactor into concern
-    @flash_cards = !cards_params[:cards] ? [] : cards_params[:cards].collect do |card_param|
-      fc = FlashCard.new do |fc|
-        fc.simplified = card_param[:simplified]
-        fc.traditional = card_param[:traditional]
-        fc.pinyin = card_param[:pinyin]
-        fc.jyutping = card_param[:jyutping]
-        fc.part_of_speech = card_param[:part_of_speech]
-        fc.meaning = card_param[:meaning]
-      end
-
-      @song.flash_cards << fc
-
-      @examples += !cards_params[:examples] ? [] : card_param[:examples].collect do |example_param|
-        ex = Example.new do |ex|
-          ex.simplified = example_param[:simplified]
-          ex.traditional = example_param[:traditional]
-          ex.translation = example_param[:translation]
-        end
-
-        fc.examples << ex
-        ex
-      end
-
-      fc
+    begin
+      save_teachable @song
+      redirect_to drill_path(@song)
+    rescue Exception => e
+      render :action => "new"
     end
-
-    Song.transaction do
-      begin
-        @song.save!
-        @flash_cards.each &:save!
-        @examples.each &:save!
-      rescue Exception => e
-        render :action => "new"
-      end
-    end
-
-    redirect_to song_path(@song)
   end
 
   def new
@@ -144,12 +113,5 @@ class SongsController < TeachablesController
       require(:song).
       permit(:id, :title, :artist, :youtubeId, :dialect,
              :simplified, :traditional, :translation, :timing => [])
-  end
-
-  # TODO refactor into concern
-  def cards_params
-    params.permit :cards => [
-      :simplified, :traditional, :pinyin, :jyutping, :part_of_speech, :meaning, :id, :examples => [
-        :simplified, :traditional, :translation, :id ]]
   end
 end
