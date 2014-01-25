@@ -1,21 +1,23 @@
 <%= form_for @new_user, :html => { :class => "form-horizontal" } do |form| %>
   <fieldset>
-    <%= render_field form, @errors, :username, :text_field, {
+    <legend>User</legend>
+
+    <%= render_field form, :username, :text_field, {
       :class => "form-control",
       :placeholder => "username"
     } %>
 
-    <%= render_field form, @errors, :email, :email_field, {
+    <%= render_field form, :email, :email_field, {
       :class => "form-control",
       :placeholder => "you@example.com"
     } %>
 
-    <%= render_field form, @errors, :password, :password_field, {
+    <%= render_field form, :password, :password_field, {
       :class => "form-control",
       :placeholder => "password"
     } %>
 
-    <%= render_field form, @errors, :password_confirmation, :password_field, {
+    <%= render_field form, :password_confirmation, :password_field, {
       :class => "form-control",
       :placeholder => "password again"
     } %>
