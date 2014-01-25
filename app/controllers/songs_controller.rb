@@ -5,6 +5,7 @@ class SongsController < TeachablesController
   include Teachable
 
   def setup_teachables
+    # TODO remove
     @model_class = Song
   end
 

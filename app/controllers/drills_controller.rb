@@ -5,6 +5,7 @@ class DrillsController < TeachablesController
   include Teachable
 
   def setup_teachables
+    # TODO remove
     @model_class = Drill
   end
 
