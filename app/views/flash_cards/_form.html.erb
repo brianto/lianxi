@@ -17,6 +17,8 @@
       :name => "cards[][part_of_speech]" %>
     <ol>
       <li ng-repeat="example in card.examples">
+        <%= render_hidden_angular_field :model => "example.id",
+          :name => "cards[][examples][][id]" %>
         <%= render_hidden_angular_field :model => "example.simplified",
           :name => "cards[][examples][][simplified]" %>
         <%= render_hidden_angular_field :model => "example.traditional",

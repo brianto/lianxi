@@ -15,7 +15,7 @@ class SongsController < ApplicationController
     @song.user = @user
 
     begin
-      create_teachable @song
+      save_teachable @song
       redirect_to song_path(@song)
     rescue Exception => e
       render :action => "new"
@@ -52,7 +52,7 @@ class SongsController < ApplicationController
     @song.update song_params
 
     begin
-      update_teachable @song
+      save_teachable @song
       redirect_to song_path(@song)
     rescue Exception => e
       render :action => "edit"

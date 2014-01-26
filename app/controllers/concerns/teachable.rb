@@ -42,89 +42,11 @@ module Teachable
     render :template => "shared/quiz"
   end
 
-  def create_teachable(teachable)
-    raw_cards = cards_params[:cards] || []
+  def save_teachable(teachable)
+    changes = [teachable]
+    changes += save_cards(teachable.flash_cards, cards_params[:cards])
 
-    examples = Array.new
-    cards = raw_cards.collect do |card_param|
-      fc = FlashCard.new do |fc|
-        fc.simplified = card_param[:simplified]
-        fc.traditional = card_param[:traditional]
-        fc.pinyin = card_param[:pinyin]
-        fc.jyutping = card_param[:jyutping]
-        fc.part_of_speech = card_param[:part_of_speech]
-        fc.meaning = card_param[:meaning]
-      end
-
-      teachable.flash_cards << fc
-
-      raw_examples = card_param[:examples] || []
-
-      examples += raw_examples.collect do |example_param|
-        ex = Example.new do |ex|
-          ex.simplified = example_param[:simplified]
-          ex.traditional = example_param[:traditional]
-          ex.translation = example_param[:translation]
-        end
-
-        fc.examples << ex
-        ex
-      end
-
-      fc
-    end
-
-    model_class.transaction do
-      teachable.save!
-      cards.each &:save!
-      examples.each &:save!
-    end
-  end
-
-  def update_teachable(teachable)
-    raw_cards = cards_params[:cards]
-
-    delta = {
-      :added => Array.new,
-      :modified => Array.new,
-      :deleted => Array.new
-    }
-
-    raw_cards.each do |card_param|
-      # TODO save examples as well
-      if card_param[:examples]
-        card_param.delete :examples
-      end
-
-      if card_param[:id].eql? '' # new card
-        card = FlashCard.new card_param
-        card.teachable = teachable
-        delta[:added] << card
-      else # existing card
-        card = FlashCard.find card_param[:id]
-        card.update card_param
-        delta[:modified] << card
-      end
-    end
-
-    idsAfterSave = raw_cards.inject(Array.new) do |result, card|
-      result << card[:id].to_i unless card[:id].eql? ''
-      result
-    end
-
-    idsBeforeSave = teachable.flash_cards.collect do |card|
-      card.id
-    end
-
-    deletedCardIds = idsBeforeSave - idsAfterSave
-    delta[:deleted] = FlashCard.find deletedCardIds
-
-    model_class.transaction do
-      teachable.save!
-      delta[:added].each &:save!
-      delta[:modified].each &:save!
-      delta[:deleted].each &:destroy!
-    end
+    changes.each &:save!
   end
 
   def get_difficulties
@@ -173,6 +95,86 @@ module Teachable
 
   def model_class
     params[:controller].classify.constantize
+  end
+
+  def changeset(existing_models, model_params, debug=false)
+    model_params = model_params || []
+
+    added    = model_params.select { |m| m[:id].empty? }
+    modified = model_params.reject { |m| m[:id].empty? }
+    deleted  = existing_models.map(&:id) - modified.map { |m| m[:id].to_i }
+
+    return { :added => added, :modified => modified, :deleted => deleted }
+  end
+
+  def find_model(clazz, id)
+    model = clazz.find_by_id(id)
+
+    return model if @user.owns? model
+  end
+
+  def save_cards(existing_cards, card_params)
+    changes = changeset(existing_cards, card_params)
+    changed = Array.new
+
+    changes[:added].each do |card_param|
+      card = FlashCard.new card_param.except(:examples)
+      existing_cards << card
+
+      changed << card
+      changed += save_examples(card.examples, card_param[:examples])
+    end
+
+    changes[:deleted].each do |id|
+      card = find_model(FlashCard, id)
+
+      next if card.nil?
+
+      card.examples.each &:delete
+      card.delete
+    end
+
+    changes[:modified].each do |card_param|
+      card = find_model(FlashCard, card_param[:id])
+
+      next if card.nil?
+
+      card.update card_param.except(:examples)
+      changed << card
+      changed += save_examples(card.examples, card_param[:examples])
+    end
+
+    return changed
+  end
+
+  def save_examples(existing_examples, example_params)
+    changes = changeset(existing_examples, example_params, true)
+    changed = Array.new
+
+    changes[:added].each do |example_param|
+      example = Example.new example_param
+      existing_examples << example
+      changed << example
+    end
+
+    changes[:deleted].each do |id|
+      example = find_model(Example, id)
+
+      next if example.nil?
+
+      example.delete
+    end
+
+    changes[:modified].each do |example_param|
+      example = find_model(Example, example_param[:id])
+
+      return if example.nil?
+
+      example.update example_param
+      changed << example
+    end
+
+    return changed
   end
 
   def cards_params

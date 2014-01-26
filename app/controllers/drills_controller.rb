@@ -12,7 +12,7 @@ class DrillsController < ApplicationController
     @drill.user = @user
 
     begin
-      create_teachable @drill
+      save_teachable @drill
       redirect_to drill_path(@drill)
     rescue Exception => e
       raise e.to_s
@@ -48,7 +48,7 @@ class DrillsController < ApplicationController
     @drill.update drill_params
 
     begin
-      update_teachable @drill
+      save_teachable @drill
       redirect_to drill_path(@drill)
     rescue Exception => e
       raise e.to_s
