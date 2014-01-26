@@ -151,6 +151,8 @@ $(document).ready ->
 lianxi.controller 'FlashCardFormController', ($scope, $shared) ->
   $shared.includeScope $scope
 
+  $scope.cardIndex = 0
+
   $scope.model =
     cards: []
     card: ->
@@ -224,6 +226,8 @@ lianxi.controller 'FlashCardFormController', ($scope, $shared) ->
         not _.isEmpty $scope.model.cards
 
 lianxi.controller 'ExampleFormController', ($scope, $shared) ->
+  $scope.exampleIndex = 0
+
   $scope.model =
     examples: ->
       card = $shared.model.card()
