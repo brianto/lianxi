@@ -37,7 +37,7 @@ module Teachable
   end
 
   def quiz
-    @teachable = @model_class.find(params[:id])
+    @teachable = model_class.find(params[:id])
 
     render :template => "shared/quiz"
   end
@@ -50,7 +50,7 @@ module Teachable
   end
 
   def get_difficulties
-    @flash_card_ids = @model_class.find(params[:id]).flash_cards.collect &:id
+    @flash_card_ids = model_class.find(params[:id]).flash_cards.collect &:id
 
     respond_to do |format|
       format.json do
