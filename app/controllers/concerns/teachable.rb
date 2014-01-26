@@ -130,6 +130,9 @@ module Teachable
 
       next if card.nil?
 
+      difficulties = Difficulty.where("flash_card_id = ?", id)
+
+      difficulties.each &:delete
       card.examples.each &:delete
       card.delete
     end
