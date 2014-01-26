@@ -4,6 +4,10 @@
   </script>
 <% end %>
 
+<% content_for :navigation do %>
+  <%= render_actions @drill, :delete %>
+<% end %>
+
 <%= render :partial => "form", :locals => {
   :action => "update",
   :method => "put"

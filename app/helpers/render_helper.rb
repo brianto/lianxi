@@ -21,9 +21,10 @@ module RenderHelper
     }
   end
 
-  def render_actions(teachable)
+  def render_actions(teachable, *actions)
     render :partial => "partials/actions", :locals => {
-      :teachable => teachable
+      :teachable => teachable,
+      :actions => actions
     }
   end
 

@@ -1,12 +1,20 @@
 <li>
-  <%= link_to "Writing Grid", polymorphic_url([:grid, teachable]) %>
+  <%= link_to "Writing Grid",
+    polymorphic_url([:grid, teachable]) if actions.include? :grid %>
 </li>
 <li>
-  <%= link_to "Flash Cards", polymorphic_url([:quiz, teachable]) %>
+  <%= link_to "Flash Cards",
+    polymorphic_url([:quiz, teachable]) if actions.include? :quiz %>
 </li>
 
 <% if @user.eql? teachable.user %>
   <li>
-    <%= link_to "Edit", polymorphic_url([:edit, teachable]) %>
+    <%= link_to "Edit",
+      polymorphic_url([:edit, teachable]) if actions.include? :edit %>
+  </li>
+  <li>
+    <%= link_to "Delete",
+      polymorphic_url([teachable]),
+      :method => :delete if actions.include? :delete %>
   </li>
 <% end %>
