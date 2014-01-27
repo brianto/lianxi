@@ -190,9 +190,9 @@ When I close my eye, the memory of meeting you that day is still very clear to m
     .done (response) ->
       $scope.$apply ->
         $scope.model.song.raw =
-          simplified: response.song.simplified
-          traditional: response.song.traditional
-          translation: response.song.translation
+          simplified: response.song.simplified.replace /\r/g, ''
+          traditional: response.song.traditional.replace /\r/g, ''
+          translation: response.song.translation.replace /\r/g, ''
         $scope.model.song.title = response.song.title
         $scope.model.song.artist = response.song.artist
         $scope.model.song.youtubeId = response.song.youtubeId
