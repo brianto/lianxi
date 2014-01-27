@@ -93,6 +93,31 @@ lianxi.controller 'QuizController', ($scope) ->
       characters: -> $scope.style._quizStyleBlur('example', 'characters')
       translation: -> $scope.style._quizStyleBlur('example', 'translation')
 
+  shuffleCards = ->
+    cards = _.shuffle $scope.model.cards
+    difficulties = $scope.model.difficulties
+
+    difficultyOf = (card) ->
+      return null if not card
+      difficultyRef = $scope.model.difficulties[card.id]
+      return null if not difficultyRef
+      difficultyRef.difficulty
+
+    ORDERING = { hard: -1, easy: 1 }
+
+    switch $scope.model.quiz.selection
+      when 'hardest-first'
+        cards = _.sortBy cards, (card) ->
+          difficulty = difficultyOf card
+          ORDERING[difficulty] || 0
+      when 'easiest-first'
+        cards = _.sortBy cards, (card) ->
+          difficulty = difficultyOf card
+          -ORDERING[difficulty] || 0
+
+    $scope.$apply ->
+      $scope.model.cards = cards
+
   $scope.handlers =
     card:
       next: ->
@@ -128,7 +153,7 @@ lianxi.controller 'QuizController', ($scope) ->
           difficulty
 
         $.ajax
-          url: globals.updateDifficultiesUrl
+          url: globals.urls.difficulties.post
           type: 'POST'
           data: difficultyRef
 
@@ -140,6 +165,8 @@ lianxi.controller 'QuizController', ($scope) ->
         revealing = not revealing
       configure: ->
         configuring = not configuring
+      reorder: ->
+        shuffleCards()
 
   $scope.permissions =
     action: ->
@@ -178,8 +205,8 @@ lianxi.controller 'QuizController', ($scope) ->
   , (current, previous) ->
     localStorage.quiz = current
 
-  $.ajax
-    url: globals.jsonUrl
+  cardsAjax = $.ajax
+    url: globals.urls.get
   .done (response) ->
     cards = response.cards
 
@@ -192,9 +219,12 @@ lianxi.controller 'QuizController', ($scope) ->
   .fail (jqXHR, status, error) ->
     debugger
 
-  $.ajax
-    url: globals.difficultiesUrl
+  difficultiesAjax = $.ajax
+    url: globals.urls.difficulties.get
   .done (response) ->
     $scope.$apply ->
       $scope.model.difficulties =
         _.indexBy response, 'flash_card_id'
+
+  $.when(cardsAjax, difficultiesAjax).done ->
+    shuffleCards()

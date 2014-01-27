@@ -7,12 +7,12 @@
 </div>
 
 <script>
-  globals.jsonUrl =
+  globals.urls.get =
     '<%= polymorphic_url(@teachable, { :format => :json }) %>';
-  globals.difficultiesUrl =
-    '<%= polymorphic_url([:difficulties, @teachable], { :format => :json }) %>';
-  globals.updateDifficultiesUrl =
-    '<%= polymorphic_url([:difficulties, @teachable]) %>';
+  globals.urls.difficulties = {
+    get: '<%= polymorphic_url([:difficulties, @teachable], { :format => :json }) %>',
+    post: '<%= polymorphic_url([:difficulties, @teachable]) %>'
+  };
 </script>
 
 <div class="center-block quiz" ng-controller="QuizController">
@@ -111,21 +111,33 @@
       <legend>Selection</legend>
 
       <div class="field-group">
-        <input id="selection-all"
+        <input id="selection-shuffled"
         type="radio"
         name="selection[]"
-        value="all"
+        value="shuffled"
+        ng-change="handlers.quiz.reorder()"
         ng-model="model.quiz.selection" />
-        <label for="selection-all">All Cards</label>
+        <label for="selection-shuffled">Shuffled</label>
       </div>
 
       <div class="field-group">
-        <input id="selection-hardest"
+        <input id="selection-hardest-first"
         type="radio"
         name="selection[]"
-        value="hardest"
+        value="hardest-first"
+        ng-change="handlers.quiz.reorder()"
         ng-model="model.quiz.selection" />
-        <label for="selection-all">Hardest Cards</label>
+        <label for="selection-hardest-first">Hardest First</label>
+      </div>
+
+      <div class="field-group">
+        <input id="selection-easiest-first"
+        type="radio"
+        name="selection[]"
+        value="easiest-first"
+        ng-change="handlers.quiz.reorder()"
+        ng-model="model.quiz.selection" />
+        <label for="selection-easiest-first">Easiest First</label>
       </div>
     </fieldset>
 
