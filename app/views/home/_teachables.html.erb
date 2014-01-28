@@ -1,6 +1,10 @@
-<h1><%= type.to_s.pluralize.humanize %></h1>
-<ul>
-  <% lessons.each do |lesson| %>
-    <li><%= link_to lesson.title, polymorphic_url(lesson) %></li>
-  <% end %>
-</ul>
+<div class="page-header">
+  <h1><%= type.to_s.pluralize.humanize %></h1>
+</div>
+<% if lessons[:mine].any? %>
+  <%= render_teachable_item "Mine", lessons[:mine] %>
+<% end %>
+
+<% if lessons[:newest].any? then %>
+  <%= render_teachable_item "Newest", lessons[:newest] %>
+<% end %>

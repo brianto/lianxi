@@ -1,0 +1,6 @@
+<strong><%= header %></strong>
+<ul class="list-unstyled">
+  <% lessons.each do |lesson| %>
+    <li><%= link_to lesson.title, polymorphic_url(lesson) %></li>
+  <% end %>
+</ul>

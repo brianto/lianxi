@@ -15,6 +15,13 @@ module RenderHelper
     }
   end
 
+  def render_teachable_item(header, lessons)
+    render :partial => "teachable_item", :locals => {
+      :header => header,
+      :lessons => lessons
+    }
+  end
+
   def render_characters(flash_cards)
     render :partial => "partials/characters", :locals => {
       :flash_cards => flash_cards

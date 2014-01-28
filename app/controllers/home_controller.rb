@@ -1,9 +1,17 @@
 class HomeController < ApplicationController
-  # GET /
   def index
-    @drills = Drill.find(:all)
-    @passages = Passage.find(:all)
-    @songs = Song.find(:all)
+    def groupings_for(model_class)
+      groupings = Hash.new
+
+      groupings[:mine] = model_class.where(:user_id => @user).take(5)
+      groupings[:newest] = model_class.all.order(:created_at).take(5)
+
+      groupings
+    end
+
+    @drills = groupings_for Drill
+    @passages = groupings_for Passage
+    @songs = groupings_for Song
   end
 
   # GET /about
