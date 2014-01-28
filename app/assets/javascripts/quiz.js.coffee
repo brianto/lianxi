@@ -84,14 +84,14 @@ lianxi.controller 'QuizController', ($scope) ->
         'quiz-blur'
 
     card:
-      pronunciation: -> $scope.style._quizStyleBlur('card', 'pronunciation')
-      characters: -> $scope.style._quizStyleBlur('card', 'characters')
-      partOfSpeech: -> $scope.style._quizStyleBlur('card', 'partOfSpeech')
-      meaning: -> $scope.style._quizStyleBlur('card', 'meaning')
+      pronunciation: -> $scope.style._quizStyleBlur 'card', 'pronunciation'
+      characters: -> $scope.style._quizStyleBlur 'card', 'characters'
+      partOfSpeech: -> $scope.style._quizStyleBlur 'card', 'partOfSpeech'
+      meaning: -> $scope.style._quizStyleBlur 'card', 'meaning'
 
     example:
-      characters: -> $scope.style._quizStyleBlur('example', 'characters')
-      translation: -> $scope.style._quizStyleBlur('example', 'translation')
+      characters: -> $scope.style._quizStyleBlur 'example', 'characters'
+      translation: -> $scope.style._quizStyleBlur 'example', 'translation'
 
   shuffleCards = ->
     cards = _.shuffle $scope.model.cards
