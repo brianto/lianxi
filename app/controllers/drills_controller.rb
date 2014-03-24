@@ -1,7 +1,7 @@
 class DrillsController < ApplicationController
   before_action :require_login, :only => [:new, :create, :edit, :update, :destroy]
 
-  include Teachable
+  include TeachableController
 
   def index
     @drills = Drill.find(:all)

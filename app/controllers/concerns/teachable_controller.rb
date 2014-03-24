@@ -1,8 +1,8 @@
-module Teachable
+module TeachableController
   extend ActiveSupport::Concern
 
   included do
-    before_action :require_login, :only => :update_difficulties
+    before_action :require_login, :only => [:update_difficulties, :toggle_pin]
   end
 
   def grid
@@ -88,7 +88,32 @@ module Teachable
 
     @difficulty.save!
 
+    # maybe? render :json => @difficulty
     render :nothing => true
+  end
+
+  def get_pin
+    @teachable = model_class.find params[:id]
+
+    respond_to do |format|
+      format.json do
+        if @user
+          render :json => @teachable.pins.find_or_create_by(:user => @user)
+        else
+          render :json => { }
+        end
+      end
+    end
+  end
+
+  def toggle_pin
+    @teachable = model_class.find params[:id]
+    @pin = @teachable.pins.find_or_create_by :user => @user
+
+    @pin.pinned = !@pin.pinned
+    @pin.save!
+
+    render :json => @pin
   end
 
   private
@@ -190,5 +215,9 @@ module Teachable
 
   def difficulty_update_params
     params.permit :id, :user_id, :flash_card_id, :difficulty
+  end
+
+  def pin_update_params
+    params.permit :id, :user_id, :teachable_id
   end
 end

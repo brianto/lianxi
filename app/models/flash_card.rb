@@ -1,6 +1,8 @@
 class FlashCard < ActiveRecord::Base
   has_many :examples
 
+  accepts_nested_attributes_for :examples
+
   belongs_to :teachable, :polymorphic => true
 
   # TODO make a better version of this

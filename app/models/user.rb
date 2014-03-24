@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many :passages
   has_many :songs
 
+  has_many :pins
+
   acts_as_authentic do |auth|
     auth.login_field = :email
   end

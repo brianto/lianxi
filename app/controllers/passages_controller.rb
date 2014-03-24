@@ -1,4 +1,7 @@
 class PassagesController < ApplicationController
+
+  include TeachableController
+
   def index
 
   end

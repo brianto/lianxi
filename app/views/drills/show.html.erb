@@ -2,6 +2,10 @@
   <%= @drill[:title] %>
 <% end %>
 
+<% content_for :head do %>
+<%# TODO do things %>
+<% end %>
+
 <% content_for :navigation do %>
   <%= render_actions @drill, :quiz, :grid, :edit %>
 <% end %>
@@ -10,6 +14,10 @@
   <h1>
     <%= @drill[:title] %>
     <small><%= @drill[:description] %></small>
+    <span class="small glyphicon"
+      ng-controller="PinController"
+      ng-class="style.pin()"
+      ng-click="handlers.togglePin()"></span>
   </h1>
 </div>
 

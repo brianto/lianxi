@@ -21,16 +21,12 @@ Drill.create({
         {
           :simplified => "我燒了鴨",
           :traditional => "我燒了鴨",
-          :pinyin => "wǒ shāo le yā",
-          :jyutping => "ngo5 siu1 le5 aap3",
           :translation => "I roasted the duck",
           :notes => "'Roast Duck' is a verb-object and in this case is separated by a modifier. In this usage, the original meaning 'to roast a duck' is modified by the past participle 'le' to create the new meaning 'I roasted (the) duck.'"
         },
         {
           :simplified => "半隻燒鴨",
           :traditional => "半隻燒鴨",
-          :pinyin => "bàn zhī shāo yā",
-          :jyutping => "bun3 zek3 siu1 aap3",
           :translation => "half roast duck"
         }
       ]
@@ -42,8 +38,6 @@ Drill.create({
         {
           :simplified => "我嗌咗碟炒飯好耐,重未嚟呀",
           :traditional => "我嗌咗碟炒飯好耐,重未嚟呀",
-          :pinyin => "wǒ ài zuo dié chǎo fàn hǎo nài, zhòng wèi lí ya",
-          :jyutping => "ngo5 ai3 zuo2 dip6 caau2 fan6 hou2 noi6, zung2 mei6 lai4 aa5",
           :translation => "I've ordered a dish of fried rice a long time ago, but it still hasn't come yet"
         }
       ]
@@ -68,7 +62,7 @@ Drill.create({
 Song.create({
   :title => "Windy Season 風的季節",
   :artist => "Paula Tsui 甄妮",
-  :url => "KQ2W1RbwsRw",
+  :youtubeId => "KQ2W1RbwsRw",
   :user => laoshi,
   :flash_cards_attributes => [
     { :simplified => "涼", :traditional => "涼",
@@ -90,9 +84,7 @@ Song.create({
       :pinyin => "shēng yīn", :jyutping => "seng1 yam1",
       :meaning => "sound", :part_of_speech => "noun" }
   ],
-  :lyric_attributes => {
-    :dialect => "cantonese",
-    :traditional => <<TRADITIONAL,
+  :traditional => <<TRADITIONAL,
 [涼]風輕[輕]吹到[俏然]進了我[衣襟]
 夏天[偷]去聽不見[聲音]
 [日子]匆匆走過倍令我有百感生
@@ -115,7 +107,7 @@ Song.create({
 帶去我的愛只是獨留恨
 TRADITIONAL
 
-    :simplified => <<SIMPLIFIED,
+  :simplified => <<SIMPLIFIED,
 [凉]风轻[轻]吹到俏然进了我衣襟
 夏天偷去听不见声音
 日子匆匆走过倍令我有百感生
@@ -138,53 +130,11 @@ TRADITIONAL
 带去我的爱只是独留恨
 SIMPLIFIED
 
-    :pronunciation => <<PRONUNCIATION,
-Liángfēng qīng qīng chuī dào qiào rán jìnle wǒ yījīn
-Xiàtiān tōu qù tīng bùjiàn shēngyīn
-Rìzi cōngcōng zǒuguò bèi lìng wǒ yǒu bǎigǎn shēng
-Jìguà nà yīpiàn jǐngxiàng bīnfēn
-Suí fēng qīng qīng chuī dào nǐ bù jìnle wǒ de xīn
-Zài yīxī jiān gǎibiàn wǒ yīshēng
-Fùchū duōshǎo rèchéng yě méi fǎ qù jì de zhēn
-Què yě bù xū zài jīng jù fēngyǔ qīn
-Chuī a chuī ràng zhè fēngchuī
-Mǒ gān yǎn móu li liàng jīng de yǎnlèi
-Chuī a chuī ràng zhè fēngchuī
-Āishāng tōngtōng dài zǒu guǎn fēng li shì shuí
-Cóng fēngshā chū qǐ xiǎngdào shì jìjié biàngēng
-Mèngzhōng xǐng què suìyuè rú fēi bēn
-Shìfǒu zǎo dìng xiàlái nǐ huò wǒ yě huì biànxīn
-Kǎitàn zěnme huì jiǔ hé zhōng yào fēn
-Kuáng fēngchuī de qǐjìng lǎng yuè yě yào bèi bì yǐn
-Fàn qǐ yīpiàn míméng chén'āi gǔn
-È zǒu xīnlǐ yīqiè měimèng dài qù nà huānxīn
-Dài qù wǒ de ài zhǐshì dú liú hèn
-PRONUNCIATION
+  :timing => [ 21.41, 26.29, 31.26, 36.13, 45.81, 50.55, 55.39, 60.25, 69.94,
+    74.48, 79.66, 84.51, 99.42, 103.89, 108.80, 113.55, 123.22, 128.15, 132.87,
+    137.84 ],
 
-    :timing => <<TIMING,
-21.41
-26.29
-31.26
-36.13
-45.81
-50.55
-55.39
-60.25
-69.94
-74.48
-79.66
-84.51
-99.42
-103.89
-108.80
-113.55
-123.22
-128.15
-132.87
-137.84
-TIMING
-
-    :translation => <<TRANSLATION,
+  :translation => <<TRANSLATION,
 Pretty natural cool breeze gently blowing into my skirt
 Summer stolen hear voices
 Hurried times of the day so I have many emotions raw
@@ -206,13 +156,12 @@ Misty dust thrown up a roll
 Made off with all my heart that dreams bring joy
 Bring my love just hate being left unattended
 TRANSLATION
-  }
 })
 
 Song.create({
   :title => "Love You Ten Thousand Years 愛你一萬年",
   :artist => "Jenny Tseng 徐小鳳",
-  :url => "pwzZ5em0Erg",
+  :youtubeId => "pwzZ5em0Erg",
   :user => laoshi,
   :flash_cards_attributes => [
     { :simplified => "一万", :traditional => "一萬",
@@ -270,9 +219,7 @@ Song.create({
       :pinyin => "yí", :jyutping => "ji4",
       :meaning => "shift, change", :part_of_speech => "verb" }
   ],
-  :lyric_attributes => {
-    :dialect => "mandarin",
-    :traditional => <<TRADITIONAL,
+  :traditional => <<TRADITIONAL,
 寒風吹起[細雨]迷離
 風雨[揭開]我的[記憶]
 我像小[船][尋找][港灣]
@@ -314,7 +261,7 @@ Song.create({
 你要為我再想一想
 我決定愛你[一萬]年
 TRADITIONAL
-    :simplified => <<SIMPLIFIED,
+  :simplified => <<SIMPLIFIED,
 寒风吹起[细雨]迷离
 风雨[揭开]我的[记忆]
 我像小[船][寻找][港湾]
@@ -356,91 +303,14 @@ TRADITIONAL
 你要为我再想一想
 我决定爱你[一万]年
 SIMPLIFIED
-    :pronunciation => <<PRONUNCIATION,
-hán fēngchuī qǐ xì yǔ mílí
-fēngyǔ jiē kāi wǒ de jìyì
-wǒ xiàng xiǎochuán xúnzhǎo gǎngwān
-bùnéng bǎ nǐ wàngjì
-ài de xīwàng ài de huíwèi
-ài de wǎngshì nányǐ zhuīyì
-fēng zhōng huāruǐ shēn pà kūwěi
-wǒ yuàn wéi nǐ zhùfú
-wǒ ài nǐ wǒ xīn yǐ shǔyú nǐ
-jīnshēng jīnshì bù yí
-zài wǒ xīnzhōng zài méiyǒu shuí
-dàitì nǐ dì dìwèi
-wǒ ài nǐ duì nǐ fùchū zhēnyì
-bù huì piāofú bù yí
-nǐ yào wèi wǒ zài xiǎng yī xiǎng
-wǒ juédìng ài nǐ yī wàn nián
-hán fēngchuī qǐ xì yǔ mílí
-fēngyǔ jiē kāi wǒ de jìyì
-wǒ xiàng xiǎochuán xúnzhǎo gǎngwān
-bùnéng bǎ nǐ wàngjì
-ài de xīwàng ài de huíwèi
-ài de wǎngshì nányǐ zhuīyì
-fēng zhōng huāruǐ shēn pà kūwěi
-wǒ yuàn wéi nǐ zhùfú
-wǒ ài nǐ wǒ xīn yǐ shǔyú nǐ
-jīnshēng jīnshì bù yí
-zài wǒ xīnzhōng zài méiyǒu shuí
-dàitì nǐ dì dìwèi
-wǒ ài nǐ duì nǐ fùchū zhēnyì
-bù huì piāofú bù yí
-nǐ yào wèi wǒ zài xiǎng yī xiǎng
-wǒ juédìng ài nǐ yī wàn nián
-wǒ ài nǐ wǒ xīn yǐ shǔyú nǐ
-jīnshēng jīnshì bù yí
-zài wǒ xīnzhōng zài méiyǒu shuí
-dàitì nǐ dì dìwèi
-wǒ ài nǐ duì nǐ fùchū zhēnyì
-bù huì piāofú bù yí
-nǐ yào wèi wǒ zài xiǎng yī xiǎng
-wǒ juédìng ài nǐ yī wàn nián
-PRONUNCIATION
-    :timing => <<TIMING,
-18.96
-22.30
-25.32
-28.76
-31.61
-35.23
-38.47
-41.85
-44.36
-48.32
-51.28
-54.85
-57.32
-61.35
-64.16
-68.43
-83.41
-87.21
-90.20
-93.81
-96.49
-100.22
-103.14
-106.65
-109.18
-113.97
-116.20
-119.66
-122.19
-126.20
-129.77
-133.18
-141.96
-145.64
-148.58
-152.19
-154.74
-158.43
-161.44
-165.11
-TIMING
-    :translation => <<TRANSLATION
+
+  :timing => [ 18.96, 22.30, 25.32, 28.76, 31.61, 35.23, 38.47, 41.85, 44.36,
+    48.32, 51.28, 54.85, 57.32, 61.35, 64.16, 68.43, 83.41, 87.21, 90.20,
+    93.81, 96.49, 100.22, 103.14, 106.65, 109.18, 113.97, 116.20, 119.66,
+    122.19, 126.20, 129.77, 133.18, 141.96, 145.64, 148.58, 152.19, 154.74,
+    158.43, 161.44, 165.11 ],
+
+  :translation => <<TRANSLATION
 The cold wind blows, rain blurred
 The storm brings back my meories
 Like a boat searching for a harbor
@@ -482,5 +352,4 @@ undrifting, not uncertain
 For me, you want to think again
 I decided to love you a thousand years
 TRANSLATION
-  }
 })

@@ -12,6 +12,9 @@ Lianxi::Application.routes.draw do
       get :quiz
       get :difficulties, :action => :get_difficulties
       post :difficulties, :action => :update_difficulties
+
+      get :pin, :action => :get_pin
+      post :pin, :action => :toggle_pin
     end
 
     resources :flash_cards, :only => [:create] do

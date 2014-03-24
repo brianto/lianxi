@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   before_action :require_login, :only => [:new, :create, :edit, :update, :destroy]
 
-  include Teachable
+  include TeachableController
 
   def index
     @songs = Song.find :all
