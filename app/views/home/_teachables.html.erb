@@ -1,6 +1,11 @@
 <div class="page-header">
   <h1><%= type.to_s.pluralize.humanize %></h1>
 </div>
+
+<% if lessons[:pinned].any? %>
+  <%= render_teachable_item "Pinned", lessons[:pinned] %>
+<% end %>
+
 <% if lessons[:mine].any? %>
   <%= render_teachable_item "Mine", lessons[:mine] %>
 <% end %>
