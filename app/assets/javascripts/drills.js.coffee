@@ -13,6 +13,8 @@ lianxi.controller 'DrillFormController', ($scope, $shared) ->
         _.each response.cards, (card) ->
           cards.push card
 
+  window.onbeforeunload = -> "You have unsaved changes."
+
   $scope.model =
     drill:
       title: ''
