@@ -33,6 +33,8 @@ REWIND_LENGTH = 5 # seconds
 lianxi.controller 'SongFormController', ($scope, $shared) ->
   $shared.includeScope $scope
 
+  window.onbeforeunload = -> "You have unsaved changes."
+
   splitLyrics = (raw) ->
     lines = raw.split /\n/
     _.reject lines, (line) ->
